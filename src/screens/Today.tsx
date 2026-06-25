@@ -1,64 +1,88 @@
 import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
-import { activeDay, daysUntilTrip, destById, destStyle, dayIso, eur } from '../lib/utils'
+import { activeDay, daysUntilTrip, destById, destStyle, eur } from '../lib/utils'
 import { usePlanner } from '../store'
-import { DayCard, Progress, SlotRow, Tip } from '../components/common'
+import { useWeather, weatherEmoji } from '../lib/weather'
+import TripMap, { type MapPoint } from '../components/TripMap'
+import { DEST_HEX } from '../components/DayView'
 
 export default function Today() {
   const now = new Date()
   const today = activeDay(now)
   const until = daysUntilTrip(now)
-  // Antes de salir mostramos la primera parada real (Singapur) en el hero; ya en ruta, el destino del día.
-  const heroDest = until > 0 ? destById('sin') : destById(today.destinationId)
-  const dest = heroDest
+  // Pre-viaje: clima/contexto de la primera parada (Singapur). En ruta: el destino del día.
+  const focusDest = until > 0 ? destById('sin') : destById(today.destinationId === 'travel' ? 'sin' : today.destinationId)
   const totalBudget = trip.budget.reduce((s, b) => s + b.amount, 0)
   const isStatusDone = usePlanner((s) => s.isStatusDone)
   const toggleStatus = usePlanner((s) => s.toggleStatus)
+  const { data: wx, live } = useWeather(focusDest.coords)
 
-  const pendingTasks = trip.tasks.filter((t) => t.urgency === 'urgent' || t.urgency === 'soon')
   const idx = trip.days.findIndex((d) => d.id === today.id)
   const nextDay = trip.days[idx + 1]
+  const pendingTasks = trip.tasks.filter((t) => t.urgency === 'urgent' || t.urgency === 'soon')
+    .filter((t) => !isTaskDone(t))
 
-  const heroLabel = until > 0
-    ? `Faltan ${until} días para el viaje`
-    : until === 0
-      ? '¡Hoy empieza el viaje!'
-      : `Hoy · ${today.date} ${today.weekday}`
+  const destColor = DEST_HEX[focusDest.colorVar] ?? '#1a1a2a'
+  const mapPoints: MapPoint[] = (today.stops ?? []).filter((s) => s.coords)
+    .map((s) => ({ lat: s.coords!.lat, lon: s.coords!.lon, n: s.n, label: s.name, color: destColor }))
+
+  const tempShown = live && wx ? wx.tempC : focusDest.climate?.tempDay
+  const wxIcon = live && wx ? weatherEmoji(wx.code) : '🌡️'
 
   return (
-    <>
-      <div className="hero" style={{ ...destStyle(heroDest.id), background: `var(${heroDest.colorVar})` }}>
+    <div className="fadein">
+      <div className="hero" style={{ ...destStyle(focusDest.id), background: destColor }}>
         <h1>{trip.name}</h1>
-        <div className="big">{until > 0 ? `${dest.emoji} ${dest.name}` : `${dest.emoji} ${dest.name}`}</div>
+        <div className="big">{focusDest.emoji} {focusDest.name}</div>
         <div className="meta">{until > 0 ? `Primera parada · ${trip.subtitle}` : trip.subtitle}</div>
         <div className="countdown">
-          {until > 0 ? (
-            <div className="cd"><div className="n">{until}</div><div className="l">días para salir</div></div>
-          ) : (
-            <div className="cd"><div className="n">{today.dayNumber ?? 0}</div><div className="l">de {trip.stats.days} días</div></div>
-          )}
-          <div className="cd"><div className="n">{trip.stats.flights}</div><div className="l">vuelos</div></div>
+          {until > 0
+            ? <div className="cd"><div className="n">{until}</div><div className="l">días para salir</div></div>
+            : <div className="cd"><div className="n">{today.dayNumber ?? 0}</div><div className="l">de {trip.stats.days} días</div></div>}
+          <div className="cd"><div className="n">{tempShown ? `${tempShown}°` : '—'}</div><div className="l">{live ? `${wxIcon} ahora` : '🌡️ típico jul'}</div></div>
           <div className="cd"><div className="n">{eur(totalBudget)}</div><div className="l">presupuesto</div></div>
         </div>
       </div>
 
-      <div className="section-title">{heroLabel}</div>
-      <div className="card tight" style={destStyle(today.destinationId)}>
+      {/* Clima del destino */}
+      {focusDest.climate && (
+        <div className="card climate">
+          <div className="temp">{tempShown}°</div>
+          <div className="cl-body">
+            <div className="cl-label">{wxIcon} {focusDest.climate.label}</div>
+            <div className="cl-advice">{focusDest.climate.advice}</div>
+          </div>
+          {live ? <span className="cl-live">En vivo</span> : <span className="cl-typ">típico julio</span>}
+        </div>
+      )}
+
+      {/* Día activo */}
+      <div className="section-title">
+        {until > 0 ? `Faltan ${until} días · empezamos con` : until === 0 ? '¡Hoy empieza el viaje!' : `Hoy · ${today.date} ${today.weekday}`}
+      </div>
+      <div className="card tight" style={destStyle(focusDest.id)}>
         <div className="dc-daynum" style={{ marginBottom: 4 }}>
           <span className="dc-pill">{today.dayNumber === null ? 'Salida' : `Día ${today.dayNumber}`}</span>
           <span>·&nbsp;{today.date} · {today.weekday}</span>
         </div>
         <h3 style={{ fontSize: '1.15em', fontWeight: 700 }}>{today.emoji} {today.title}</h3>
         <div className="dc-headline" style={{ marginTop: 4 }}>{today.headline}</div>
-        {today.accommodation && (
-          <div className="dc-hotel" style={{ marginTop: 8, fontSize: '.82em' }}>🛏️ <span>{today.accommodation.name}{today.accommodation.note ? ` · ${today.accommodation.note}` : ''}</span></div>
+        {today.highlights && today.highlights.length > 0 && (
+          <div className="chips" style={{ marginTop: 10 }}>
+            {today.highlights.map((h, i) => <span key={i} className="chip-h">{h}</span>)}
+          </div>
         )}
-        <div style={{ marginTop: 12 }}>
-          <div className="prog-label"><span>Preparación del día</span><span>{today.progress}%</span></div>
-          <Progress value={today.progress} />
-        </div>
       </div>
 
+      {/* Mini-mapa del recorrido de hoy */}
+      {mapPoints.length > 0 && (
+        <div className="map-wrap">
+          <TripMap points={mapPoints} height={170} />
+          <span className="map-cap">🗺️ Recorrido de hoy · {mapPoints.length} paradas</span>
+        </div>
+      )}
+
+      {/* Reservas del día */}
       {today.statusItems.length > 0 && (
         <div className="card">
           {today.statusItems.map((s, i) => {
@@ -73,23 +97,29 @@ export default function Today() {
         </div>
       )}
 
-      <div className="card">
-        {today.slots.map((s, i) => (
-          <SlotRow key={i} icon={s.icon} when={s.key} time={s.time} text={s.text} />
-        ))}
-        {today.transport && <div className="transport">🚗 {today.transport}</div>}
-        {today.tip && <Tip text={today.tip} />}
-      </div>
-
-      <Link to={`/dia/${today.id}`} className="section-title" style={{ display: 'block', color: 'var(--sa)' }}>Ver día completo →</Link>
-
-      {nextDay && (
+      {/* Cómo moverse */}
+      {today.transport && (
         <>
-          <div className="section-title">Mañana</div>
-          <DayCard day={nextDay} />
+          <div className="section-title">Cómo moverse hoy</div>
+          <div className="transport" style={{ margin: '0 14px' }}>🚗 {today.transport}</div>
         </>
       )}
 
+      {/* Tips del día */}
+      {today.quickTips && today.quickTips.length > 0 && (
+        <>
+          <div className="section-title">Que no se te olvide hoy</div>
+          <div className="card">
+            {today.quickTips.map((q, i) => (
+              <div className="qtip" key={i}><span className="qi">{q.startsWith('⚠️') ? '' : '✅'}</span><span>{q}</span></div>
+            ))}
+          </div>
+        </>
+      )}
+
+      <Link to={`/dia/${today.id}`} className="section-title" style={{ display: 'block', color: 'var(--sa)' }}>Ver día completo →</Link>
+
+      {/* Lo que falta */}
       {until > 0 && pendingTasks.length > 0 && (
         <>
           <div className="section-title">Lo que falta por cerrar</div>
@@ -102,9 +132,23 @@ export default function Today() {
         </>
       )}
 
+      {nextDay && until <= 0 && (
+        <>
+          <div className="section-title">Mañana</div>
+          <Link to={`/dia/${nextDay.id}`} className="card tight" style={{ display: 'block' }}>
+            <strong>{nextDay.emoji} {nextDay.title}</strong>
+            <div style={{ color: 'var(--muted)', fontSize: '.85em', marginTop: 3 }}>{nextDay.headline}</div>
+          </Link>
+        </>
+      )}
+
       <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '.72em', padding: '18px' }}>
-        Familia Roque · {trip.startDate.slice(8, 10)} Jul — 5 Ago 2026 · día activo {dayIso(today.id)}
+        Familia Roque · 12 Jul — 5 Ago 2026
       </div>
-    </>
+    </div>
   )
+}
+
+function isTaskDone(t: { id: string; done: boolean }) {
+  return usePlanner.getState().isTaskDone(t.id, t.done)
 }

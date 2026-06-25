@@ -1,45 +1,53 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { trip } from '../data/trip'
-import { destById } from '../lib/utils'
-import { DayCard } from '../components/common'
+import { activeDay, destById, dayIso } from '../lib/utils'
+import { DEST_HEX } from '../components/DayView'
+import DayView from '../components/DayView'
 
 export default function Itinerary() {
-  const [filter, setFilter] = useState<string>('all')
-  const destsInOrder = trip.destinations.filter((d) => d.id !== 'travel')
-  const days = filter === 'all' ? trip.days : trip.days.filter((d) => d.destinationId === filter)
+  const todayId = activeDay(new Date()).id
+  const [sel, setSel] = useState<string>(todayId)
+  const tabsRef = useRef<HTMLDivElement>(null)
 
-  // Agrupar por destino para los encabezados de tramo
-  let lastDest = ''
+  // Centrar el día activo al entrar
+  useEffect(() => {
+    const el = tabsRef.current?.querySelector('.day-tab.active') as HTMLElement | null
+    el?.scrollIntoView({ inline: 'center', block: 'nearest' })
+  }, [sel])
+
+  const day = trip.days.find((d) => d.id === sel) ?? trip.days[0]
+
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ paddingBottom: 4 }}>
         <h1>Itinerario</h1>
         <div className="sub">{trip.stats.days} días · {trip.stats.destinations} países · {trip.stats.nights} noches</div>
       </div>
 
-      <div className="pill-row">
-        <button className={`pill ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>Todos</button>
-        {destsInOrder.map((d) => (
-          <button key={d.id} className={`pill ${filter === d.id ? 'active' : ''}`} onClick={() => setFilter(d.id)}>
-            {d.emoji} {d.name.replace(/^.*— /, '')}
-          </button>
-        ))}
+      <div className="day-tabs" ref={tabsRef}>
+        {trip.days.map((d) => {
+          const dest = destById(d.destinationId)
+          const isSel = d.id === sel
+          const isToday = d.id === todayId
+          return (
+            <button
+              key={d.id}
+              className={`day-tab ${isSel ? 'active' : ''} ${isToday && !isSel ? 'today-mark' : ''}`}
+              style={{ ['--dest' as string]: DEST_HEX[dest.colorVar] }}
+              onClick={() => setSel(d.id)}
+            >
+              <div className="dt-wd">{d.weekday}</div>
+              <div className="dt-d">{d.date.replace(' ', ' ')}</div>
+              <div className="dt-dot" />
+            </button>
+          )
+        })}
       </div>
 
-      {days.map((day) => {
-        const dest = destById(day.destinationId)
-        const showHeader = filter === 'all' && dest.id !== lastDest && dest.id !== 'travel'
-        if (dest.id !== 'travel') lastDest = dest.id
-        return (
-          <div key={day.id}>
-            {showHeader && (
-              <div className="section-title">{dest.emoji} {dest.name} · {dest.dates}{dest.nights ? ` · ${dest.nights}N` : ''}</div>
-            )}
-            <DayCard day={day} />
-          </div>
-        )
-      })}
-      <div style={{ height: 12 }} />
+      <DayView key={day.id} day={day} />
+      <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '.72em', padding: '14px' }}>
+        {dayIso(day.id)} · {destById(day.destinationId).name}
+      </div>
     </>
   )
 }

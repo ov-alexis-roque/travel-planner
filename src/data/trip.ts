@@ -1,9 +1,10 @@
 import type { Trip } from '../types'
+import { destGeo, dayEnrich } from './geo'
 
 // Fuente canónica: docx Marco v1.0 + HTML (Sukau Greenview, trasbordo KUL, con Gili Air).
 // 12 Jul – 5 Ago 2026 · 23 días · Familia Roque.
 
-export const trip: Trip = {
+const baseTrip: Trip = {
   name: 'Gran Viaje Asia 2026',
   subtitle: 'Singapur → Borneo → Kuala Lumpur → Bali',
   startDate: '2026-07-12',
@@ -603,3 +604,9 @@ export const trip: Trip = {
     { id: 'r12', destinationId: 'sanur', name: 'Kayu Api Smoke Grill & Coffee', cuisine: 'Grill / café', priceApprox: '20-30€', kidFriendly: true, moment: 'Comida', specialty: 'BBQ y café de especialidad', area: 'Sanur', needsReservation: false },
   ],
 }
+
+// Fusionar geolocalización y clima (módulo geo) sobre el contenido base.
+baseTrip.destinations.forEach((d) => Object.assign(d, destGeo[d.id] ?? {}))
+baseTrip.days.forEach((d) => Object.assign(d, dayEnrich[d.id] ?? {}))
+
+export const trip: Trip = baseTrip

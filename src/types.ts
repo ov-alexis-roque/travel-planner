@@ -16,6 +16,13 @@ export interface Traveler {
   notes?: string
 }
 
+export interface Climate {
+  tempDay: number // °C típico de día (julio-agosto)
+  tempNight: number
+  label: string // "Cálido y húmedo", "Seco y soleado"
+  advice: string
+}
+
 export interface Destination {
   id: ID
   name: string
@@ -24,6 +31,8 @@ export interface Destination {
   dates: string
   nights?: number
   summary: string
+  coords?: { lat: number; lon: number }
+  climate?: Climate
   logistics: { currency?: string; plug?: string; transport?: string; tipping?: string; water?: string; notes?: string }
   alerts: string[]
   emergency?: { insurance?: string; hotel?: string; embassy?: string }
@@ -42,6 +51,21 @@ export interface DayHighlightStatus {
   done: boolean
 }
 
+export type TransitMode = 'walk' | 'car' | 'flight' | 'ferry' | 'train' | 'bus' | 'boat'
+export interface Stop {
+  n: number // orden / número de pin
+  name: string
+  category: string // "Templo", "Playa", "Comida", "Naturaleza", "Aeropuerto", "Hotel"
+  emoji?: string
+  coords?: { lat: number; lon: number }
+  time?: string
+  hours?: string // "Abierto 7:00–19:00"
+  note?: string
+  status?: BookingStatus
+  audience?: Audience
+  transitToNext?: { mode: TransitMode; min?: number; km?: number; note?: string }
+}
+
 export interface Day {
   id: ID
   dayNumber: number | null // null = día 0 (salida)
@@ -51,10 +75,14 @@ export interface Day {
   title: string
   emoji?: string
   kind: DayKind
-  headline: string // resumen de una línea
+  headline: string // resumen de una línea — "qué haremos"
+  summary?: string // 1-2 líneas, qué veremos/haremos hoy
+  highlights?: string[] // chips "qué veremos": "🦧 Orangutanes"
+  quickTips?: string[] // cosas a saber hoy
   accommodation?: { name: string; note?: string; status: BookingStatus }
   progress: number // 0-100 de preparación del día
   statusItems: DayHighlightStatus[] // checklist del día (reservas)
+  stops?: Stop[] // paradas geolocalizadas (timeline + mapa)
   slots: DaySlot[]
   transport?: string // línea de logística de transporte
   tip?: string // 💡 consejo / ⚠️ alerta del día
