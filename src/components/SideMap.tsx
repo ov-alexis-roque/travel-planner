@@ -9,8 +9,8 @@ import TripMap, { type MapPoint, type MapAnchor } from './TripMap'
 import { DEST_HEX } from './DayView'
 import type { Place } from '../types'
 
-const VIEW_LABEL: Record<string, string> = { must: '⭐ Imprescindibles', activity: '🎒 Actividades', food: '🍽️ Restaurantes', kids: '🧒 Ideal niños' }
-const matchView = (p: Place, v: string) => (v === 'must' ? !!p.must : v === 'food' ? p.kind === 'food' : v === 'kids' ? !!p.forKids : p.kind === 'activity')
+const VIEW_LABEL: Record<string, string> = { all: '🗂️ Todo', must: '⭐ Imprescindibles', activity: '🎒 Actividades', food: '🍽️ Restaurantes', kids: '🧒 Ideal niños' }
+const matchView = (p: Place, v: string) => (v === 'all' ? true : v === 'must' ? !!p.must : v === 'food' ? p.kind === 'food' : v === 'kids' ? !!p.forKids : p.kind === 'activity')
 
 // Mapa lateral persistente (iPad/desktop). Es contextual según la pestaña:
 //  · Itinerario / Hoy / detalle de día → mapa del día (con scroll a la parada)
