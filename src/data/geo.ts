@@ -27,14 +27,14 @@ export const dayEnrich: Record<string, Enrich> = {
 
   // ===================== SINGAPUR =====================
   d1: {
-    highlights: ['🌧️ Jewel Rain Vortex', '🌳 Botanic Gardens', '💧 Spectra (show agua+luz)'],
+    highlights: ['🌳 Botanic Gardens', '🦁 Marina Bay', '💧 Spectra (show agua+luz)'],
     quickTips: [
+      'Llegada directa al hotel: el Jewel (Rain Vortex) del aeropuerto lo veréis a la VUELTA, con la escala de 6.5h en Changi.',
       'Check-in real del hotel a las ~14:00 — por la mañana solo dejáis maletas en recepción.',
-      'Con maletas y niños cansados, el Grab del aeropuerto (~25 SGD) compensa frente a 2 transbordos de MRT.',
       '💧 Spectra es GRATIS: 20:00 y 21:00 en Marina Bay Sands. 🌇 Atardece a las 19:11.',
     ],
     stops: [
-      { n: 1, name: 'Changi + Jewel (Rain Vortex)', category: 'Mirador', emoji: '🌧️', coords: { lat: 1.3601, lon: 103.9890 }, time: '07:30', note: 'Antes de salir del aeropuerto: la cascada interior más alta del mundo (gratis) + desayuno en Jewel (kaya toast, dim sum). Primer wow sin esfuerzo mientras espabiláis.',
+      { n: 1, name: 'Llegada Changi → Grab al hotel', category: 'Aeropuerto', emoji: '🛬', coords: { lat: 1.3564, lon: 103.9876 }, time: '06:55', note: 'Inmigración y directos al hotel para no perder la mañana. Hoy no paramos en el aeropuerto: el Jewel y su Rain Vortex los disfrutaréis a la vuelta, con la escala larga.',
         transitToNext: { mode: 'car', min: 25, note: 'Grab al hotel', line: 'Grab / taxi', board: 'Punto Grab/taxis en T3', alight: 'Holiday Inn Orchard', fare: '~25 SGD (~17€) los 4', tip: "Alternativa barata: MRT (East-West verde, cambio en Tanah Merah → North-South roja hasta Orchard), ~45-60 min y ~2 SGD/persona, pero con maletas es incómodo." } },
       { n: 2, name: 'Holiday Inn Orchard', category: 'Hotel', emoji: '🛏️', coords: { lat: 1.3048, lon: 103.8318 }, time: '09:30', note: 'Dejar maletas en recepción (check-in a las 14:00). Aseo, agua y a por la mañana.', status: 'booked',
         transitToNext: { mode: 'car', min: 12, note: 'Grab al Botanic Gardens', fare: '~8 SGD', tip: 'También MRT línea Downtown (azul) hasta Botanic Gardens, ~10 min.' } },
@@ -465,7 +465,7 @@ export const dayEnrich: Record<string, Enrich> = {
     ],
   },
   d23: {
-    highlights: ['🏖️ Última mañana', '✈️ DPS→SIN', '✨ Changi 6.5h'],
+    highlights: ['🏖️ Última mañana', '✈️ DPS→SIN', '🌧️ Jewel Rain Vortex'],
     quickTips: [
       'Check-out 11:00. Grab a DPS (~30 min). Comer en el aeropuerto.',
       'Escala de 6.5h en Changi: piscina T1 (niños gratis), cine, jardines y mariposas — aprovechadla.',
@@ -476,7 +476,7 @@ export const dayEnrich: Record<string, Enrich> = {
         transitToNext: { mode: 'car', min: 30, note: 'Grab a DPS', fare: '~15€' } },
       { n: 2, name: 'Aeropuerto DPS — comida', category: 'Aeropuerto', emoji: '🛫', coords: { lat: -8.7467, lon: 115.1668 }, time: '12:00', note: 'Comer en Ngurah Rai antes del vuelo Scoot TR289 (14:05).',
         transitToNext: { mode: 'flight', min: 170, note: 'DPS→SIN' } },
-      { n: 3, name: 'Changi — escala de 6.5h', category: 'Mirador', emoji: '✨', coords: { lat: 1.3564, lon: 103.9876 }, time: '17:00', note: 'El mejor aeropuerto del mundo: piscina del rooftop T1 (~20 SGD adulto, niños gratis), cine gratis, jardín de mariposas y el Rain Vortex de Jewel. Cena aquí.',
+      { n: 3, name: 'Changi — escala de 6.5h (Jewel)', category: 'Mirador', emoji: '🌧️', coords: { lat: 1.3601, lon: 103.9890 }, time: '17:00', note: 'Aprovechad la escala: JEWEL — Rain Vortex (la cascada interior más alta del mundo), jardines, red de saltos y laberintos de setos. Además piscina rooftop T1 (~20 SGD, niños gratis), cine gratis y jardín de mariposas. Cena aquí antes del vuelo.',
         transitToNext: { mode: 'flight', min: 800, note: 'SQ388 SIN→BCN 23:35' } },
       { n: 4, name: 'Barcelona (BCN)', category: 'Aeropuerto', emoji: '🏡', coords: { lat: 41.2974, lon: 2.0833 }, time: '5 Ago 06:55', note: 'Llegada a casa. Fin de un viaje de los que no se olvidan.' },
     ],

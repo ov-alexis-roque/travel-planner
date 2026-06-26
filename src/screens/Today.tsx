@@ -85,7 +85,8 @@ export default function Today() {
             <button className="brief-geo" onClick={geo.request}>{geo.state === 'asking' ? '…' : '📍 ¿Dónde estás?'}</button>
           )}
         </div>
-        <div className="brief-head">{brief.mode === 'pre' ? '🧭 Para ir cerrando' : '🧭 Tu agenda de hoy'} · {brief.headline}</div>
+        <div className="brief-msg">{brief.message}</div>
+        <div className="brief-head">{brief.mode === 'pre' ? '🧭 Para ir cerrando' : '🧭 Tu agenda de hoy'}</div>
         <div className="brief-items">
           {brief.items.map((it, i) => {
             const inner = (

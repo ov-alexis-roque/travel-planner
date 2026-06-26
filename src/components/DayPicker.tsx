@@ -12,7 +12,8 @@ interface Props {
 
 export default function DayPicker({ title, sub, destId, onPick, onClose }: Props) {
   const scoped = destId ? trip.days.filter((d) => d.destinationId === destId) : []
-  const days = scoped.length ? scoped : trip.days.filter((d) => d.destinationId !== 'travel')
+  // Sin destino (p.ej. "Mover de día") mostramos TODOS los días, incluidos los de viaje (4 Ago).
+  const days = scoped.length ? scoped : trip.days
 
   return (
     <div className="sheet-backdrop" onClick={onClose}>

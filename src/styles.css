@@ -284,7 +284,8 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .brief { border-top: 4px solid var(--dest, var(--sa)); }
 .brief-loc { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .82em; font-weight: 700; color: var(--ink); }
 .brief-geo { font-size: .72em; font-weight: 700; color: var(--sa); background: var(--sa-l); padding: 4px 9px; border-radius: 999px; flex-shrink: 0; }
-.brief-head { font-size: .74em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 800; margin: 10px 0 8px; }
+.brief-msg { font-size: .92em; line-height: 1.5; margin: 10px 0 4px; color: var(--ink); }
+.brief-head { font-size: .74em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 800; margin: 12px 0 8px; }
 .brief-items { display: flex; flex-direction: column; }
 .brief-item { display: flex; align-items: flex-start; gap: 11px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .brief-item:last-child { border-bottom: none; }
