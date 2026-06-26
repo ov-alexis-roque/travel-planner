@@ -530,13 +530,13 @@ const baseTrip: Trip = {
   ],
 
   accommodations: [
-    { id: 'a-sin', destinationId: 'sin', name: 'Holiday Inn Orchard City Centre', checkIn: '13 Jul', checkOut: '15 Jul', nights: 2, ref: 'Confirmado', price: '~200€', status: 'booked', note: 'Orchard Rd · acceso directo al metro' },
-    { id: 'a-sepilok', destinationId: 'sepilok', name: 'Sepilok Jungle Resort', checkIn: '15 Jul', checkOut: '17 Jul', nights: 2, roomType: '2 Doble Deluxe', price: '~285€', status: 'booked', note: 'A 5 min andando del Orangutan Centre' },
-    { id: 'a-sukau', destinationId: 'kinabatangan', name: 'Sukau Greenview Lodge', checkIn: '17 Jul', checkOut: '20 Jul', nights: 3, roomType: '2× Twin Deluxe', ref: 'SeekSophie', price: '1.240€', status: 'booked', note: '4D3N + Gomantong · todo incluido (6 cruceros, night walk, transfers)' },
-    { id: 'a-kl', destinationId: 'kl', name: 'Star Suites KLCC', checkIn: '20 Jul', checkOut: '24 Jul', nights: 4, roomType: 'Suite con cocina', price: '~430€', status: 'booked', note: 'Andando a Petronas y KLCC Park' },
-    { id: 'a-ubud', destinationId: 'ubud', name: 'Green Field Hotel Ubud', checkIn: '24 Jul', checkOut: '27 Jul', nights: 3, price: '396€', status: 'booked', note: 'Ubud centro · andando al Monkey Forest y mercado' },
-    { id: 'a-gili', destinationId: 'gili', name: 'Manta Dive Gili Air Resort', checkIn: '27 Jul', checkOut: '29 Jul', nights: 2, ref: '#5522767108', price: '~315€', status: 'booked', note: 'Costa este, frente al canal de tortugas · operadora de snorkel' },
-    { id: 'a-sanur', destinationId: 'sanur', name: 'Prime Plaza Suites Sanur', checkIn: '29 Jul', checkOut: '4 Ago', nights: 6, roomType: 'Suite 2 dormitorios', ref: '#648267691', price: '~780€', status: 'booked', note: 'Acceso directo a playa y puerto de ferries' },
+    { id: 'a-sin', destinationId: 'sin', name: 'Holiday Inn Orchard City Centre', coords: { lat: 1.3048, lon: 103.8318 }, checkIn: '13 Jul', checkOut: '15 Jul', nights: 2, ref: 'Confirmado', price: '~200€', status: 'booked', note: 'Orchard Rd · acceso directo al metro' },
+    { id: 'a-sepilok', destinationId: 'sepilok', name: 'Sepilok Jungle Resort', coords: { lat: 5.8740, lon: 117.9450 }, checkIn: '15 Jul', checkOut: '17 Jul', nights: 2, roomType: '2 Doble Deluxe', price: '~285€', status: 'booked', note: 'A 5 min andando del Orangutan Centre' },
+    { id: 'a-sukau', destinationId: 'kinabatangan', name: 'Sukau Greenview Lodge', coords: { lat: 5.5170, lon: 118.2950 }, checkIn: '17 Jul', checkOut: '20 Jul', nights: 3, roomType: '2× Twin Deluxe', ref: 'SeekSophie', price: '1.240€', status: 'booked', note: '4D3N + Gomantong · todo incluido (6 cruceros, night walk, transfers)' },
+    { id: 'a-kl', destinationId: 'kl', name: 'Star Suites KLCC', coords: { lat: 3.1577, lon: 101.7120 }, checkIn: '20 Jul', checkOut: '24 Jul', nights: 4, roomType: 'Suite con cocina', price: '~430€', status: 'booked', note: 'Andando a Petronas y KLCC Park' },
+    { id: 'a-ubud', destinationId: 'ubud', name: 'Green Field Hotel Ubud', coords: { lat: -8.5060, lon: 115.2620 }, checkIn: '24 Jul', checkOut: '27 Jul', nights: 3, price: '396€', status: 'booked', note: 'Ubud centro · andando al Monkey Forest y mercado' },
+    { id: 'a-gili', destinationId: 'gili', name: 'Manta Dive Gili Air Resort', coords: { lat: -8.3560, lon: 116.0840 }, checkIn: '27 Jul', checkOut: '29 Jul', nights: 2, ref: '#5522767108', price: '~315€', status: 'booked', note: 'Costa este, frente al canal de tortugas · operadora de snorkel' },
+    { id: 'a-sanur', destinationId: 'sanur', name: 'Prime Plaza Suites Sanur', coords: { lat: -8.6900, lon: 115.2630 }, checkIn: '29 Jul', checkOut: '4 Ago', nights: 6, roomType: 'Suite 2 dormitorios', ref: '#648267691', price: '~780€', status: 'booked', note: 'Acceso directo a playa y puerto de ferries' },
   ],
 
   tasks: [

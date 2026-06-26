@@ -4,6 +4,8 @@ import { trip } from '../data/trip'
 import { destById, destStyle, KIND_LABEL } from '../lib/utils'
 import { usePlanner } from '../store'
 import { buildAgenda, type AgendaItem } from '../lib/agenda'
+import { dayAnchors } from '../lib/anchors'
+import { gmapsUrl } from '../lib/places-helpers'
 import { regionInfo } from '../data/regions'
 import TripMap, { type MapPoint } from './TripMap'
 import DayPicker from './DayPicker'
@@ -165,7 +167,7 @@ export default function DayView({ day }: { day: Day }) {
       {/* Mapa del día */}
       {mapPointsResolved.length > 0 && (
         <div className="map-wrap">
-          <TripMap points={mapPointsResolved} height={190} caption={`🗺️ ${day.title}`} extraPoints={extraPoints} />
+          <TripMap points={mapPointsResolved} height={190} caption={`🗺️ ${day.title}`} extraPoints={extraPoints} anchors={dayAnchors(day)} />
           <span className="map-cap">🗺️ Recorrido del día · {mapPointsResolved.length} paradas</span>
         </div>
       )}
@@ -200,7 +202,7 @@ export default function DayView({ day }: { day: Day }) {
           </div>
           <div className="stops">
             {agenda.map((item, idx) => (
-              <div key={item.key} className="stop">
+              <div key={item.key} id={`stop-${item.key}`} className="stop">
                 <div className="marker">
                   <div className="num" style={item.kind === 'added' ? { background: '#d4900a' } : undefined}>{idx + 1}</div>
                   <div className="line" />
@@ -223,6 +225,7 @@ export default function DayView({ day }: { day: Day }) {
                       <button onClick={() => reorder(day.id, item.key, 1, keys)} disabled={idx === agenda.length - 1} aria-label="Bajar">▼</button>
                       <button onClick={() => setMoving(item)}>⤴ Mover de día</button>
                       <button className="danger" onClick={() => removeItem(item)}>✕ Quitar</button>
+                      {item.coords && <a href={gmapsUrl(item.name, undefined, item.coords)} target="_blank" rel="noreferrer">🗺️ Maps</a>}
                     </div>
                   </div>
                   {!dayEdited && item.transit && <Transit t={item.transit} />}

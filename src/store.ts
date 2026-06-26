@@ -1,6 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+// Estado de UI no persistente: qué día muestra el mapa lateral (iPad/desktop).
+interface UIState { focusDayId: string | null; setFocusDay: (id: string) => void }
+export const useUI = create<UIState>((set) => ({
+  focusDayId: null,
+  setFocusDay: (id) => set({ focusDayId: id }),
+}))
+
 // Estado persistente del usuario (v1: localStorage; v2: IndexedDB + sync).
 // Guarda overrides sobre el contenido canónico: tareas hechas, ítems de día marcados.
 

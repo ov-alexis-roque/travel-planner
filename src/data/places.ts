@@ -150,3 +150,19 @@ const ZONES: Record<string, string> = {
   'sa-surf': 'Sanur', 'sa-beachbike': 'Sanur', 'sa-nightmarket': 'Sanur', 'sa-r-makbeng': 'Sanur', 'sa-r-massimo': 'Sanur', 'sa-r-soul': 'Sanur', 'sa-r-threemonkeys': 'Sanur', 'sa-r-kayuapi': 'Sanur',
 }
 catalog.forEach((p) => { p.zone = ZONES[p.id] })
+
+// Valoración aproximada de Google (orientativa; el enlace abre la nota real y actualizada).
+const RATINGS: Record<string, { rating: number; reviews: string }> = {
+  'sin-gardens': { rating: 4.7, reviews: '260k' }, 'sin-supertree': { rating: 4.7, reviews: '30k' }, 'sin-marina': { rating: 4.6, reviews: '120k' }, 'sin-zoo': { rating: 4.6, reviews: '70k' }, 'sin-night': { rating: 4.5, reviews: '40k' }, 'sin-sentosa': { rating: 4.5, reviews: '40k' }, 'sin-uss': { rating: 4.7, reviews: '100k' }, 'sin-sea': { rating: 4.5, reviews: '40k' }, 'sin-jewel': { rating: 4.7, reviews: '120k' }, 'sin-flyer': { rating: 4.5, reviews: '50k' }, 'sin-botanic': { rating: 4.7, reviews: '70k' }, 'sin-chinatown': { rating: 4.5, reviews: '20k' }, 'sin-merlion': { rating: 4.6, reviews: '60k' },
+  'sin-r-maxwell': { rating: 4.4, reviews: '8k' }, 'sin-r-laupasat': { rating: 4.4, reviews: '30k' }, 'sin-r-newton': { rating: 4.2, reviews: '20k' }, 'sin-r-jumbo': { rating: 4.2, reviews: '10k' }, 'sin-r-dintaifung': { rating: 4.4, reviews: '5k' }, 'sin-r-gluttons': { rating: 4.1, reviews: '8k' },
+  'sep-orc': { rating: 4.6, reviews: '12k' }, 'sep-bear': { rating: 4.6, reviews: '4k' }, 'sep-rdc': { rating: 4.6, reviews: '3k' }, 'sep-labuk': { rating: 4.4, reviews: '3k' },
+  'kin-gomantong': { rating: 4.4, reviews: '1k' },
+  'kl-petronas': { rating: 4.7, reviews: '120k' }, 'kl-batu': { rating: 4.5, reviews: '90k' }, 'kl-aquaria': { rating: 4.5, reviews: '30k' }, 'kl-birdpark': { rating: 4.4, reviews: '30k' }, 'kl-tower': { rating: 4.5, reviews: '40k' }, 'kl-sunway': { rating: 4.4, reviews: '30k' }, 'kl-genting': { rating: 4.4, reviews: '60k' }, 'kl-central': { rating: 4.3, reviews: '30k' },
+  'kl-r-alor': { rating: 4.3, reviews: '10k' }, 'kl-r-madamkwan': { rating: 4.2, reviews: '10k' },
+  'ub-tegallalang': { rating: 4.5, reviews: '40k' }, 'ub-monkey': { rating: 4.5, reviews: '55k' }, 'ub-tirta': { rating: 4.6, reviews: '30k' }, 'ub-waterfall': { rating: 4.5, reviews: '25k' }, 'ub-campuhan': { rating: 4.6, reviews: '20k' }, 'ub-swing': { rating: 4.4, reviews: '10k' }, 'ub-goagajah': { rating: 4.5, reviews: '12k' },
+  'ub-r-murni': { rating: 4.4, reviews: '3k' }, 'ub-r-bebek': { rating: 4.4, reviews: '10k' },
+  'gili-turtles': { rating: 4.7, reviews: '2k' },
+  'sa-penida': { rating: 4.7, reviews: '30k' }, 'sa-crystal': { rating: 4.5, reviews: '8k' }, 'sa-waterbom': { rating: 4.7, reviews: '30k' }, 'sa-uluwatu': { rating: 4.6, reviews: '60k' }, 'sa-tanahlot': { rating: 4.6, reviews: '70k' }, 'sa-tirtagangga': { rating: 4.6, reviews: '25k' }, 'sa-lempuyang': { rating: 4.5, reviews: '20k' }, 'sa-safari': { rating: 4.5, reviews: '30k' },
+  'sa-r-makbeng': { rating: 4.4, reviews: '10k' }, 'sa-r-massimo': { rating: 4.5, reviews: '8k' },
+}
+catalog.forEach((p) => { const r = RATINGS[p.id]; if (r) { p.rating = r.rating; p.reviews = r.reviews } })

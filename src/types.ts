@@ -123,6 +123,7 @@ export interface Accommodation {
   id: ID
   destinationId: ID
   name: string
+  coords?: { lat: number; lon: number }
   checkIn: string
   checkOut: string
   nights: number
@@ -185,6 +186,8 @@ export interface Place {
   hours?: string
   rank: number // posición en el "top"
   booking?: string // requiere reserva (url / nota)
+  rating?: number // puntuación aprox. Google (orientativa)
+  reviews?: string // nº de reseñas aprox. (p.ej. "250k")
 }
 
 export interface Trip {

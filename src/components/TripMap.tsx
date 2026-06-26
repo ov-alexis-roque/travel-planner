@@ -8,11 +8,13 @@ export interface MapPoint {
   label?: string
   emoji?: string
   color?: string
+  key?: string // para hacer scroll a la actividad al hacer clic
 }
+export interface MapAnchor { lat: number; lon: number; kind: 'hotel' | 'airport'; label: string }
 
 interface Props {
   points: MapPoint[]
-  height?: number
+  height?: number | string
   showRoute?: boolean
   routeColor?: string
   interactive?: boolean
@@ -22,10 +24,12 @@ interface Props {
   expandable?: boolean // botón de pantalla completa
   caption?: string // rótulo mostrado dentro del mapa
   extraPoints?: MapPoint[] // sitios "por explorar" cerca (otro color, no en la ruta)
+  anchors?: MapAnchor[] // hotel / aeropuerto: iconos fijos destacados
+  onPointClick?: (key: string) => void
 }
 
 // Mapa Leaflet con marcadores numerados y ruta. Online (tiles CARTO Voyager).
-export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount, expandable = true, caption, extraPoints }: Props) {
+export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount, expandable = true, caption, extraPoints, anchors, onPointClick }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
   const [full, setFull] = useState(false)
@@ -71,6 +75,19 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       })
       const m = L.marker([p.lat, p.lon], { icon }).addTo(map)
       if (p.label) m.bindPopup(`<b>${p.label}</b>`, { closeButton: false })
+      if (onPointClick && p.key) m.on('click', () => onPointClick(p.key as string))
+    })
+
+    // Anclas fijas destacadas: hotel y aeropuerto
+    ;(anchors ?? []).filter((a) => typeof a.lat === 'number').forEach((a) => {
+      const emoji = a.kind === 'hotel' ? '🏨' : '✈️'
+      const icon = L.divIcon({
+        className: 'map-pin-wrap',
+        html: `<div class="map-anchor ${a.kind}">${emoji}</div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17],
+      })
+      L.marker([a.lat, a.lon], { icon, zIndexOffset: 200 }).addTo(map).bindPopup(`<b>${emoji} ${a.label}</b>`, { closeButton: false })
     })
 
     // Sitios "por explorar" cerca: pin secundario en otro color, fuera de la ruta
@@ -96,7 +113,7 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       mapRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(points), JSON.stringify(extraPoints), height, routeCount])
+  }, [JSON.stringify(points), JSON.stringify(extraPoints), JSON.stringify(anchors), height, routeCount])
 
   // Recalcular tamaño al entrar/salir de pantalla completa
   useEffect(() => {

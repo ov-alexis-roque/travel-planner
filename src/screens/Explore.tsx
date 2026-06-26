@@ -4,10 +4,27 @@ import { destById } from '../lib/utils'
 import { DEST_HEX } from '../components/DayView'
 import DayPicker from '../components/DayPicker'
 import { findPlaceInPlan } from '../lib/agenda'
+import { gmapsUrl, distanceFromHotel, fmtKm } from '../lib/places-helpers'
 import { usePlanner } from '../store'
 import type { Place } from '../types'
 
 type View = 'must' | 'activity' | 'food' | 'kids'
+type Sort = 'rank' | 'zone' | 'price' | 'alpha' | 'pop'
+const SORTS: { key: Sort; label: string }[] = [
+  { key: 'rank', label: 'Recomendado' },
+  { key: 'pop', label: 'Popularidad' },
+  { key: 'zone', label: 'Zona' },
+  { key: 'price', label: 'Precio' },
+  { key: 'alpha', label: 'A-Z' },
+]
+const priceNum = (p: Place) => { if (!p.price) return 9999; if (/gratis/i.test(p.price)) return 0; const m = /(\d+)/.exec(p.price); return m ? +m[1] : 9999 }
+const SORTERS: Record<Sort, (a: Place, b: Place) => number> = {
+  rank: (a, b) => a.rank - b.rank,
+  pop: (a, b) => (b.rating ?? 0) - (a.rating ?? 0) || a.rank - b.rank,
+  zone: (a, b) => (a.zone ?? '').localeCompare(b.zone ?? '') || a.rank - b.rank,
+  price: (a, b) => priceNum(a) - priceNum(b) || a.rank - b.rank,
+  alpha: (a, b) => a.name.localeCompare(b.name),
+}
 const VIEWS: { key: View; label: string }[] = [
   { key: 'must', label: '⭐ Imprescindibles' },
   { key: 'activity', label: '🎒 Actividades' },
@@ -19,6 +36,7 @@ export default function Explore() {
   const dests = trip.destinations.filter((d) => d.id !== 'travel')
   const [destId, setDestId] = useState(dests[0].id)
   const [view, setView] = useState<View>('must')
+  const [sort, setSort] = useState<Sort>('rank')
   const [picker, setPicker] = useState<Place | null>(null)
 
   const { addedByDay, movedBase, hiddenBase } = usePlanner((s) => ({ addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase }))
@@ -30,7 +48,7 @@ export default function Explore() {
   const all = trip.catalog.filter((p) => p.destinationId === destId)
   const filtered = all
     .filter((p) => (view === 'must' ? p.must : view === 'food' ? p.kind === 'food' : view === 'kids' ? p.forKids : p.kind === 'activity'))
-    .sort((a, b) => a.rank - b.rank)
+    .sort(SORTERS[sort])
 
   const dayLabel = (dayId: string) => {
     const d = trip.days.find((x) => x.id === dayId)
@@ -68,6 +86,13 @@ export default function Explore() {
         ))}
       </div>
 
+      <div className="sort-row">
+        <span>Ordenar:</span>
+        <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+          {SORTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
+        </select>
+      </div>
+
       <div className="section-title" style={{ ['--dest' as string]: DEST_HEX[dest.colorVar] }}>
         {dest.emoji} {dest.name} · {VIEWS.find((v) => v.key === view)?.label} ({filtered.length})
       </div>
@@ -76,6 +101,7 @@ export default function Explore() {
 
       {filtered.map((p) => {
         const inPlan = findPlaceInPlan(p, { addedByDay, movedBase, hiddenBase })
+        const dist = distanceFromHotel(p)
         return (
           <div key={p.id} className={`place-card ${inPlan ? 'in-plan' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}>
             <div className="pc-rank">{inPlan ? '✓' : p.rank}</div>
@@ -85,6 +111,8 @@ export default function Explore() {
               </div>
               <div className="pc-meta">
                 {p.zone && <span className="zone-tag">📍 {p.zone}</span>}
+                {p.rating && <span className="rating-tag">⭐ {p.rating.toString().replace('.', ',')}{p.reviews ? ` · ${p.reviews}` : ''}</span>}
+                {dist && <span>🏨 {fmtKm(dist.km)} · ~{dist.min} min</span>}
                 <span className="sc-cat">{p.category}</span>
                 {p.must && <span className="badge" style={{ background: '#fff3d6', color: '#9a6b00' }}>⭐ imprescindible</span>}
                 {p.forKids && <span className="badge" style={{ background: '#e6f4ff', color: '#1a5fa0' }}>🧒 niños</span>}
@@ -94,6 +122,7 @@ export default function Explore() {
               <div className="pc-blurb">{p.blurb}</div>
               {p.kids && <div className="pc-kids">👧🧒 {p.kids}</div>}
               <div className="pc-actions">
+                <a className="pc-btn ghost" href={gmapsUrl(p.name, p.zone, p.coords)} target="_blank" rel="noreferrer">🗺️ Maps</a>
                 {inPlan ? (
                   <>
                     <span className="pc-assigned">✓ En el plan · {dayLabel(inPlan.dayId)}</span>
