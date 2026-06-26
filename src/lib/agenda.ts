@@ -15,6 +15,7 @@ export interface AgendaItem {
   origDayId?: string
   n?: number
   placeId?: string
+  alt?: string
   transit?: Stop['transitToNext']
 }
 
@@ -39,7 +40,7 @@ export function buildAgenda(dayId: string, ov: Overrides): AgendaItem[] {
       items.push({
         key: `b:${baseKey}`, kind: 'base', name: s.name, emoji: s.emoji, category: s.category,
         time: s.time, hours: s.hours, note: s.note, coords: s.coords, status: s.status,
-        origDayId: d.id, n: s.n, transit: s.transitToNext,
+        origDayId: d.id, n: s.n, transit: s.transitToNext, alt: s.alt,
       })
     }
   }

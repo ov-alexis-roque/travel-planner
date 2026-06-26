@@ -281,7 +281,10 @@ const baseTrip: Trip = {
       headline: '272 escalones y templo hindú · Parque acuático medio día · Día completo de actividades.',
       accommodation: { name: 'Star Suites KLCC', status: 'booked' },
       progress: 50,
-      statusItems: [{ label: 'Tickets Sunway Lagoon online ~80€', done: false }],
+      statusItems: [
+        { label: 'Tarde a elegir → A: Petrosains (~10€/pers) · B: Sunway Lagoon (~80€)', done: false },
+        { label: 'Comprar entradas de la opción elegida online', done: false },
+      ],
       slots: [
         { key: 'morning', icon: '🙏', text: 'Batu Caves — ir 8am. 272 escalones, templo hindú. Monos en la escalera. Estatua dorada 43m. Gratis.' },
         { key: 'midday', icon: '🍽️', text: 'Restoran Yut Kee — histórico desde 1928. Roti babi, kaya toast. El desayuno-almuerzo de KL.' },
@@ -289,7 +292,7 @@ const baseTrip: Trip = {
         { key: 'night', icon: '🌙', text: 'Village Park Nasi Lemak o Jalan Alor. Noche tranquila.' },
       ],
       transport: 'Grab a Batu Caves (~30min) · Grab a Sunway Lagoon',
-      tip: '💡 Batu Caves es gratis (entrada templo). Sunway Lagoon online con descuento. Llegar a Batu Caves antes de las 9am.',
+      tip: '💡 Batu Caves gratis — llegar antes de las 9am. Por la tarde, elige Opción A (Petrosains) o B (Sunway) y quita la otra. Recomiendo A para no repetir parque acuático con Waterbom (Bali).',
     },
     {
       id: 'd12', dayNumber: 12, date: '24 Jul', weekday: 'Vie', destinationId: 'ubud',

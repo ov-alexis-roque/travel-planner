@@ -145,7 +145,7 @@ export default function DayView({ day }: { day: Day }) {
                 <div className="content">
                   <div className="stop-card">
                     <div className="sc-top">
-                      <span className="sc-name">{item.emoji} {item.name}{item.kind === 'added' && <span className="added-tag"> ⭐ añadido</span>}</span>
+                      <span className="sc-name">{item.alt && <span className={`alt-badge alt-${item.alt}`}>Opción {item.alt}</span>}{item.emoji} {item.name}{item.kind === 'added' && <span className="added-tag"> ⭐ añadido</span>}</span>
                       {item.time && <span className="sc-time">{item.time}</span>}
                     </div>
                     <div className="sc-meta">

@@ -64,6 +64,7 @@ export interface Stop {
   note?: string
   status?: BookingStatus
   audience?: Audience
+  alt?: string // "A" / "B" — marca alternativas para el mismo hueco (elige una)
   transitToNext?: {
     mode: TransitMode; min?: number; km?: number; note?: string
     line?: string // p.ej. "MRT North-South (roja)"

@@ -212,6 +212,9 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .stop-ctl button:disabled { opacity: .35; }
 .stop-ctl button.danger { color: var(--urg); }
 .added-tag { font-size: .7em; font-weight: 800; color: #b87808; }
+.alt-badge { display: inline-block; font-size: .62em; font-weight: 800; padding: 2px 6px; border-radius: 6px; margin-right: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: .5px; }
+.alt-badge.alt-A { background: #e0f0ff; color: #1a5fa0; }
+.alt-badge.alt-B { background: #ffe9d6; color: #b35a00; }
 .transit { display: flex; align-items: center; gap: 7px; font-size: .74em; color: var(--muted); padding: 3px 0 9px; }
 .transit .tx-ic { font-size: 1.05em; }
 .transit .tx-line { flex: 1; height: 1px; border-top: 1px dashed var(--line); }

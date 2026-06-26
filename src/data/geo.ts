@@ -235,20 +235,22 @@ export const dayEnrich: Record<string, Enrich> = {
     ],
   },
   d11: {
-    highlights: ['🙏 Batu Caves', '💦 Sunway Lagoon', '🍛 Nasi lemak'],
+    highlights: ['🙏 Batu Caves', '⚗️ Petrosains / 💦 Sunway', '🍛 Nasi lemak'],
     quickTips: [
       'Batu Caves a las 8:00: 272 escalones de colores, antes del calor y los grupos. Gratis.',
-      'Hombros/rodillas cubiertos en el templo. Cuidado con los macacos (comida escondida).',
-      'Sunway Lagoon: comprar online con descuento. Medio día de desfogue acuático.',
+      'Tarde a elegir: OPCIÓN A Petrosains (ciencia interactiva, AC) o OPCIÓN B Sunway Lagoon (parque acuático). Quita la que descartes con la ✕.',
+      'Mi consejo: si vais a Waterbom en Bali, la A (Petrosains) da más variedad y descanso a esta etapa de ciudad.',
     ],
     stops: [
       { n: 1, name: 'Batu Caves', category: 'Templo', emoji: '🙏', coords: { lat: 3.2379, lon: 101.6840 }, time: '08:00', hours: 'Gratis', note: 'Estatua dorada de 43m y escalera arcoíris a la cueva-templo. Macacos por todos lados. Llegar pronto.',
         transitToNext: { mode: 'car', min: 35, note: 'Grab a desayunar/comer', fare: '~25 MYR' } },
       { n: 2, name: 'Brunch: Restoran Yut Kee', category: 'Comida', emoji: '🍳', coords: { lat: 3.1610, lon: 101.7000 }, time: '10:30', note: 'Kopitiam desde 1928: roti babi, hainanese chicken chop, kaya toast. Institución de KL.',
-        transitToNext: { mode: 'car', min: 35, note: 'Grab a Sunway Lagoon' } },
-      { n: 3, name: 'Sunway Lagoon', category: 'Parque', emoji: '💦', coords: { lat: 3.0707, lon: 101.6075 }, time: '12:30', hours: '10:00–18:00', note: 'Parque acuático + atracciones: olas, tirolinas, zona infantil. Comer dentro. Medio día largo.', status: 'pending',
+        transitToNext: { mode: 'car', min: 30, note: 'Grab a la tarde elegida' } },
+      { n: 3, name: 'Petrosains Discovery Centre', category: 'Actividad', emoji: '⚗️', alt: 'A', coords: { lat: 3.1581, lon: 101.7122 }, time: '13:00', hours: '~10€ · en Suria KLCC', note: 'Museo de ciencia interactivo dentro de las Petronas: experimentos, dinosaurios, simulador. Con AC, 3-4h, ideal 5-9 años. Variedad sin repetir parque acuático.', status: 'pending',
+        transitToNext: { mode: 'car', min: 30, note: 'Al hotel a descansar' } },
+      { n: 4, name: 'Sunway Lagoon', category: 'Parque', emoji: '💦', alt: 'B', coords: { lat: 3.0707, lon: 101.6075 }, time: '13:00', hours: '10:00–18:00 · ~80€', note: 'Multiparque: agua + atracciones + wildlife. Medio día largo. ⚠️ Solapa con Waterbom (Bali): elige solo si quieres dos parques acuáticos.', status: 'pending',
         transitToNext: { mode: 'car', min: 35, note: 'Grab al hotel a descansar' } },
-      { n: 4, name: 'Cena: Village Park Nasi Lemak', category: 'Comida', emoji: '🍛', coords: { lat: 3.1300, lon: 101.6300 }, time: '20:00', note: 'Para muchos el mejor nasi lemak de KL (pollo rendang crujiente). O vuelta a Jalan Alor si queda cerca.' },
+      { n: 5, name: 'Cena: Village Park Nasi Lemak', category: 'Comida', emoji: '🍛', coords: { lat: 3.1300, lon: 101.6300 }, time: '20:00', note: 'Para muchos el mejor nasi lemak de KL (pollo rendang crujiente). O vuelta a Jalan Alor si queda cerca.' },
     ],
   },
   d12: {
