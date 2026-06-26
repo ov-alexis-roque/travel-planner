@@ -7,6 +7,7 @@ import { useWeather, weatherEmoji } from '../lib/weather'
 import { useGeo } from '../lib/useGeo'
 import { todayBrief } from '../lib/brief'
 import TripMap, { type MapPoint } from '../components/TripMap'
+import NowNext from '../components/NowNext'
 import { DEST_HEX } from '../components/DayView'
 
 export default function Today() {
@@ -79,6 +80,16 @@ export default function Today() {
           <div className="hero-sun">🌅 Amanece {sun.rise} · 🌇 Anochece {sun.set}</div>
         )}
       </div>
+
+      {/* Check-in online si hay vuelo hoy o mañana (solo durante el viaje) */}
+      {until <= 0 && (isTravel || nextDay?.kind === 'travel') && (
+        <Link to="/vuelos" className="checkin-badge">
+          ✈️ {isTravel ? 'Vuelo hoy' : 'Vuelo mañana'} · haz el check-in online (24–48 h antes) y lleva la tarjeta en el móvil ›
+        </Link>
+      )}
+
+      {/* En vivo: ahora / próximo */}
+      <NowNext day={today} preview={until > 0} />
 
       {/* Agenda contextual de hoy */}
       <div className="card brief" style={{ ['--dest' as string]: destColor }}>

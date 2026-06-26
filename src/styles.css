@@ -463,3 +463,29 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .om-btn:disabled { opacity: .45; }
 .om-all { width: 100%; margin-top: 12px; font-size: .85em; font-weight: 700; color: var(--sa); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 11px; }
 .om-all:disabled { opacity: .45; }
+
+/* ============ Check-in badge ============ */
+.checkin-badge { display: block; margin: 12px 14px 0; background: color-mix(in srgb, var(--sa) 12%, transparent); border: 1px solid color-mix(in srgb, var(--sa) 30%, transparent); color: var(--ink); border-radius: 12px; padding: 11px 13px; font-size: .84em; font-weight: 600; line-height: 1.4; }
+
+/* ============ Hoy en vivo: ahora / próximo ============ */
+.now-next { margin-top: 12px; }
+.now-next .nn-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.nn-live { display: flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); }
+.nn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); animation: nnpulse 2s infinite; }
+@keyframes nnpulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.nn-all { font-size: .8em; font-weight: 700; color: var(--sa); }
+.nn-current, .nn-next-row { display: flex; gap: 11px; align-items: center; }
+.nn-current { padding-bottom: 11px; border-bottom: 1px dashed var(--line); margin-bottom: 11px; }
+.nn-ic { font-size: 1.5em; flex: 0 0 auto; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; background: var(--bg); border-radius: 50%; }
+.nn-ic.next { background: color-mix(in srgb, var(--sa) 14%, transparent); }
+.nn-body { min-width: 0; flex: 1; }
+.nn-now-label, .nn-next-label { font-size: .74em; font-weight: 700; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.nn-count { background: var(--sa); color: #fff; border-radius: 999px; padding: 1px 8px; font-size: .92em; }
+.nn-name { font-size: 1.02em; font-weight: 700; margin-top: 2px; line-height: 1.25; }
+.nn-leave { margin-top: 10px; font-size: .82em; font-weight: 700; background: var(--bg); border-radius: 10px; padding: 9px 11px; line-height: 1.35; }
+.nn-leave.soon { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--ink); }
+.nn-actions { display: flex; gap: 8px; margin-top: 11px; }
+.nn-go, .nn-ride { flex: 1; text-align: center; font-size: .85em; font-weight: 700; border-radius: 10px; padding: 10px; }
+.nn-go { background: var(--sa); color: #fff; }
+.nn-ride { background: var(--bg); border: 1px solid var(--line); color: var(--ink); }
+.nn-done { font-size: .9em; font-weight: 700; color: var(--ok); text-align: center; padding: 6px 0; }
