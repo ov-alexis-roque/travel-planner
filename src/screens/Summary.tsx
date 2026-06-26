@@ -121,8 +121,8 @@ export default function Summary() {
         <div className="prog"><i style={{ width: `${(paid / total) * 100}%`, background: 'var(--ok)' }} /></div>
       </div>
 
-      {/* Mapas sin conexión */}
-      <div className="section-title">🗺️ Mapas sin conexión</div>
+      {/* Listo para usar sin conexión */}
+      <div className="section-title">📴 Listo para usar sin conexión</div>
       <OfflineMaps />
 
       {/* Ruta paso a paso */}

@@ -548,3 +548,16 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .health-card .health-head { font-size: 1.02em; font-weight: 800; margin-bottom: 8px; }
 .health-card .health-row { font-size: .86em; line-height: 1.4; padding: 5px 0; border-bottom: 1px solid var(--line); }
 .health-card .health-row:last-child { border-bottom: 0; }
+
+/* ============ Panel offline (readiness) ============ */
+.om-ready { margin: 12px 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.omr-row { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-bottom: 1px solid var(--line); font-size: .85em; }
+.omr-row:last-child { border-bottom: 0; }
+.omr-ic { width: 20px; height: 20px; flex: 0 0 auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75em; font-weight: 800; color: #fff; }
+.omr-ic.ok { background: var(--ok); }
+.omr-ic.pend { background: var(--line); color: var(--muted); }
+.omr-k { flex: 1; font-weight: 700; }
+.omr-note { font-size: .82em; color: var(--muted); text-align: right; }
+.om-prepare { width: 100%; font-size: .9em; font-weight: 800; color: #fff; background: var(--sa); border-radius: 12px; padding: 13px; }
+.om-prepare:disabled { opacity: .5; }
+.om-sub { font-size: .72em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; margin: 16px 0 4px; }
