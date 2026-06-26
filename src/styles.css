@@ -608,3 +608,16 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .ppc-confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .ppc-confetti span { position: absolute; top: -10%; font-size: 1.5em; animation: ppFall 1.3s ease-in forwards; }
 @keyframes ppFall { to { transform: translateY(115vh) rotate(360deg); opacity: .2; } }
+
+/* ¿Sabías que…? para peques (Hoy) */
+.kidfact { display: flex; gap: 9px; align-items: flex-start; margin: 12px 14px 0; background: color-mix(in srgb, var(--warn) 12%, transparent); border: 1px solid color-mix(in srgb, var(--warn) 28%, transparent); border-radius: 12px; padding: 11px 13px; font-size: .85em; line-height: 1.4; animation: fadein .35s ease; }
+.kidfact .kf-ic { font-size: 1.2em; }
+
+/* Botón marcar día completado */
+.day-done-btn { display: block; width: calc(100% - 28px); margin: 4px 14px 0; padding: 13px; border-radius: 14px; font-weight: 800; font-size: .95em; background: var(--bg); border: 2px dashed var(--ok); color: var(--ok); }
+.day-done-btn.on { background: var(--ok); color: #fff; border-style: solid; }
+
+/* Selector de niño (Pasaporte) */
+.pp-kids { display: flex; gap: 8px; margin: 0 14px 4px; }
+.pp-kid { flex: 1; font-size: .95em; font-weight: 800; border: 1px solid var(--line); border-radius: 12px; padding: 11px; color: var(--muted); background: var(--card); }
+.pp-kid.on { background: var(--sa); color: #fff; border-color: var(--sa); }

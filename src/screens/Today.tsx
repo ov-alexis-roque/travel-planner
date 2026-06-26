@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { activeDay, daysUntilTrip, destById, destStyle, dayIntro, distanceKm, visitStops } from '../lib/utils'
@@ -6,8 +6,10 @@ import { usePlanner, useUI } from '../store'
 import { useWeather, weatherEmoji, useRainToday } from '../lib/weather'
 import { useGeo } from '../lib/useGeo'
 import { todayBrief } from '../lib/brief'
+import { kidFacts } from '../data/kidfacts'
 import TripMap, { type MapPoint } from '../components/TripMap'
 import NowNext from '../components/NowNext'
+import Celebrate from '../components/Celebrate'
 import { DEST_HEX } from '../components/DayView'
 
 export default function Today() {
@@ -25,6 +27,24 @@ export default function Today() {
   const brief = todayBrief(now, isTaskDoneSel)
   const setFocusDay = useUI((s) => s.setFocusDay)
   useEffect(() => { setFocusDay(today.id) }, [today.id, setFocusDay])
+
+  // Día completado (microcelebración)
+  const dayDone = usePlanner((s) => !!s.dayComplete[today.id])
+  const toggleDayComplete = usePlanner((s) => s.toggleDayComplete)
+  const [celebrate, setCelebrate] = useState(false)
+  function completeDay() {
+    if (!dayDone) setCelebrate(true)
+    toggleDayComplete(today.id)
+  }
+
+  // "¿Sabías que…?" para peques, rotando
+  const facts = kidFacts[until > 0 ? 'general' : (today.destinationId === 'travel' ? 'general' : today.destinationId)] ?? kidFacts.general
+  const [factIdx, setFactIdx] = useState(0)
+  useEffect(() => {
+    setFactIdx(0)
+    const t = setInterval(() => setFactIdx((i) => (i + 1) % facts.length), 7000)
+    return () => clearInterval(t)
+  }, [facts])
 
   const idx = trip.days.findIndex((d) => d.id === today.id)
   const nextDay = trip.days[idx + 1]
@@ -81,6 +101,14 @@ export default function Today() {
           <div className="hero-sun">🌅 Amanece {sun.rise} · 🌇 Anochece {sun.set}</div>
         )}
       </div>
+
+      {/* ¿Sabías que…? para peques (rotando) */}
+      {facts.length > 0 && (
+        <div className="kidfact" key={factIdx}>
+          <span className="kf-ic">🤓</span>
+          <span><b>¿Sabías que…?</b> {facts[factIdx]}</span>
+        </div>
+      )}
 
       {/* Check-in online si hay vuelo hoy o mañana (solo durante el viaje) */}
       {until <= 0 && (isTravel || nextDay?.kind === 'travel') && (
@@ -208,6 +236,13 @@ export default function Today() {
 
       <Link to={`/dia/${today.id}`} className="section-title" style={{ display: 'block', color: 'var(--sa)' }}>Ver día completo →</Link>
 
+      {/* Marcar día completado (microcelebración) */}
+      {until <= 0 && (
+        <button className={`day-done-btn ${dayDone ? 'on' : ''}`} onClick={completeDay}>
+          {dayDone ? '✓ ¡Día completado!' : '🎉 Marcar día como completado'}
+        </button>
+      )}
+
       {nextDay && until <= 0 && (
         <>
           <div className="section-title">Mañana</div>
@@ -221,6 +256,10 @@ export default function Today() {
       <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '.72em', padding: '18px' }}>
         Familia Roque · 12 Jul — 5 Ago 2026
       </div>
+
+      {celebrate && (
+        <Celebrate emoji="🎉" title="¡Día completado!" sub={`${today.emoji} ${today.title} · ¡buen trabajo, familia Roque!`} onDone={() => setCelebrate(false)} />
+      )}
     </div>
   )
 }
