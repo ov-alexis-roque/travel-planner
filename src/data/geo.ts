@@ -20,7 +20,7 @@ export const dayEnrich: Record<string, Enrich> = {
     highlights: ['✈️ Vuelo BCN→SIN', '🌙 Nocturno 13h15'],
     quickTips: ['Estar en T1 BCN a las 9:00 (vuelo 11:40).', 'Cenad ligero a bordo e intentad dormir: aterrizáis a las 6:55.'],
     stops: [
-      { n: 1, name: 'Aeropuerto BCN-El Prat (T1)', category: 'Aeropuerto', emoji: '🛫', coords: { lat: 41.2974, lon: 2.0833 }, time: '09:00', note: 'Facturación SQ387. Agua vacía para rellenar tras el control.', transitToNext: { mode: 'flight', note: 'SQ387 · 13h15 non-stop' } },
+      { n: 1, name: 'Aeropuerto BCN-El Prat (T1)', category: 'Aeropuerto', emoji: '🛫', coords: { lat: 41.2974, lon: 2.0833 }, time: '09:00', hours: 'Vuelo 11:40 · estar en T1 a las 09:00', note: 'Facturación SQ387 (sale a las 11:40, ~2h de margen). Agua vacía para rellenar tras el control.', transitToNext: { mode: 'flight', note: 'SQ387 BCN 11:40 → SIN 06:55+1 · 13h15 non-stop' } },
       { n: 2, name: 'Changi Airport (T3)', category: 'Aeropuerto', emoji: '🛬', coords: { lat: 1.3564, lon: 103.9876 }, time: '06:55+1', note: 'Inmigración rápida. Día 1 empieza aquí.' },
     ],
   },

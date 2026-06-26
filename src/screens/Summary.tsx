@@ -103,6 +103,10 @@ export default function Summary() {
         <span><strong>🧳 Maleta</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>checklist adaptada al recorrido · solo equipaje de mano · plan de lavandería</div></span>
         <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
       </Link>
+      <Link to="/documentos" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span><strong>📄 Documentos y emergencias</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>pasaportes, seguro, localizadores y teléfonos de emergencia · sin conexión</div></span>
+        <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
+      </Link>
 
       {/* Progreso */}
       <div className="card tight">

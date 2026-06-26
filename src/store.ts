@@ -21,6 +21,8 @@ interface PlannerState {
   packDone: Record<string, boolean> // id de ítem de maleta -> empacado
   togglePack: (id: string) => void
   isPackDone: (id: string) => boolean
+  vaultText: Record<string, string> // campos editables de la bóveda (seguro, contactos, niños…)
+  setVaultText: (key: string, value: string) => void
   toggleTask: (id: string) => void
   toggleStatus: (dayId: string, index: number) => void
   isTaskDone: (id: string, fallback: boolean) => boolean
@@ -47,6 +49,9 @@ export const usePlanner = create<PlannerState>()(
       togglePack: (id) =>
         set((s) => ({ packDone: { ...s.packDone, [id]: !s.packDone[id] } })),
       isPackDone: (id) => !!get().packDone[id],
+      vaultText: {},
+      setVaultText: (key, value) =>
+        set((s) => ({ vaultText: { ...s.vaultText, [key]: value } })),
       toggleTask: (id) =>
         set((s) => ({ taskDone: { ...s.taskDone, [id]: !s.taskDone[id] } })),
       toggleStatus: (dayId, index) =>
