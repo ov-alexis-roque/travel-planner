@@ -517,3 +517,25 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .atm-item { padding: 5px 0; }
 .ai-name { display: block; font-size: .85em; font-weight: 700; }
 .ai-note { display: block; font-size: .78em; color: var(--muted); line-height: 1.35; }
+
+/* ============ Gasto real ============ */
+.spend .spend-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.spend .spend-top .n { font-size: 1.6em; font-weight: 800; }
+.spend .spend-top .l { font-size: .7em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; }
+.spend .spend-of { font-size: .82em; color: var(--muted); }
+.spend-form { margin-top: 14px; }
+.sf-row { display: flex; gap: 8px; }
+.sf-amount { flex: 1; min-width: 0; font-size: 1.05em; font-weight: 700; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; background: var(--bg); color: var(--ink); }
+.sf-amount:focus { outline: none; border-color: var(--sa); }
+.sf-cur { border: 1px solid var(--line); border-radius: 10px; padding: 0 8px; background: var(--bg); color: var(--ink); font-weight: 700; font-size: .9em; }
+.sf-add { background: var(--sa); color: #fff; border-radius: 10px; padding: 9px 14px; font-weight: 700; font-size: .85em; white-space: nowrap; }
+.sf-cats { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
+.sf-cat { font-size: .78em; font-weight: 700; border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; color: var(--muted); background: var(--bg); }
+.sf-cat.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.spend-list { margin-top: 12px; border-top: 1px solid var(--line); }
+.spend-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .86em; }
+.sr-cat { flex: 1; font-weight: 600; }
+.sr-raw { color: var(--muted); font-size: .9em; }
+.sr-eur { font-weight: 800; min-width: 56px; text-align: right; }
+.sr-del { color: var(--muted); font-size: .9em; padding: 2px 4px; }
+.spend-more { font-size: .78em; color: var(--muted); text-align: center; padding-top: 8px; }
