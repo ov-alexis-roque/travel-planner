@@ -26,7 +26,7 @@ export default function Passport() {
     togglePassport(k)
     if (!wasOn) {
       setCelebrate(stamp)
-      setTimeout(() => setCelebrate(null), 1400)
+      setTimeout(() => setCelebrate(null), 5000)
     }
   }
 
@@ -81,6 +81,7 @@ export default function Passport() {
             <div className="ppc-emoji">{celebrate.emoji}</div>
             <div className="ppc-title">¡Sello conseguido!</div>
             <div className="ppc-label">{celebrate.label}</div>
+            {celebrate.fact && <div className="ppc-fact">🤓 ¿Sabías que…? {celebrate.fact}</div>}
           </div>
           <div className="ppc-confetti">
             {Array.from({ length: 14 }).map((_, i) => (
