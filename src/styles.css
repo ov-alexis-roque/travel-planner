@@ -621,3 +621,21 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .pp-kids { display: flex; gap: 8px; margin: 0 14px 4px; }
 .pp-kid { flex: 1; font-size: .95em; font-weight: 800; border: 1px solid var(--line); border-radius: 12px; padding: 11px; color: var(--muted); background: var(--card); }
 .pp-kid.on { background: var(--sa); color: #fff; border-color: var(--sa); }
+
+/* Cabecera de filtros fija en Explorar */
+.explore-filters { position: sticky; top: 0; z-index: 40; background: var(--bg); padding-top: 6px; box-shadow: 0 6px 8px -6px rgba(0,0,0,.12); }
+
+/* Enlace del mapa del día a Explorar */
+.map-explore-link { display: block; margin: 8px 14px 0; font-size: .84em; font-weight: 700; color: var(--sa); }
+
+/* Gráfico de gasto por categoría */
+.cat-chart .cc-row { padding: 7px 0; }
+.cc-top { display: flex; justify-content: space-between; font-size: .84em; margin-bottom: 4px; }
+.cc-cat { font-weight: 700; }
+.cc-amt { color: var(--muted); font-weight: 700; }
+.cc-bar { height: 9px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.cc-bar i { display: block; height: 100%; border-radius: 999px; }
+
+/* Actividades añadidas (estimado) */
+.added-est .ae-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.added-est .ae-amt { font-size: 1.3em; font-weight: 800; }

@@ -17,7 +17,7 @@ import Budget from './screens/Budget'
 import SideMap from './components/SideMap'
 
 const NAV = [
-  { to: '/', icon: '🏠', label: 'Hoy', end: true },
+  { to: '/hoy', icon: '🏠', label: 'Hoy' },
   { to: '/itinerario', icon: '🗓️', label: 'Itinerario' },
   { to: '/explorar', icon: '🔍', label: 'Explorar' },
   { to: '/resumen', icon: '🧭', label: 'Resumen' },
@@ -42,7 +42,8 @@ export default function App() {
           <div className="offline-bar">📴 Sin conexión · plan e itinerario disponibles · los mapas usan lo ya descargado</div>
         )}
         <Routes>
-          <Route path="/" element={<Today />} />
+          <Route path="/" element={<Navigate to="/resumen" replace />} />
+          <Route path="/hoy" element={<Today />} />
           <Route path="/resumen" element={<Summary />} />
           <Route path="/itinerario" element={<Itinerary />} />
           <Route path="/explorar" element={<Explore />} />
@@ -61,7 +62,7 @@ export default function App() {
 
         <nav className="bottom">
           {NAV.map((n) => (
-            <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => (isActive ? 'active' : '')}>
+            <NavLink key={n.to} to={n.to} className={({ isActive }) => (isActive ? 'active' : '')}>
               <span className="ni">{n.icon}</span>
               <span>{n.label}</span>
             </NavLink>

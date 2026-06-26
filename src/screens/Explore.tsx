@@ -68,34 +68,36 @@ export default function Explore() {
 
   return (
     <div className="fadein">
-      <div className="page-head" style={{ paddingBottom: 4 }}>
+      <div className="page-head" style={{ paddingBottom: 4, position: 'static' }}>
         <h1>Explorar</h1>
         <div className="sub">Lo mejor de cada destino · ✓ = ya en tu plan</div>
       </div>
 
-      <div className="pill-row">
-        {dests.map((d) => (
-          <button key={d.id} className={`pill ${destId === d.id ? 'active' : ''}`}
-            style={destId === d.id ? { background: DEST_HEX[d.colorVar], borderColor: DEST_HEX[d.colorVar] } : undefined}
-            onClick={() => setDestId(d.id)}>
-            {d.emoji} {d.name.replace(/^.*— /, '')}
-          </button>
-        ))}
-      </div>
+      <div className="explore-filters">
+        <div className="pill-row">
+          {dests.map((d) => (
+            <button key={d.id} className={`pill ${destId === d.id ? 'active' : ''}`}
+              style={destId === d.id ? { background: DEST_HEX[d.colorVar], borderColor: DEST_HEX[d.colorVar] } : undefined}
+              onClick={() => setDestId(d.id)}>
+              {d.emoji} {d.name.replace(/^.*— /, '')}
+            </button>
+          ))}
+        </div>
 
-      <div className="pill-row" style={{ paddingTop: 0 }}>
-        {VIEWS.map((v) => (
-          <button key={v.key} className={`pill ${view === v.key ? 'active' : ''}`} onClick={() => setView(v.key)}>
-            {v.label} {counts[v.key] > 0 && <span style={{ opacity: 0.6 }}>{counts[v.key]}</span>}
-          </button>
-        ))}
-      </div>
+        <div className="pill-row" style={{ paddingTop: 0 }}>
+          {VIEWS.map((v) => (
+            <button key={v.key} className={`pill ${view === v.key ? 'active' : ''}`} onClick={() => setView(v.key)}>
+              {v.label} {counts[v.key] > 0 && <span style={{ opacity: 0.6 }}>{counts[v.key]}</span>}
+            </button>
+          ))}
+        </div>
 
-      <div className="sort-row">
-        <span>Ordenar:</span>
-        <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-          {SORTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
-        </select>
+        <div className="sort-row">
+          <span>Ordenar:</span>
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+            {SORTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
+          </select>
+        </div>
       </div>
 
       <div className="section-title" style={{ ['--dest' as string]: DEST_HEX[dest.colorVar] }}>

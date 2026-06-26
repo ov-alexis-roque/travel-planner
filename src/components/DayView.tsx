@@ -73,6 +73,8 @@ export default function DayView({ day }: { day: Day }) {
   const region = regionInfo[day.id]
   const [openRegion, setOpenRegion] = useState(true)
   const setFocusDay = useUI((s) => s.setFocusDay)
+  const setExploreDest = useUI((s) => s.setExploreDest)
+  const setExploreView = useUI((s) => s.setExploreView)
   useEffect(() => { setFocusDay(day.id) }, [day.id, setFocusDay])
 
   const legs = (day.legIds ?? []).map((lid) => trip.legs.find((l) => l.id === lid)).filter(Boolean)
@@ -113,7 +115,7 @@ export default function DayView({ day }: { day: Day }) {
   }
   // Paradas clave que no se pueden quitar ni mover de día (solo reordenar).
   // Solo se editan actividades, restaurantes y sitios añadidos desde Explorar.
-  const LOCKED_CATS = new Set(['Aeropuerto', 'Hotel'])
+  const LOCKED_CATS = new Set(['Aeropuerto', 'Hotel', 'Puerto', 'Vuelo'])
   const isLocked = (item: AgendaItem) => item.kind === 'base' && LOCKED_CATS.has(item.category)
 
   return (
@@ -181,6 +183,9 @@ export default function DayView({ day }: { day: Day }) {
       )}
       {extraPoints.length > 0 && (
         <div className="map-legend">● paradas del día · <span className="lg-extra">◌</span> por explorar cerca · 🏧 cajeros · 🏨 hotel · ✈️ aeropuerto</div>
+      )}
+      {mapPointsResolved.length > 0 && (
+        <Link to="/explorar" onClick={() => { setExploreDest(day.destinationId); setExploreView('all') }} className="map-explore-link">🔍 Explorar y añadir sitios en {dest.name.replace(/^.*— /, '')} →</Link>
       )}
 
       {/* Reservas / estado */}

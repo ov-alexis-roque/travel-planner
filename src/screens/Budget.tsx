@@ -65,6 +65,14 @@ function SpendTracker() {
   )
 }
 
+// Estimación €/sitio a partir del texto de precio (primer número; "gratis" = 0).
+function placeEst(price?: string): number {
+  if (!price) return 0
+  if (/gratis|free/i.test(price)) return 0
+  const m = /(\d+(?:[.,]\d+)?)/.exec(price)
+  return m ? Math.round(parseFloat(m[1].replace(',', '.'))) : 0
+}
+
 export default function Budget() {
   const items = trip.budget
   const total = items.reduce((s, b) => s + b.amount, 0)
@@ -72,6 +80,20 @@ export default function Budget() {
   const pending = total - paid
 
   const categories = [...new Set(items.map((b) => b.category))]
+
+  // Resumen por categoría (para el gráfico)
+  const catTotals = categories.map((cat) => ({ cat, sum: items.filter((b) => b.category === cat).reduce((s, b) => s + b.amount, 0) }))
+    .sort((a, b) => b.sum - a.sum)
+  const catMax = Math.max(...catTotals.map((c) => c.sum), 1)
+  const CAT_COLOR: Record<string, string> = {}
+  const palette = ['#1a3a5c', '#8b1a00', '#2d5016', '#006994', '#6b4c1a', '#00897b', '#9a3b8f', '#c07000']
+  catTotals.forEach((c, i) => { CAT_COLOR[c.cat] = palette[i % palette.length] })
+
+  // Actividades añadidas al plan desde Explorar → estimación de coste extra
+  const addedByDay = usePlanner((s) => s.addedByDay)
+  const addedIds = Object.values(addedByDay).flat()
+  const addedPlaces = trip.catalog.filter((p) => addedIds.includes(p.id))
+  const addedEst = addedPlaces.reduce((s, p) => s + placeEst(p.price), 0)
 
   return (
     <>
@@ -99,6 +121,25 @@ export default function Budget() {
           <span><i style={{ background: 'var(--warn)' }} />Pendiente {eur(pending)}</span>
         </div>
       </div>
+
+      {/* Gráfico de gasto por categoría */}
+      <div className="section-title">📊 Gasto estimado por categoría</div>
+      <div className="card cat-chart">
+        {catTotals.map((c) => (
+          <div key={c.cat} className="cc-row">
+            <div className="cc-top"><span className="cc-cat">{c.cat}</span><span className="cc-amt">{eur(c.sum)}</span></div>
+            <div className="cc-bar"><i style={{ width: `${(c.sum / catMax) * 100}%`, background: CAT_COLOR[c.cat] }} /></div>
+          </div>
+        ))}
+      </div>
+
+      {/* Actividades añadidas desde Explorar (estimado) */}
+      {addedPlaces.length > 0 && (
+        <div className="card added-est">
+          <div className="ae-top"><span><strong>➕ Actividades añadidas al plan</strong><div style={{ fontSize: '.8em', color: 'var(--muted)' }}>{addedPlaces.length} sitios desde Explorar · estimado orientativo</div></span><span className="ae-amt">{eur(addedEst)}</span></div>
+          <div style={{ fontSize: '.78em', color: 'var(--muted)', marginTop: 8 }}>Total estimado con extras: <strong style={{ color: 'var(--ink)' }}>{eur(total + addedEst)}</strong></div>
+        </div>
+      )}
 
       <div className="section-title">💸 Gasto real del viaje</div>
       <SpendTracker />
