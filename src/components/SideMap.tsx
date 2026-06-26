@@ -1,19 +1,74 @@
+import { useLocation } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { activeDay, destById } from '../lib/utils'
 import { buildAgenda } from '../lib/agenda'
 import { dayAnchors, dayAtms } from '../lib/anchors'
+import { atmsByDest } from '../data/atms'
 import { usePlanner, useUI } from '../store'
-import TripMap, { type MapPoint } from './TripMap'
+import TripMap, { type MapPoint, type MapAnchor } from './TripMap'
 import { DEST_HEX } from './DayView'
+import type { Place } from '../types'
 
-// Mapa lateral persistente (iPad/desktop). Muestra el día en foco y, al tocar
-// un pin, hace scroll a esa actividad en la columna izquierda.
+const VIEW_LABEL: Record<string, string> = { all: '🗂️ Todo', must: '⭐ Imprescindibles', activity: '🎒 Actividades', food: '🍽️ Restaurantes', kids: '🧒 Ideal niños' }
+const matchView = (p: Place, v: string) => (v === 'all' ? true : v === 'must' ? !!p.must : v === 'food' ? p.kind === 'food' : v === 'kids' ? !!p.forKids : p.kind === 'activity')
+
+// Mapa lateral persistente (iPad/desktop). Es contextual según la pestaña:
+//  · Itinerario / Hoy / detalle de día → mapa del día (con scroll a la parada)
+//  · Explorar → el destino y el filtro activos en esa pestaña
+//  · Resumen → la ruta completa del viaje (todos los destinos)
 export default function SideMap() {
+  const { pathname } = useLocation()
+  const mode = pathname.startsWith('/explorar') ? 'explore' : pathname.startsWith('/resumen') ? 'route' : 'day'
+
   const focusDayId = useUI((s) => s.focusDayId)
+  const exploreDest = useUI((s) => s.exploreDest)
+  const exploreView = useUI((s) => s.exploreView)
   const { addedByDay, movedBase, hiddenBase, order } = usePlanner((s) => ({
     addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase, order: s.order,
   }))
 
+  // ===== Resumen: ruta completa del viaje =====
+  if (mode === 'route') {
+    const dests = trip.destinations.filter((d) => d.id !== 'travel' && d.coords)
+    const points: MapPoint[] = dests.map((d, i) => ({ lat: d.coords!.lat, lon: d.coords!.lon, n: i + 1, label: d.name, color: DEST_HEX[d.colorVar] ?? '#1a1a2a' }))
+    return (
+      <div className="side-map-inner" style={{ ['--dest' as string]: '#1a1a2a' }}>
+        <div className="side-map-head">🧭 La ruta · {dests.length} destinos</div>
+        <div className="side-map-canvas">
+          <TripMap key="route" points={points} height="100%" rounded={false} expandable={false} fitPadding={50} />
+        </div>
+        <div className="side-map-foot">La ruta completa, en orden · toca un destino</div>
+      </div>
+    )
+  }
+
+  // ===== Explorar: sigue el destino y el filtro activos =====
+  if (mode === 'explore') {
+    const dest = destById(exploreDest)
+    const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
+    const places = trip.catalog.filter((p) => p.destinationId === exploreDest && p.coords && matchView(p, exploreView))
+    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: destColor }))
+    const acc = trip.accommodations.find((a) => a.destinationId === exploreDest && a.coords)
+    const anchors: MapAnchor[] = [
+      ...(acc?.coords ? [{ lat: acc.coords.lat, lon: acc.coords.lon, kind: 'hotel' as const, label: acc.name }] : []),
+      ...(atmsByDest[exploreDest] ?? []).map((a) => ({ lat: a.coords.lat, lon: a.coords.lon, kind: 'atm' as const, label: a.name, note: a.note })),
+    ]
+    return (
+      <div className="side-map-inner" style={{ ['--dest' as string]: destColor }}>
+        <div className="side-map-head">{dest.emoji} {dest.name.replace(/^.*— /, '')} · {VIEW_LABEL[exploreView]} ({places.length})</div>
+        <div className="side-map-canvas">
+          {points.length > 0 ? (
+            <TripMap key={`${exploreDest}-${exploreView}`} points={points} anchors={anchors} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} />
+          ) : (
+            <div className="empty">Nada en esta categoría aquí.</div>
+          )}
+        </div>
+        <div className="side-map-foot">Sigue lo que filtras en Explorar · toca un pin para ver qué es · 🏨 hotel · 🏧 cajeros</div>
+      </div>
+    )
+  }
+
+  // ===== Día (Hoy / Itinerario / detalle) =====
   const day = trip.days.find((d) => d.id === focusDayId) ?? activeDay(new Date())
   const dest = destById(day.destinationId)
   const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
@@ -46,7 +101,7 @@ export default function SideMap() {
           <div className="empty">Sin mapa para este día.</div>
         )}
       </div>
-      <div className="side-map-foot">Toca un pin para ir a la actividad · ◌ = por explorar cerca · 🏨 hotel · ✈️ aeropuerto</div>
+      <div className="side-map-foot">Toca un pin para ir a la actividad · ◌ = por explorar cerca · 🏧 cajeros · 🏨 hotel · ✈️ aeropuerto</div>
     </div>
   )
 }

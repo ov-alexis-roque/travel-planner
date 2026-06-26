@@ -17,7 +17,7 @@ import SideMap from './components/SideMap'
 
 const NAV = [
   { to: '/', icon: '🏠', label: 'Hoy', end: true },
-  { to: '/itinerario', icon: '🗓️', label: 'Días' },
+  { to: '/itinerario', icon: '🗓️', label: 'Itinerario' },
   { to: '/explorar', icon: '🔍', label: 'Explorar' },
   { to: '/resumen', icon: '🧭', label: 'Resumen' },
   { to: '/presupuesto', icon: '💶', label: 'Budget' },

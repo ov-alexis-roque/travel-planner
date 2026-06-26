@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Netlify pone NODE_ENV=production, que omitiría devDependencies (vite, tsc).
+  # Forzamos su instalación para que el build funcione.
+  NPM_FLAGS = "--include=dev"

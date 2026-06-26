@@ -1,11 +1,25 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-// Estado de UI no persistente: qué día muestra el mapa lateral (iPad/desktop).
-interface UIState { focusDayId: string | null; setFocusDay: (id: string) => void }
+// Estado de UI no persistente: qué muestra el mapa lateral (iPad/desktop).
+// focusDayId = día en foco; exploreDest/exploreView = destino y filtro activos
+// en la pestaña Explorar (para que el mapa lateral los siga).
+type ExploreView = 'all' | 'must' | 'activity' | 'food' | 'kids'
+interface UIState {
+  focusDayId: string | null
+  setFocusDay: (id: string) => void
+  exploreDest: string
+  setExploreDest: (id: string) => void
+  exploreView: ExploreView
+  setExploreView: (v: ExploreView) => void
+}
 export const useUI = create<UIState>((set) => ({
   focusDayId: null,
   setFocusDay: (id) => set({ focusDayId: id }),
+  exploreDest: 'sin',
+  setExploreDest: (id) => set({ exploreDest: id }),
+  exploreView: 'all',
+  setExploreView: (v) => set({ exploreView: v }),
 }))
 
 // Estado persistente del usuario (v1: localStorage; v2: IndexedDB + sync).

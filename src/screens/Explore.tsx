@@ -5,10 +5,10 @@ import { DEST_HEX } from '../components/DayView'
 import DayPicker from '../components/DayPicker'
 import { findPlaceInPlan } from '../lib/agenda'
 import { gmapsUrl, distanceFromHotel, fmtKm } from '../lib/places-helpers'
-import { usePlanner } from '../store'
+import { usePlanner, useUI } from '../store'
 import type { Place } from '../types'
 
-type View = 'must' | 'activity' | 'food' | 'kids'
+type View = 'all' | 'must' | 'activity' | 'food' | 'kids'
 type Sort = 'rank' | 'zone' | 'price' | 'alpha' | 'pop'
 const SORTS: { key: Sort; label: string }[] = [
   { key: 'rank', label: 'Recomendado' },
@@ -26,6 +26,7 @@ const SORTERS: Record<Sort, (a: Place, b: Place) => number> = {
   alpha: (a, b) => a.name.localeCompare(b.name),
 }
 const VIEWS: { key: View; label: string }[] = [
+  { key: 'all', label: '🗂️ Todo' },
   { key: 'must', label: '⭐ Imprescindibles' },
   { key: 'activity', label: '🎒 Actividades' },
   { key: 'food', label: '🍽️ Restaurantes' },
@@ -34,8 +35,11 @@ const VIEWS: { key: View; label: string }[] = [
 
 export default function Explore() {
   const dests = trip.destinations.filter((d) => d.id !== 'travel')
-  const [destId, setDestId] = useState(dests[0].id)
-  const [view, setView] = useState<View>('must')
+  // Destino y filtro viven en el store para que el mapa lateral (iPad) los siga.
+  const destId = useUI((s) => s.exploreDest)
+  const setDestId = useUI((s) => s.setExploreDest)
+  const view = useUI((s) => s.exploreView) as View
+  const setView = useUI((s) => s.setExploreView)
   const [sort, setSort] = useState<Sort>('rank')
   const [picker, setPicker] = useState<Place | null>(null)
 
@@ -47,14 +51,15 @@ export default function Explore() {
   const dest = destById(destId)
   const all = trip.catalog.filter((p) => p.destinationId === destId)
   const filtered = all
-    .filter((p) => (view === 'must' ? p.must : view === 'food' ? p.kind === 'food' : view === 'kids' ? p.forKids : p.kind === 'activity'))
+    .filter((p) => (view === 'all' ? true : view === 'must' ? p.must : view === 'food' ? p.kind === 'food' : view === 'kids' ? p.forKids : p.kind === 'activity'))
     .sort(SORTERS[sort])
 
   const dayLabel = (dayId: string) => {
     const d = trip.days.find((x) => x.id === dayId)
     return d ? `Día ${d.dayNumber ?? 0} · ${d.date}` : ''
   }
-  const counts = {
+  const counts: Record<View, number> = {
+    all: all.length,
     must: all.filter((p) => p.must).length,
     activity: all.filter((p) => p.kind === 'activity').length,
     food: all.filter((p) => p.kind === 'food').length,
@@ -121,6 +126,7 @@ export default function Explore() {
               </div>
               <div className="pc-blurb">{p.blurb}</div>
               {p.kids && <div className="pc-kids">👧🧒 {p.kids}</div>}
+              {(p.provider || p.booking) && <div className="pc-provider">🎟️ {p.provider ?? `Reservar en ${p.booking}`}</div>}
               <div className="pc-actions">
                 <a className="pc-btn ghost" href={gmapsUrl(p.name, p.zone, p.coords)} target="_blank" rel="noreferrer">🗺️ Maps</a>
                 {inPlan ? (
