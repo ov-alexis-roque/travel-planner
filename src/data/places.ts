@@ -88,24 +88,24 @@ export const catalog: Place[] = [
   { id: 'ub-r-nuri', destinationId: 'ubud', kind: 'food', rank: 5, forKids: true, name: "Naughty Nuri's", category: 'Comida', emoji: '🍖', coords: { lat: -8.4960, lon: 115.2650 }, price: '15-25€', blurb: 'Costillas a la barbacoa legendarias.', kids: 'Costillas con las manos.' },
 
   // ===================== GILI AIR =====================
-  { id: 'gili-turtles', destinationId: 'gili', kind: 'activity', rank: 1, must: true, forKids: true, name: 'Snorkel con tortugas (costa norte)', category: 'Playa', emoji: '🐢', coords: { lat: -8.3490, lon: 116.0820 }, price: 'Alquiler ~5€', blurb: 'Tortugas verdes a pocos metros de la orilla, sin barca.', kids: 'El sueño de Aira.' },
+  { id: 'gili-turtles', destinationId: 'gili', kind: 'activity', rank: 1, must: true, forKids: true, name: 'Snorkel con tortugas (costa norte)', category: 'Playa', emoji: '🐢', coords: { lat: -8.3490, lon: 116.0820 }, price: 'Alquiler ~5€', provider: 'Gratis desde la orilla con tu equipo. Alquiler de gafas en tu hotel (Manta Dive) o en cualquier dive shop de la playa.', blurb: 'Tortugas verdes a pocos metros de la orilla, sin barca.', kids: 'El sueño de Aira.' },
   { id: 'gili-bike', destinationId: 'gili', kind: 'activity', rank: 2, forKids: true, name: 'Vuelta a la isla en bici', category: 'Actividad', emoji: '🚴', coords: { lat: -8.3600, lon: 116.0780 }, price: '~3€/h', blurb: 'Rodear la isla (sin coches) en ~45 min, parando en calas.', kids: 'Leo en silla o cidomo.' },
-  { id: 'gili-snorkeltrip', destinationId: 'gili', kind: 'activity', rank: 3, forKids: true, name: 'Snorkel trip 3 Gilis (glass-bottom)', category: 'Actividad', emoji: '🤿', coords: { lat: -8.3550, lon: 116.0700 }, price: '~12€/persona', blurb: 'Arrecifes y la estatua sumergida entre Meno y Air.', kids: 'Fondo de cristal.' },
+  { id: 'gili-snorkeltrip', destinationId: 'gili', kind: 'activity', rank: 3, forKids: true, name: 'Snorkel trip 3 Gilis (glass-bottom)', category: 'Actividad', emoji: '🤿', coords: { lat: -8.3550, lon: 116.0700 }, price: '~12€/persona', provider: 'Reserva con tu hotel Manta Dive (⭐ centro de buceo de la isla) o en las dive shops del puerto: Gili Air Divers, 7Seas, Oceans 5. Salidas en grupo por la mañana (mar más calmado).', blurb: 'Arrecifes y la estatua sumergida entre Meno y Air.', kids: 'Fondo de cristal para quien no quiera mojarse.' },
   { id: 'gili-sunset', destinationId: 'gili', kind: 'activity', rank: 4, forKids: true, name: 'Sunset West + columpios de mar', category: 'Mirador', emoji: '🌅', coords: { lat: -8.3570, lon: 116.0760 }, price: 'Gratis', blurb: 'Columpios dentro del agua y vistas al Agung al atardecer.', kids: 'Columpios en el mar.' },
   { id: 'gili-cidomo', destinationId: 'gili', kind: 'activity', rank: 5, forKids: true, name: 'Paseo en cidomo (carro de caballo)', category: 'Actividad', emoji: '🐴', coords: { lat: -8.3600, lon: 116.0800 }, price: '~10€', blurb: 'El único "taxi" de la isla: carro tirado por caballo.', kids: 'Les hace ilusión.' },
   { id: 'gili-r-mowies', destinationId: 'gili', kind: 'food', rank: 1, name: 'Mowies (sunset)', category: 'Comida', emoji: '🍹', coords: { lat: -8.3575, lon: 116.0758 }, price: '15-25€', blurb: 'Beach bar para el atardecer con pufs en la arena.', kids: 'Pies en la arena.' },
   { id: 'gili-r-pachamama', destinationId: 'gili', kind: 'food', rank: 2, forKids: true, name: 'Pachamama', category: 'Comida', emoji: '🍤', coords: { lat: -8.3560, lon: 116.0850 }, price: '12-20€', blurb: 'Pescado fresco y bowls junto al mar.', kids: 'Variado.' },
 
   // ===================== SANUR (+ day trips) =====================
-  { id: 'sa-penida', destinationId: 'sanur', kind: 'activity', rank: 1, must: true, name: 'Nusa Penida — Kelingking', category: 'Mirador', emoji: '🦕', coords: { lat: -8.7510, lon: 115.4720 }, price: 'Fast boat ~80€ (4 pax)', booking: 'GetYourGuide', blurb: 'El acantilado en forma de T-Rex sobre agua turquesa. 45 min en fast boat.', kids: 'Vista desde arriba; combinar con snorkel.' },
-  { id: 'sa-crystal', destinationId: 'sanur', kind: 'activity', rank: 2, must: true, forKids: true, name: 'Crystal Bay (snorkel)', category: 'Playa', emoji: '🐠', coords: { lat: -8.7190, lon: 115.4520 }, blurb: 'Bahía cristalina en Penida con mantas y tortugas.', kids: 'Snorkel fácil con chaleco.' },
+  { id: 'sa-penida', destinationId: 'sanur', kind: 'activity', rank: 1, must: true, name: 'Nusa Penida — Kelingking', category: 'Mirador', emoji: '🦕', coords: { lat: -8.7510, lon: 115.4720 }, price: 'Fast boat ~80€ (4 pax)', booking: 'GetYourGuide / Klook', provider: 'Mejor un TOUR de día completo con coche+guía+snorkel (evita líos de transporte en la isla): busca "Nusa Penida day tour from Sanur" en Klook o GetYourGuide (⭐ filtra 4.7+). Fast boats: Maruti Express o Rocky Fast Cruise desde el puerto de Sanur (~8:30).', blurb: 'El acantilado en forma de T-Rex sobre agua turquesa. 45 min en fast boat.', kids: 'Vista desde arriba; combinar con snorkel en Crystal Bay.' },
+  { id: 'sa-crystal', destinationId: 'sanur', kind: 'activity', rank: 2, must: true, forKids: true, name: 'Crystal Bay (snorkel)', category: 'Playa', emoji: '🐠', coords: { lat: -8.7190, lon: 115.4520 }, provider: 'Suele ir incluido en el tour de Nusa Penida (parada de snorkel). Chalecos para los niños incluidos.', blurb: 'Bahía cristalina en Penida con mantas y tortugas.', kids: 'Snorkel fácil con chaleco.' },
   { id: 'sa-waterbom', destinationId: 'sanur', kind: 'activity', rank: 3, must: true, forKids: true, name: 'Waterbom Bali', category: 'Parque', emoji: '💦', coords: { lat: -8.7220, lon: 115.1720 }, hours: 'Abre 9:00', price: '~120€ (4 pax)', booking: 'waterbom-bali.com', blurb: 'El mejor parque acuático de Asia, entre jardines tropicales.', kids: 'Suele ser su día favorito.' },
   { id: 'sa-uluwatu', destinationId: 'sanur', kind: 'activity', rank: 4, must: true, name: 'Uluwatu + Kecak Fire Dance', category: 'Show', emoji: '🔥', coords: { lat: -8.8291, lon: 115.0849 }, hours: 'Kecak 18:00', price: '~60€ (4 pax)', booking: 'GetYourGuide', blurb: 'Templo en acantilado y, al atardecer, 50 hombres cantando con fuego.', kids: 'El momento Bali (ojo a los monos).' },
   { id: 'sa-tanahlot', destinationId: 'sanur', kind: 'activity', rank: 5, must: true, name: 'Tanah Lot al atardecer', category: 'Templo', emoji: '🌊', coords: { lat: -8.6212, lon: 115.0868 }, hours: 'Atardecer ~18:00', price: '~5€', blurb: 'Templo del s.XVI sobre una roca en el mar.', kids: 'Serpientes sagradas y olas.' },
   { id: 'sa-safari', destinationId: 'sanur', kind: 'activity', rank: 6, forKids: true, name: 'Bali Safari & Marine Park', category: 'Naturaleza', emoji: '🦁', coords: { lat: -8.5870, lon: 115.3360 }, price: '~50€/ad', blurb: 'Safari en autobús, show de animales y zona acuática. Día completo.', kids: 'Alternativa top a un día de templos.' },
   { id: 'sa-tirtagangga', destinationId: 'sanur', kind: 'activity', rank: 7, forKids: true, name: 'Tirta Gangga (este de Bali)', category: 'Templo', emoji: '🐠', coords: { lat: -8.4120, lon: 115.5870 }, hours: '7:00–18:00', price: '~3€', blurb: 'Palacio del agua real con carpas gigantes y piedras de salto.', kids: 'Alimentar carpas y saltar piedras.' },
   { id: 'sa-lempuyang', destinationId: 'sanur', kind: 'activity', rank: 8, name: 'Pura Lempuyang — Gates of Heaven', category: 'Templo', emoji: '🏛️', coords: { lat: -8.3900, lon: 115.6310 }, price: '~5€', blurb: 'Las "Puertas del Cielo" enmarcando el Agung. Madrugar por la cola.', kids: 'La espera puede ser larga.' },
-  { id: 'sa-surf', destinationId: 'sanur', kind: 'activity', rank: 9, forKids: true, name: 'Clase de surf en Sanur', category: 'Actividad', emoji: '🏄', coords: { lat: -8.6850, lon: 115.2680 }, price: '~30€', blurb: 'Olas suaves de arrecife, ideales para aprender.', kids: 'Aira aprende; Leo en la orilla.' },
+  { id: 'sa-surf', destinationId: 'sanur', kind: 'activity', rank: 9, forKids: true, name: 'Clase de surf en Sanur', category: 'Actividad', emoji: '🏄', coords: { lat: -8.6850, lon: 115.2680 }, price: '~30€/clase', provider: 'Rip Curl School of Surf Sanur (⭐4.7, escuela seria con monitores) o Surya Surf School. Reserva en su web o por WhatsApp; busca el nombre en Google Maps para el contacto.', blurb: 'Olas suaves de arrecife, ideales para aprender. Mejor con marea alta y por la mañana.', kids: 'Aira aprende; Leo, espuma en la orilla con monitor.' },
   { id: 'sa-beachbike', destinationId: 'sanur', kind: 'activity', rank: 10, forKids: true, name: 'Paseo marítimo de Sanur en bici', category: 'Playa', emoji: '🚲', coords: { lat: -8.6900, lon: 115.2660 }, price: 'Bici ~3€/h', blurb: 'Paseo costero de 5km, llano y sin tráfico, con warungs.', kids: 'Bici en familia sin coches.' },
   { id: 'sa-nightmarket', destinationId: 'sanur', kind: 'activity', rank: 11, forKids: true, name: 'Sindhu Night Market', category: 'Comida', emoji: '🌃', coords: { lat: -8.6800, lon: 115.2630 }, price: '5-10€', blurb: 'Mercado nocturno local: satay, martabak, frutas.', kids: 'Barato y ambiente.' },
   // -- Restaurantes Sanur --
@@ -114,6 +114,25 @@ export const catalog: Place[] = [
   { id: 'sa-r-soul', destinationId: 'sanur', kind: 'food', rank: 3, name: 'Soul on the Beach', category: 'Comida', emoji: '🌅', coords: { lat: -8.6840, lon: 115.2660 }, price: '30-40€', blurb: 'Cena con los pies en la arena al atardecer.', kids: 'Ambiente playero.' },
   { id: 'sa-r-threemonkeys', destinationId: 'sanur', kind: 'food', rank: 4, forKids: true, name: 'Three Monkeys Sanur', category: 'Comida', emoji: '🌳', coords: { lat: -8.6870, lon: 115.2600 }, price: '25-35€', blurb: 'Jardín tropical: pasta, curries, steaks.', kids: 'Comida segura para niños.' },
   { id: 'sa-r-kayuapi', destinationId: 'sanur', kind: 'food', rank: 5, name: 'Kayu Api Smoke Grill & Coffee', category: 'Comida', emoji: '☕', coords: { lat: -8.6900, lon: 115.2620 }, price: '20-30€', blurb: 'BBQ y café de especialidad, buen brunch.', kids: 'Tranquilo.' },
+  { id: 'sa-r-charming', destinationId: 'sanur', kind: 'food', rank: 6, name: 'Char Ming', category: 'Comida', emoji: '🏮', coords: { lat: -8.6960, lon: 115.2620 }, price: '25-35€', blurb: 'Cocina asiática a la brasa en una casa-jardín preciosa.', kids: 'Ambiente especial para una cena.' },
+
+  // ===== Más restaurantes (Singapur) =====
+  { id: 'sin-r-songfa', destinationId: 'sin', kind: 'food', rank: 10, forKids: true, name: 'Song Fa Bak Kut Teh', category: 'Comida', emoji: '🍲', coords: { lat: 1.2876, lon: 103.8497 }, price: '12-18€', blurb: 'Sopa de costilla con pimienta, un clásico de Clarke Quay desde 1969.', kids: 'Caldo suave y arroz.' },
+  { id: 'sin-r-ctcomplex', destinationId: 'sin', kind: 'food', rank: 11, name: 'Chinatown Complex Food Centre', category: 'Comida', emoji: '🍜', coords: { lat: 1.2822, lon: 103.8440 }, price: '5-12€', blurb: 'El mayor hawker de Singapur, con puestos con estrella Michelin.', kids: 'Para todos los gustos, baratísimo.' },
+
+  // ===== Más restaurantes (Kuala Lumpur) =====
+  { id: 'kl-r-pelita', destinationId: 'kl', kind: 'food', rank: 7, forKids: true, name: 'Nasi Kandar Pelita (Ampang)', category: 'Comida', emoji: '🍛', coords: { lat: 3.1607, lon: 101.7196 }, price: '8-15€', blurb: 'Mamak 24h: roti canai, nasi kandar y teh tarik. Institución de KL.', kids: 'Roti canai les encanta.' },
+  { id: 'kl-r-rebung', destinationId: 'kl', kind: 'food', rank: 8, name: 'Restoran Rebung (Chef Ismail)', category: 'Comida', emoji: '🍚', coords: { lat: 3.1290, lon: 101.6790 }, price: '15-25€', blurb: 'Buffet de cocina malaya tradicional kampung, enorme variedad.', kids: 'Eligen lo que quieren.' },
+
+  // ===== Más restaurantes (Ubud) =====
+  { id: 'ub-r-ibuoka', destinationId: 'ubud', kind: 'food', rank: 6, name: 'Babi Guling Ibu Oka', category: 'Comida', emoji: '🐖', coords: { lat: -8.5063, lon: 115.2622 }, price: '6-10€', blurb: 'El cochinillo balinés (babi guling) más famoso, junto al palacio.', kids: 'Plato típico para probar.' },
+  { id: 'ub-r-clear', destinationId: 'ubud', kind: 'food', rank: 7, forKids: true, name: 'Clear Cafe', category: 'Comida', emoji: '🥗', coords: { lat: -8.5078, lon: 115.2588 }, price: '12-20€', blurb: 'Carta enorme sana (bowls, smoothies, pizza) en un local mágico.', kids: 'Hay de todo, también para peques.' },
+  { id: 'ub-r-bridges', destinationId: 'ubud', kind: 'food', rank: 8, name: 'Bridges Bali', category: 'Comida', emoji: '🌉', coords: { lat: -8.5055, lon: 115.2528 }, price: '30-45€', blurb: 'Cena con vistas al cañón del río Campuhan.', kids: 'Mejor para una cena especial.' },
+
+  // ===== Más restaurantes (Gili Air) =====
+  { id: 'gili-r-scallywags', destinationId: 'gili', kind: 'food', rank: 3, forKids: true, name: 'Scallywags Beach Club', category: 'Comida', emoji: '🍔', coords: { lat: -8.3565, lon: 116.0810 }, price: '15-25€', blurb: 'Barbacoa de pescado, pizzas y pufs en la arena.', kids: 'Hamburguesas y pizza.' },
+  { id: 'gili-r-pituq', destinationId: 'gili', kind: 'food', rank: 4, name: 'Pituq Café', category: 'Comida', emoji: '🥥', coords: { lat: -8.3590, lon: 116.0790 }, price: '8-15€', blurb: 'Vegetariano-vegano, zumos y desayunos en el interior de la isla.', kids: 'Tortitas y smoothies.' },
+  { id: 'gili-r-rust', destinationId: 'gili', kind: 'food', rank: 5, name: 'Rust Warung & BBQ', category: 'Comida', emoji: '🐟', coords: { lat: -8.3560, lon: 116.0860 }, price: '10-18€', blurb: 'Pescado fresco a la brasa frente al mar.', kids: 'Pescado sencillo.' },
 ]
 
 // Zona/barrio de cada sitio (para agrupar lo cercano en Explorar y el mapa).
@@ -147,7 +166,12 @@ const ZONES: Record<string, string> = {
   'sa-penida': 'Nusa Penida', 'sa-crystal': 'Nusa Penida',
   'sa-waterbom': 'Kuta', 'sa-uluwatu': 'Uluwatu (sur)', 'sa-tanahlot': 'Tanah Lot (oeste)', 'sa-safari': 'Gianyar',
   'sa-tirtagangga': 'Este de Bali', 'sa-lempuyang': 'Este de Bali',
-  'sa-surf': 'Sanur', 'sa-beachbike': 'Sanur', 'sa-nightmarket': 'Sanur', 'sa-r-makbeng': 'Sanur', 'sa-r-massimo': 'Sanur', 'sa-r-soul': 'Sanur', 'sa-r-threemonkeys': 'Sanur', 'sa-r-kayuapi': 'Sanur',
+  'sa-surf': 'Sanur', 'sa-beachbike': 'Sanur', 'sa-nightmarket': 'Sanur', 'sa-r-makbeng': 'Sanur', 'sa-r-massimo': 'Sanur', 'sa-r-soul': 'Sanur', 'sa-r-threemonkeys': 'Sanur', 'sa-r-kayuapi': 'Sanur', 'sa-r-charming': 'Sanur',
+  // Restaurantes añadidos
+  'sin-r-songfa': 'Riverside', 'sin-r-ctcomplex': 'Chinatown',
+  'kl-r-pelita': 'KLCC', 'kl-r-rebung': 'Bangsar',
+  'ub-r-ibuoka': 'Ubud centro', 'ub-r-clear': 'Ubud centro', 'ub-r-bridges': 'Ubud centro',
+  'gili-r-scallywags': 'Gili Air', 'gili-r-pituq': 'Gili Air', 'gili-r-rust': 'Gili Air',
 }
 catalog.forEach((p) => { p.zone = ZONES[p.id] })
 
@@ -163,6 +187,10 @@ const RATINGS: Record<string, { rating: number; reviews: string }> = {
   'ub-r-murni': { rating: 4.4, reviews: '3k' }, 'ub-r-bebek': { rating: 4.4, reviews: '10k' },
   'gili-turtles': { rating: 4.7, reviews: '2k' },
   'sa-penida': { rating: 4.7, reviews: '30k' }, 'sa-crystal': { rating: 4.5, reviews: '8k' }, 'sa-waterbom': { rating: 4.7, reviews: '30k' }, 'sa-uluwatu': { rating: 4.6, reviews: '60k' }, 'sa-tanahlot': { rating: 4.6, reviews: '70k' }, 'sa-tirtagangga': { rating: 4.6, reviews: '25k' }, 'sa-lempuyang': { rating: 4.5, reviews: '20k' }, 'sa-safari': { rating: 4.5, reviews: '30k' },
-  'sa-r-makbeng': { rating: 4.4, reviews: '10k' }, 'sa-r-massimo': { rating: 4.5, reviews: '8k' },
+  'sa-r-makbeng': { rating: 4.4, reviews: '10k' }, 'sa-r-massimo': { rating: 4.5, reviews: '8k' }, 'sa-r-charming': { rating: 4.5, reviews: '3k' },
+  'sin-r-songfa': { rating: 4.2, reviews: '10k' }, 'sin-r-ctcomplex': { rating: 4.4, reviews: '15k' },
+  'kl-r-pelita': { rating: 4.0, reviews: '15k' }, 'kl-r-rebung': { rating: 4.2, reviews: '9k' },
+  'ub-r-ibuoka': { rating: 4.3, reviews: '15k' }, 'ub-r-clear': { rating: 4.5, reviews: '8k' }, 'ub-r-bridges': { rating: 4.5, reviews: '5k' },
+  'gili-r-scallywags': { rating: 4.3, reviews: '2k' }, 'gili-r-pituq': { rating: 4.5, reviews: '1k' }, 'gili-r-rust': { rating: 4.2, reviews: '1k' },
 }
 catalog.forEach((p) => { const r = RATINGS[p.id]; if (r) { p.rating = r.rating; p.reviews = r.reviews } })

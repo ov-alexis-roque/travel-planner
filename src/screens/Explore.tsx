@@ -124,6 +124,7 @@ export default function Explore() {
               </div>
               <div className="pc-blurb">{p.blurb}</div>
               {p.kids && <div className="pc-kids">👧🧒 {p.kids}</div>}
+              {(p.provider || p.booking) && <div className="pc-provider">🎟️ {p.provider ?? `Reservar en ${p.booking}`}</div>}
               <div className="pc-actions">
                 <a className="pc-btn ghost" href={gmapsUrl(p.name, p.zone, p.coords)} target="_blank" rel="noreferrer">🗺️ Maps</a>
                 {inPlan ? (
