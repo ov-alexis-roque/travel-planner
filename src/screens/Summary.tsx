@@ -116,6 +116,10 @@ export default function Summary() {
         <span><strong>🗣️ Frases útiles</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>malayo e indonesio por situación · con audio · sin conexión</div></span>
         <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
       </Link>
+      <Link to="/pasaporte" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span><strong>🛂 Pasaporte de Exploradores</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>Aira & Leo · sellos de animales, comidas, lugares y experiencias</div></span>
+        <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
+      </Link>
 
       {/* Progreso */}
       <div className="card tight">

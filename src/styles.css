@@ -581,3 +581,30 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 
 /* Proveedor / reserva recomendada en Explorar */
 .pc-provider { font-size: .82em; line-height: 1.4; background: color-mix(in srgb, var(--dest, var(--sa)) 9%, transparent); border: 1px solid color-mix(in srgb, var(--dest, var(--sa)) 22%, transparent); border-radius: 10px; padding: 8px 10px; margin-top: 8px; }
+
+/* ============ Pasaporte de Exploradores ============ */
+.pp-progress .pp-rank { display: flex; align-items: center; gap: 12px; }
+.pp-rank-emoji { font-size: 2em; }
+.pp-rank-label { font-weight: 800; font-size: 1.05em; }
+.pp-rank-count { font-size: .82em; color: var(--muted); }
+.pp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 14px; }
+.pp-stamp { position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; padding: 12px 6px; border-radius: 14px; border: 2px dashed var(--line); background: var(--card); aspect-ratio: 1 / 1; justify-content: center; transition: transform .12s; }
+.pp-stamp:active { transform: scale(.94); }
+.pp-emoji { font-size: 1.9em; filter: grayscale(1); opacity: .4; transition: .2s; }
+.pp-label { font-size: .72em; font-weight: 700; line-height: 1.15; color: var(--muted); }
+.pp-where { font-size: .62em; color: var(--muted); opacity: .7; line-height: 1.1; }
+.pp-stamp.on { border-style: solid; border-color: var(--ok); background: color-mix(in srgb, var(--ok) 7%, var(--card)); }
+.pp-stamp.on .pp-emoji { filter: none; opacity: 1; transform: scale(1.05); }
+.pp-stamp.on .pp-label { color: var(--ink); }
+.pp-check { position: absolute; top: 5px; right: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--ok); color: #fff; font-size: .7em; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+/* Celebración */
+.pp-celebrate { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.25); animation: fadein .2s ease; }
+.ppc-card { background: #fff; border-radius: 20px; padding: 26px 34px; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,.3); animation: ppPop .4s cubic-bezier(.2,1.4,.5,1); }
+@keyframes ppPop { from { transform: scale(.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.ppc-emoji { font-size: 3.4em; line-height: 1; }
+.ppc-title { font-weight: 800; font-size: 1.1em; margin-top: 8px; color: var(--ok); }
+.ppc-label { color: var(--muted); margin-top: 2px; }
+.ppc-confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ppc-confetti span { position: absolute; top: -10%; font-size: 1.5em; animation: ppFall 1.3s ease-in forwards; }
+@keyframes ppFall { to { transform: translateY(115vh) rotate(360deg); opacity: .2; } }

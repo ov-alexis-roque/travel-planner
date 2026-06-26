@@ -42,6 +42,8 @@ interface PlannerState {
   expenses: { id: string; label: string; cat: string; amount: number; cur: string; eur: number; ts: number }[]
   addExpense: (e: { label: string; cat: string; amount: number; cur: string; eur: number; ts: number }) => void
   removeExpense: (id: string) => void
+  passportDone: Record<string, boolean> // sellos conseguidos del Pasaporte de Exploradores
+  togglePassport: (id: string) => void
   toggleTask: (id: string) => void
   toggleStatus: (dayId: string, index: number) => void
   isTaskDone: (id: string, fallback: boolean) => boolean
@@ -79,6 +81,9 @@ export const usePlanner = create<PlannerState>()(
         set((s) => ({ expenses: [{ ...e, id: `${e.ts}-${s.expenses.length}` }, ...s.expenses] })),
       removeExpense: (id) =>
         set((s) => ({ expenses: s.expenses.filter((x) => x.id !== id) })),
+      passportDone: {},
+      togglePassport: (id) =>
+        set((s) => ({ passportDone: { ...s.passportDone, [id]: !s.passportDone[id] } })),
       toggleTask: (id) =>
         set((s) => ({ taskDone: { ...s.taskDone, [id]: !s.taskDone[id] } })),
       toggleStatus: (dayId, index) =>
@@ -123,7 +128,7 @@ export const usePlanner = create<PlannerState>()(
           return { order: { ...s.order, [dayId]: keys } }
         }),
       setOrder: (dayId, keys) => set((s) => ({ order: { ...s.order, [dayId]: keys } })),
-      reset: () => set({ taskDone: {}, statusDone: {}, addedByDay: {}, movedBase: {}, hiddenBase: {}, order: {}, packDone: {} }),
+      reset: () => set({ taskDone: {}, statusDone: {}, addedByDay: {}, movedBase: {}, hiddenBase: {}, order: {}, packDone: {}, passportDone: {} }),
     }),
     { name: 'roque-asia-2026' },
   ),
