@@ -5,6 +5,7 @@ import { DEST_HEX } from '../components/DayView'
 import DayView from '../components/DayView'
 
 export default function Itinerary() {
+  const todayIso = new Date().toISOString().slice(0, 10)
   const todayId = activeDay(new Date()).id
   const [sel, setSel] = useState<string>(todayId)
   const tabsRef = useRef<HTMLDivElement>(null)
@@ -29,6 +30,7 @@ export default function Itinerary() {
           const dest = destById(d.destinationId)
           const isSel = d.id === sel
           const isToday = d.id === todayId
+          const isPast = dayIso(d.id) < todayIso
           return (
             <button
               key={d.id}
@@ -39,7 +41,7 @@ export default function Itinerary() {
               <div className="dt-emoji">{dest.emoji}</div>
               <div className="dt-wd">{d.weekday}</div>
               <div className="dt-d">{d.date.replace(' ', ' ')}</div>
-              <div className="dt-dot" />
+              {isPast ? <div className="dt-check">✓</div> : <div className="dt-dot" />}
             </button>
           )
         })}

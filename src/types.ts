@@ -172,11 +172,14 @@ export interface Place {
   id: ID
   destinationId: ID
   name: string
+  kind: 'activity' | 'food' // para los tabs de Explorar
   category: string // Naturaleza · Playa · Templo · Comida · Mirador · Show · Parque · Compras · Actividad
   emoji: string
   coords?: { lat: number; lon: number }
   blurb: string
   kids?: string // por qué mola para los niños
+  must?: boolean // imprescindible
+  forKids?: boolean // especialmente recomendado para niños
   price?: string
   hours?: string
   rank: number // posición en el "top"

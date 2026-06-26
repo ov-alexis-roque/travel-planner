@@ -1,5 +1,33 @@
 import { trip } from '../data/trip'
-import type { Stop } from '../types'
+import type { Stop, Place } from '../types'
+
+interface PlanOverrides {
+  addedByDay: Record<string, string[]>
+  movedBase: Record<string, string>
+  hiddenBase: Record<string, boolean>
+}
+
+// ¿Está este sitio del catálogo ya en el plan? (añadido por el usuario o como parada base por coordenadas)
+export function findPlaceInPlan(place: Place, ov: PlanOverrides):
+  | { dayId: string; source: 'added' | 'base'; origDayId?: string; n?: number }
+  | null {
+  for (const [dayId, ids] of Object.entries(ov.addedByDay)) {
+    if (ids.includes(place.id)) return { dayId, source: 'added' }
+  }
+  if (place.coords) {
+    for (const d of trip.days) {
+      for (const s of d.stops ?? []) {
+        if (!s.coords) continue
+        if (ov.hiddenBase[`${d.id}:${s.n}`]) continue
+        if (Math.abs(s.coords.lat - place.coords.lat) < 0.0025 && Math.abs(s.coords.lon - place.coords.lon) < 0.0025) {
+          const eff = ov.movedBase[`${d.id}:${s.n}`] ?? d.id
+          return { dayId: eff, source: 'base', origDayId: d.id, n: s.n }
+        }
+      }
+    }
+  }
+  return null
+}
 
 export interface AgendaItem {
   key: string

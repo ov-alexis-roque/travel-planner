@@ -187,6 +187,8 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .day-tab .dt-wd { font-size: .68em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; }
 .day-tab .dt-d { font-size: 1.05em; font-weight: 800; margin-top: 1px; }
 .day-tab .dt-dot { width: 5px; height: 5px; border-radius: 50%; margin: 3px auto 0; background: var(--dest, var(--tr)); }
+.day-tab .dt-check { font-size: .62em; font-weight: 800; color: var(--ok); line-height: 1; margin-top: 2px; }
+.day-tab.active .dt-check { color: rgba(255,255,255,.95); }
 .day-tab.active { background: var(--dest, var(--ink)); border-color: var(--dest, var(--ink)); }
 .day-tab.active .dt-wd, .day-tab.active .dt-d { color: #fff; }
 .day-tab.active .dt-dot { background: rgba(255,255,255,.85); }
@@ -265,6 +267,8 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .pc-btn.ghost { background: #f0eee9; color: #555; }
 .pc-btn.ghost.danger { color: var(--urg); }
 .pc-assigned { font-size: .82em; font-weight: 800; color: var(--ok); }
+.place-card.in-plan { border-left-color: var(--ok); background: #f6fbf7; }
+.place-card.in-plan .pc-rank { background: var(--ok); }
 
 /* ===== Bottom sheet (day picker) ===== */
 .sheet-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; display: flex; align-items: flex-end; justify-content: center; animation: fadein .15s ease; }
