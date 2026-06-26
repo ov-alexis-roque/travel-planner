@@ -24,6 +24,17 @@ export default defineConfig({
             },
           },
           {
+            // Tasas de cambio (open.er-api): red primero, cache de respaldo offline
+            urlPattern: ({ url }) => url.host === 'open.er-api.com',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'fx',
+              networkTimeoutSeconds: 4,
+              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 3 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
             // Clima en vivo (Open-Meteo): red primero, cache de respaldo
             urlPattern: ({ url }) => url.host === 'api.open-meteo.com',
             handler: 'NetworkFirst',

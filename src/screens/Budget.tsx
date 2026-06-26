@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { eur } from '../lib/utils'
 
@@ -15,6 +16,11 @@ export default function Budget() {
         <h1>Presupuesto</h1>
         <div className="sub">4 personas · 23 días · estimado en EUR</div>
       </div>
+
+      <Link to="/cambio" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span><strong>💱 Cambio de moneda</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>conversor €/SGD/MYR/IDR · efectivo y propina · sin conexión</div></span>
+        <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
+      </Link>
 
       <div className="card">
         <div className="bgt-total">
