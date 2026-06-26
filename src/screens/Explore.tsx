@@ -5,7 +5,7 @@ import { DEST_HEX } from '../components/DayView'
 import DayPicker from '../components/DayPicker'
 import { findPlaceInPlan } from '../lib/agenda'
 import { gmapsUrl, distanceFromHotel, fmtKm } from '../lib/places-helpers'
-import { usePlanner } from '../store'
+import { usePlanner, useUI } from '../store'
 import type { Place } from '../types'
 
 type View = 'must' | 'activity' | 'food' | 'kids'
@@ -34,8 +34,11 @@ const VIEWS: { key: View; label: string }[] = [
 
 export default function Explore() {
   const dests = trip.destinations.filter((d) => d.id !== 'travel')
-  const [destId, setDestId] = useState(dests[0].id)
-  const [view, setView] = useState<View>('must')
+  // Destino y filtro viven en el store para que el mapa lateral (iPad) los siga.
+  const destId = useUI((s) => s.exploreDest)
+  const setDestId = useUI((s) => s.setExploreDest)
+  const view = useUI((s) => s.exploreView) as View
+  const setView = useUI((s) => s.setExploreView)
   const [sort, setSort] = useState<Sort>('rank')
   const [picker, setPicker] = useState<Place | null>(null)
 

@@ -186,6 +186,7 @@ export interface Place {
   hours?: string
   rank: number // posición en el "top"
   booking?: string // requiere reserva (url / nota)
+  provider?: string // proveedor recomendado (bien valorado) para contratar/contactar
   rating?: number // puntuación aprox. Google (orientativa)
   reviews?: string // nº de reseñas aprox. (p.ej. "250k")
 }
