@@ -31,15 +31,16 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
     if (valid.length === 0) return
 
     const map = L.map(ref.current, {
-      zoomControl: false,
+      zoomControl: interactive,
       attributionControl: false,
       dragging: interactive,
-      scrollWheelZoom: false,
+      scrollWheelZoom: interactive,
       doubleClickZoom: interactive,
       touchZoom: interactive,
       tap: interactive,
     })
     mapRef.current = map
+    if (interactive) map.zoomControl.setPosition('topright')
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
