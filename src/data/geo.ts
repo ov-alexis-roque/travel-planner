@@ -298,11 +298,11 @@ export const dayEnrich: Record<string, Enrich> = {
     ],
   },
   d14: {
-    highlights: ['🌿 Campuhan al alba', '🙏 Tirta Empul', '🧑‍🍳 Clase de cocina'],
+    highlights: ['🌿 Campuhan al alba', '🙏 Tirta Empul', '💦 Cascada / 🌴 Bali Swing'],
     quickTips: [
       'Campuhan Ridge al amanecer (~6:30): fresco, sombra y vacío. Según energía de Leo.',
       'Tirta Empul antes de las 11:00; llevar sarong (se alquila) para participar en la purificación.',
-      'Tarde de clase de cocina o piscina — última noche en Ubud.',
+      'Tarde a elegir: OPCIÓN A cascada Tegenungan (baño) o OPCIÓN B Bali Swing (columpios). Última noche en Ubud.',
     ],
     stops: [
       { n: 1, name: 'Campuhan Ridge Walk', category: 'Naturaleza', emoji: '🌿', coords: { lat: -8.5050, lon: 115.2530 }, time: '06:45', hours: 'Gratis', note: 'Loma de hierba entre valles al amanecer. Paseo suave y bonito antes del calor.',
@@ -313,10 +313,10 @@ export const dayEnrich: Record<string, Enrich> = {
         transitToNext: { mode: 'car', min: 25, note: 'A comer' } },
       { n: 4, name: 'Comida: Warung Biah Biah', category: 'Comida', emoji: '🍲', coords: { lat: -8.5060, lon: 115.2600 }, time: '13:00', note: 'Cocina balinesa auténtica y barata, favorita de locales.',
         transitToNext: { mode: 'car', min: 15, note: 'A la clase de cocina o al hotel' } },
-      { n: 5, name: 'Clase de cocina balinesa (Paon)', category: 'Actividad', emoji: '🧑‍🍳', alt: 'A', coords: { lat: -8.4900, lon: 115.2700 }, time: '15:00', hours: '~80€ familia', note: 'Visita a mercado + cocinar platos balineses en familia entre arrozales. Experiencia y cena hecha.', status: 'pending',
-        transitToNext: { mode: 'car', min: 10, note: 'A cenar' } },
-      { n: 6, name: 'Spa + piscina del hotel', category: 'Actividad', emoji: '💆', alt: 'B', coords: { lat: -8.5060, lon: 115.2620 }, time: '15:00', note: 'Tarde relajada: masaje balinés (baratísimo y buenísimo) y piscina. Ideal si los niños están cansados tras la mañana de templos.',
-        transitToNext: { mode: 'car', min: 10, note: 'A cenar' } },
+      { n: 5, name: 'Cascada Tegenungan', category: 'Naturaleza', emoji: '💦', alt: 'A', coords: { lat: -8.5746, lon: 115.2889 }, time: '15:00', hours: '~1€', note: 'Cascada accesible con poza para chapotear (escaleras hasta la base). Refrescante tras la mañana de templos.',
+        transitToNext: { mode: 'car', min: 15, note: 'A cenar' } },
+      { n: 6, name: 'Bali Swing', category: 'Actividad', emoji: '🌴', alt: 'B', coords: { lat: -8.4480, lon: 115.2540 }, time: '15:00', hours: '~30€', note: 'Columpios gigantes sobre la jungla y los arrozales (con arnés para los niños). Fotos y adrenalina suave.',
+        transitToNext: { mode: 'car', min: 20, note: 'A cenar' } },
       { n: 7, name: 'Cena: Bebek Bengil (Dirty Duck)', category: 'Comida', emoji: '🦆', coords: { lat: -8.5147, lon: 115.2625 }, time: '19:30', note: 'Pato crujiente entre arrozales. Última cena en Ubud; preparar maletas para Gili.' },
     ],
   },

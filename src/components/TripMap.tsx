@@ -21,10 +21,11 @@ interface Props {
   routeCount?: number // solo enrutar los primeros N puntos (el resto son pins sueltos)
   expandable?: boolean // botón de pantalla completa
   caption?: string // rótulo mostrado dentro del mapa
+  extraPoints?: MapPoint[] // sitios "por explorar" cerca (otro color, no en la ruta)
 }
 
 // Mapa Leaflet con marcadores numerados y ruta. Online (tiles CARTO Voyager).
-export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount, expandable = true, caption }: Props) {
+export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount, expandable = true, caption, extraPoints }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
   const [full, setFull] = useState(false)
@@ -72,6 +73,18 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       if (p.label) m.bindPopup(`<b>${p.label}</b>`, { closeButton: false })
     })
 
+    // Sitios "por explorar" cerca: pin secundario en otro color, fuera de la ruta
+    ;(extraPoints ?? []).filter((p) => typeof p.lat === 'number').forEach((p) => {
+      const icon = L.divIcon({
+        className: 'map-pin-wrap',
+        html: `<div class="map-pin extra">${p.emoji ?? '+'}</div>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      })
+      const m = L.marker([p.lat, p.lon], { icon, zIndexOffset: -100 }).addTo(map)
+      if (p.label) m.bindPopup(`<b>${p.label}</b><br><span style="color:#888">Está en Explorar — puedes añadirlo</span>`, { closeButton: false })
+    })
+
     const bounds = L.latLngBounds(valid.map((p) => [p.lat, p.lon] as [number, number]))
     map.fitBounds(bounds, { padding: [fitPadding, fitPadding], maxZoom: 14 })
 
@@ -83,7 +96,7 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       mapRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(points), height, routeCount])
+  }, [JSON.stringify(points), JSON.stringify(extraPoints), height, routeCount])
 
   // Recalcular tamaño al entrar/salir de pantalla completa
   useEffect(() => {

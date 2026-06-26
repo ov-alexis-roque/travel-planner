@@ -174,6 +174,7 @@ export interface Place {
   name: string
   kind: 'activity' | 'food' // para los tabs de Explorar
   category: string // Naturaleza · Playa · Templo · Comida · Mirador · Show · Parque · Compras · Actividad
+  zone?: string // barrio/área para agrupar lo cercano
   emoji: string
   coords?: { lat: number; lon: number }
   blurb: string

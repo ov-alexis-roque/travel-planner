@@ -84,6 +84,7 @@ export default function Explore() {
                 <span className="pc-name">{p.emoji} {p.name}</span>
               </div>
               <div className="pc-meta">
+                {p.zone && <span className="zone-tag">📍 {p.zone}</span>}
                 <span className="sc-cat">{p.category}</span>
                 {p.must && <span className="badge" style={{ background: '#fff3d6', color: '#9a6b00' }}>⭐ imprescindible</span>}
                 {p.forKids && <span className="badge" style={{ background: '#e6f4ff', color: '#1a5fa0' }}>🧒 niños</span>}

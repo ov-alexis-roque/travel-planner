@@ -182,7 +182,10 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .map-cap-full { position: absolute; top: calc(14px + env(safe-area-inset-top, 0px)); left: 12px; z-index: 1600; }
 .leaflet-container { font-family: inherit; background: #dfe6e9; }
 .map-pin { width: 26px; height: 26px; border-radius: 50%; color: #fff; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.35); border: 2px solid #fff; }
+.map-pin.extra { width: 22px; height: 22px; background: #fff; border: 2px dashed #c07000; font-size: 12px; opacity: .92; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
 .map-wrap { margin: 12px 14px; position: relative; }
+.map-legend { font-size: .76em; color: var(--muted); margin: 2px 16px 0; }
+.map-legend .lg-extra { color: #c07000; font-weight: 800; }
 .map-wrap .map-cap { position: absolute; top: 10px; left: 10px; z-index: 500; background: rgba(255,255,255,.92); backdrop-filter: blur(4px); padding: 5px 11px; border-radius: 999px; font-size: .72em; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,.15); pointer-events: none; }
 .leaflet-control-zoom a { border-radius: 8px !important; }
 
@@ -290,6 +293,7 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .pc-btn.ghost { background: #f0eee9; color: #555; }
 .pc-btn.ghost.danger { color: var(--urg); }
 .pc-assigned { font-size: .82em; font-weight: 800; color: var(--ok); }
+.zone-tag { background: #eef0f4; color: #556; font-weight: 700; padding: 1px 8px; border-radius: 999px; font-size: .92em; }
 .place-card.in-plan { border-left-color: var(--ok); background: #f6fbf7; }
 .place-card.in-plan .pc-rank { background: var(--ok); }
 

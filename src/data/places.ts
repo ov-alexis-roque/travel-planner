@@ -115,3 +115,38 @@ export const catalog: Place[] = [
   { id: 'sa-r-threemonkeys', destinationId: 'sanur', kind: 'food', rank: 4, forKids: true, name: 'Three Monkeys Sanur', category: 'Comida', emoji: '🌳', coords: { lat: -8.6870, lon: 115.2600 }, price: '25-35€', blurb: 'Jardín tropical: pasta, curries, steaks.', kids: 'Comida segura para niños.' },
   { id: 'sa-r-kayuapi', destinationId: 'sanur', kind: 'food', rank: 5, name: 'Kayu Api Smoke Grill & Coffee', category: 'Comida', emoji: '☕', coords: { lat: -8.6900, lon: 115.2620 }, price: '20-30€', blurb: 'BBQ y café de especialidad, buen brunch.', kids: 'Tranquilo.' },
 ]
+
+// Zona/barrio de cada sitio (para agrupar lo cercano en Explorar y el mapa).
+const ZONES: Record<string, string> = {
+  // Singapur
+  'sin-gardens': 'Marina Bay', 'sin-supertree': 'Marina Bay', 'sin-marina': 'Marina Bay', 'sin-flyer': 'Marina Bay', 'sin-artscience': 'Marina Bay', 'sin-merlion': 'Marina Bay', 'sin-r-gluttons': 'Marina Bay', 'sin-r-satay': 'Marina Bay', 'sin-r-laupasat': 'Marina Bay',
+  'sin-sentosa': 'Sentosa', 'sin-uss': 'Sentosa', 'sin-sea': 'Sentosa', 'sin-luge': 'Sentosa',
+  'sin-zoo': 'Mandai (norte)', 'sin-night': 'Mandai (norte)',
+  'sin-jewel': 'Aeropuerto Changi',
+  'sin-botanic': 'Orchard', 'sin-r-yakun': 'Orchard', 'sin-r-dintaifung': 'Orchard', 'sin-r-newton': 'Orchard',
+  'sin-chinatown': 'Chinatown', 'sin-r-maxwell': 'Chinatown',
+  'sin-r-tiongbahru': 'Tiong Bahru', 'sin-r-jumbo': 'Riverside',
+  // Sepilok
+  'sep-orc': 'Sepilok', 'sep-bear': 'Sepilok', 'sep-rdc': 'Sepilok', 'sep-r-bistro': 'Sepilok',
+  'sep-labuk': 'Labuk Bay', 'sep-turtle': 'Mar de Sandakan', 'sep-r-teahouse': 'Sandakan',
+  // Kinabatangan
+  'kin-dawn': 'Río Kinabatangan', 'kin-dusk': 'Río Kinabatangan', 'kin-night': 'Río Kinabatangan', 'kin-firefly': 'Río Kinabatangan', 'kin-r-lodge': 'Río Kinabatangan', 'kin-gomantong': 'Gomantong',
+  // KL
+  'kl-petronas': 'KLCC', 'kl-aquaria': 'KLCC', 'kl-park': 'KLCC', 'kl-petrosains': 'KLCC', 'kl-r-madamkwan': 'KLCC',
+  'kl-tower': 'Bukit Bintang', 'kl-r-atmosphere': 'Bukit Bintang', 'kl-r-alor': 'Bukit Bintang', 'kl-r-hutong': 'Bukit Bintang',
+  'kl-batu': 'Batu Caves (norte)', 'kl-sunway': 'Sunway (PJ)', 'kl-genting': 'Genting', 'kl-zoo': 'Ampang',
+  'kl-central': 'Centro histórico', 'kl-r-yutkee': 'Centro histórico', 'kl-birdpark': 'Lake Gardens', 'kl-r-village': 'Damansara',
+  // Ubud
+  'ub-tegallalang': 'Tegallalang (norte)', 'ub-swing': 'Tegallalang (norte)', 'ub-r-sari': 'Tegallalang (norte)',
+  'ub-monkey': 'Ubud centro', 'ub-market': 'Ubud centro', 'ub-campuhan': 'Ubud centro', 'ub-cooking': 'Ubud centro', 'ub-r-murni': 'Ubud centro', 'ub-r-biahbiah': 'Ubud centro', 'ub-r-bebek': 'Ubud centro', 'ub-r-nuri': 'Ubud centro',
+  'ub-tirta': 'Tampaksiring (norte)', 'ub-gunungkawi': 'Tampaksiring (norte)',
+  'ub-waterfall': 'Sur de Ubud', 'ub-goagajah': 'Sur de Ubud',
+  // Gili Air
+  'gili-turtles': 'Gili Air', 'gili-bike': 'Gili Air', 'gili-snorkeltrip': 'Gili Air', 'gili-sunset': 'Gili Air', 'gili-cidomo': 'Gili Air', 'gili-r-mowies': 'Gili Air', 'gili-r-pachamama': 'Gili Air',
+  // Sanur + day trips
+  'sa-penida': 'Nusa Penida', 'sa-crystal': 'Nusa Penida',
+  'sa-waterbom': 'Kuta', 'sa-uluwatu': 'Uluwatu (sur)', 'sa-tanahlot': 'Tanah Lot (oeste)', 'sa-safari': 'Gianyar',
+  'sa-tirtagangga': 'Este de Bali', 'sa-lempuyang': 'Este de Bali',
+  'sa-surf': 'Sanur', 'sa-beachbike': 'Sanur', 'sa-nightmarket': 'Sanur', 'sa-r-makbeng': 'Sanur', 'sa-r-massimo': 'Sanur', 'sa-r-soul': 'Sanur', 'sa-r-threemonkeys': 'Sanur', 'sa-r-kayuapi': 'Sanur',
+}
+catalog.forEach((p) => { p.zone = ZONES[p.id] })
