@@ -186,6 +186,7 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .map-anchor { width: 34px; height: 34px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; box-shadow: 0 2px 7px rgba(0,0,0,.35); }
 .map-anchor.hotel { border: 3px solid #006994; }
 .map-anchor.airport { border: 3px solid #4a4a6a; }
+.map-anchor.atm { width: 28px; height: 28px; font-size: 14px; border: 2px solid #1a8a5a; }
 .map-wrap { margin: 12px 14px; position: relative; }
 .map-legend { font-size: .76em; color: var(--muted); margin: 2px 16px 0; }
 .map-legend .lg-extra { color: #c07000; font-weight: 800; }
@@ -509,3 +510,10 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .cash-card .cash-cur { font-weight: 600; color: var(--muted); font-size: .85em; }
 .cash-kv { display: flex; gap: 10px; font-size: .84em; padding: 5px 0; }
 .cash-kv .k { flex: 0 0 86px; color: var(--muted); font-weight: 700; }
+
+/* ============ Lista de cajeros (Cambio) ============ */
+.atm-list { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--line); }
+.atm-list-head { font-size: .76em; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 6px; }
+.atm-item { padding: 5px 0; }
+.ai-name { display: block; font-size: .85em; font-weight: 700; }
+.ai-note { display: block; font-size: .78em; color: var(--muted); line-height: 1.35; }

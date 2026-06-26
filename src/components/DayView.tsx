@@ -4,7 +4,7 @@ import { trip } from '../data/trip'
 import { destById, destStyle, KIND_LABEL } from '../lib/utils'
 import { usePlanner, useUI } from '../store'
 import { buildAgenda, type AgendaItem } from '../lib/agenda'
-import { dayAnchors } from '../lib/anchors'
+import { dayAnchors, dayAtms } from '../lib/anchors'
 import { gmapsUrl } from '../lib/places-helpers'
 import { regionInfo } from '../data/regions'
 import TripMap, { type MapPoint } from './TripMap'
@@ -169,12 +169,12 @@ export default function DayView({ day }: { day: Day }) {
       {/* Mapa del día */}
       {mapPointsResolved.length > 0 && (
         <div className="map-wrap">
-          <TripMap points={mapPointsResolved} height={190} caption={`🗺️ ${day.title}`} extraPoints={extraPoints} anchors={dayAnchors(day)} />
+          <TripMap points={mapPointsResolved} height={190} caption={`🗺️ ${day.title}`} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} />
           <span className="map-cap">🗺️ Recorrido del día · {mapPointsResolved.length} paradas</span>
         </div>
       )}
       {extraPoints.length > 0 && (
-        <div className="map-legend">● paradas del día · <span className="lg-extra">◌</span> por explorar cerca (toca un pin) → añádelo desde <b>Explorar</b></div>
+        <div className="map-legend">● paradas del día · <span className="lg-extra">◌</span> por explorar cerca · 🏧 cajeros · 🏨 hotel · ✈️ aeropuerto</div>
       )}
 
       {/* Reservas / estado */}

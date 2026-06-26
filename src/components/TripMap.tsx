@@ -10,7 +10,7 @@ export interface MapPoint {
   color?: string
   key?: string // para hacer scroll a la actividad al hacer clic
 }
-export interface MapAnchor { lat: number; lon: number; kind: 'hotel' | 'airport'; label: string }
+export interface MapAnchor { lat: number; lon: number; kind: 'hotel' | 'airport' | 'atm'; label: string; note?: string }
 
 interface Props {
   points: MapPoint[]
@@ -78,16 +78,18 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       if (onPointClick && p.key) m.on('click', () => onPointClick(p.key as string))
     })
 
-    // Anclas fijas destacadas: hotel y aeropuerto
+    // Anclas fijas destacadas: hotel, aeropuerto y cajeros
     ;(anchors ?? []).filter((a) => typeof a.lat === 'number').forEach((a) => {
-      const emoji = a.kind === 'hotel' ? '🏨' : '✈️'
+      const emoji = a.kind === 'hotel' ? '🏨' : a.kind === 'airport' ? '✈️' : '🏧'
+      const size = a.kind === 'atm' ? 28 : 34
       const icon = L.divIcon({
         className: 'map-pin-wrap',
         html: `<div class="map-anchor ${a.kind}">${emoji}</div>`,
-        iconSize: [34, 34],
-        iconAnchor: [17, 17],
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
       })
-      L.marker([a.lat, a.lon], { icon, zIndexOffset: 200 }).addTo(map).bindPopup(`<b>${emoji} ${a.label}</b>`, { closeButton: false })
+      const popup = `<b>${emoji} ${a.label}</b>${a.note ? `<br><span style="color:#666">${a.note}</span>` : ''}`
+      L.marker([a.lat, a.lon], { icon, zIndexOffset: a.kind === 'atm' ? 120 : 200 }).addTo(map).bindPopup(popup, { closeButton: false })
     })
 
     // Sitios "por explorar" cerca: pin secundario en otro color, fuera de la ruta

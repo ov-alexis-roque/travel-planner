@@ -1,6 +1,7 @@
 import { trip } from '../data/trip'
 import type { Day } from '../types'
 import type { MapAnchor } from '../components/TripMap'
+import { atmsByDest } from '../data/atms'
 
 const AIRPORT: Record<string, { lat: number; lon: number; label: string }> = {
   sin: { lat: 1.3564, lon: 103.9876, label: 'Aeropuerto Changi' },
@@ -21,4 +22,11 @@ export function dayAnchors(day: Day): MapAnchor[] {
   const ap = AIRPORT[day.destinationId]
   if (ap) out.push({ lat: ap.lat, lon: ap.lon, kind: 'airport', label: ap.label })
   return out
+}
+
+// Cajeros de la zona del día (capa 🏧 en el mapa).
+export function dayAtms(day: Day): MapAnchor[] {
+  return (atmsByDest[day.destinationId] ?? []).map((a) => ({
+    lat: a.coords.lat, lon: a.coords.lon, kind: 'atm', label: a.name, note: a.note,
+  }))
 }

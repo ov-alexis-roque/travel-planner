@@ -1,7 +1,7 @@
 import { trip } from '../data/trip'
 import { activeDay, destById } from '../lib/utils'
 import { buildAgenda } from '../lib/agenda'
-import { dayAnchors } from '../lib/anchors'
+import { dayAnchors, dayAtms } from '../lib/anchors'
 import { usePlanner, useUI } from '../store'
 import TripMap, { type MapPoint } from './TripMap'
 import { DEST_HEX } from './DayView'
@@ -41,7 +41,7 @@ export default function SideMap() {
       <div className="side-map-head">🗺️ {day.dayNumber === null ? 'Salida' : `Día ${day.dayNumber}`} · {day.date} · {dest.emoji} {day.title}</div>
       <div className="side-map-canvas">
         {points.length > 0 ? (
-          <TripMap key={day.id} points={points} extraPoints={extraPoints} anchors={dayAnchors(day)} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} />
+          <TripMap key={day.id} points={points} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} />
         ) : (
           <div className="empty">Sin mapa para este día.</div>
         )}

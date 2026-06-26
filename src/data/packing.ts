@@ -90,8 +90,11 @@ export const packGroups: PackGroup[] = [
     items: [
       { id: 'p-adaptador-g', label: 'Adaptador enchufe Tipo G', note: 'Singapur y Malasia (clavija británica de 3 patas).' },
       { id: 'p-adaptador-c', label: 'Adaptador enchufe Tipo C/F', note: 'Indonesia (Bali/Gili) usa clavija europea de 2 patas redondas — la vuestra de casa sirve.' },
-      { id: 'p-powerbank', label: 'Power bank', qty: '1–2', note: 'En la mochila de mano, NUNCA en bodega (aunque no facturéis).' },
-      { id: 'p-cargadores', label: 'Cargadores y cables', note: 'Móviles, cámara, power bank.' },
+      { id: 'p-powerbank', label: 'Power bank', qty: '1–2', note: 'Siempre en la mochila de mano (NUNCA en bodega, aunque no facturéis). Revisar capacidad permitida (<100 Wh).' },
+      { id: 'p-cargadores', label: 'Cargadores y cables', note: 'Uno por dispositivo: móviles, cámara, power bank, iPad, consola. Mejor un cargador multipuerto USB.' },
+      { id: 'p-ipad', label: 'iPad + cargador', note: 'Vuelos largos y escalas. Descargad pelis/series y juegos offline antes de salir.' },
+      { id: 'p-consola', label: 'Consola retro + juegos + cargador', kids: true, note: 'Para los trayectos y esperas. Cargada y con los juegos ya metidos.' },
+      { id: 'p-auriculares', label: 'Auriculares (y splitter para 2)', kids: true, note: 'Un repartidor de audio para que Aira y Leo vean lo mismo en el avión.' },
       { id: 'p-esim', label: 'eSIM / datos', note: 'eSIM regional Asia o local. Bali: app Gojek/Grab necesita datos.' },
       { id: 'p-apps', label: 'Apps offline listas', note: 'Esta app instalada, Google Maps offline de cada zona, Grab (SG/MY) y Gojek (Bali).' },
       { id: 'p-docs', label: 'Documentos + copias', note: 'Pasaportes (validez 6+ meses), copias digitales y en papel, seguro de viaje, reservas.' },

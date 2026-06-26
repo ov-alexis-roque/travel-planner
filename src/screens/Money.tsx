@@ -2,6 +2,12 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CURRENCIES, type Cur, useRates, fetchRates, convert, fmtCur } from '../lib/fx'
 import { cashNorms, cardTip } from '../data/money'
+import { atmsByDest } from '../data/atms'
+
+// Mapa país -> destinos para listar sus cajeros.
+const COUNTRY_DESTS: Record<string, string[]> = {
+  sg: ['sin'], my: ['sepilok', 'kinabatangan', 'kl'], id: ['ubud', 'gili', 'sanur'],
+}
 
 export default function Money() {
   const [rates, setRates] = useState(useRates())
@@ -68,6 +74,14 @@ export default function Money() {
           <div className="cash-kv"><span className="k">🏧 Cajeros</span><span>{c.atm}</span></div>
           <div className="cash-kv"><span className="k">🪙 Propina</span><span>{c.tipping}</span></div>
           <div className="cash-kv"><span className="k">💵 Efectivo</span><span>{c.cash}</span></div>
+          {(COUNTRY_DESTS[c.id] ?? []).flatMap((d) => atmsByDest[d] ?? []).length > 0 && (
+            <div className="atm-list">
+              <div className="atm-list-head">🏧 Dónde sacar (también en el mapa de cada día)</div>
+              {(COUNTRY_DESTS[c.id] ?? []).flatMap((d) => atmsByDest[d] ?? []).map((a, i) => (
+                <div key={i} className="atm-item"><span className="ai-name">{a.name}</span>{a.note && <span className="ai-note">{a.note}</span>}</div>
+              ))}
+            </div>
+          )}
         </div>
       ))}
       <div style={{ height: 12 }} />
