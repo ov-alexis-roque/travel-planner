@@ -123,6 +123,7 @@ ul { list-style: none; }
 .task .twhere { font-size: .76em; color: var(--sa); font-weight: 600; }
 .task .tcost { font-size: .76em; font-weight: 800; color: var(--ink); background: #f0eee9; padding: 1px 7px; border-radius: 6px; }
 .urg-head { display: flex; align-items: center; gap: 7px; margin: 18px 16px 4px; font-size: .8em; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+.done-head { display: flex; justify-content: space-between; align-items: center; width: calc(100% - 28px); margin: 18px 14px 4px; padding: 10px 14px; background: #eef5ef; color: var(--ok); border-radius: 12px; font-weight: 800; font-size: .85em; }
 .urg-dot { width: 9px; height: 9px; border-radius: 50%; }
 
 /* ===== Budget ===== */
@@ -138,6 +139,12 @@ ul { list-style: none; }
 .bgt-row:last-child { border-bottom: none; }
 .bgt-row .c { flex: 1; min-width: 0; font-size: .88em; }
 .bgt-row .a { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ===== KPIs (Resumen) ===== */
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.kpi { text-align: center; }
+.kpi-n { font-size: 1.5em; font-weight: 800; letter-spacing: -.5px; line-height: 1; }
+.kpi-l { font-size: .68em; color: var(--muted); margin-top: 4px; font-weight: 600; }
 
 /* ===== Destination card ===== */
 .dest-card { border-radius: 16px; margin: 12px 14px; overflow: hidden; border: 1px solid var(--line); background: var(--card); }

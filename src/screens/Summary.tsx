@@ -1,6 +1,25 @@
 import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
-import { destStyle, eur } from '../lib/utils'
+import { destStyle, eur, distanceKm } from '../lib/utils'
+
+// Coordenadas de aeropuertos para calcular km volados
+const AIRPORTS: Record<string, { lat: number; lon: number }> = {
+  BCN: { lat: 41.297, lon: 2.083 }, SIN: { lat: 1.356, lon: 103.988 },
+  KUL: { lat: 2.745, lon: 101.71 }, SDK: { lat: 5.901, lon: 118.059 }, DPS: { lat: -8.747, lon: 115.167 },
+}
+function flightStats() {
+  const flights = trip.legs.filter((l) => l.type === 'flight')
+  let mins = 0, km = 0
+  for (const f of flights) {
+    const d = f.duration ?? ''
+    const h = /(\d+)\s*h/.exec(d)
+    const m = /h\s*(\d+)/.exec(d)
+    mins += (h ? +h[1] * 60 : 0) + (m ? +m[1] : 0)
+    const a = AIRPORTS[f.from], b = AIRPORTS[f.to]
+    if (a && b) km += distanceKm([a, b])
+  }
+  return { count: flights.length, hours: Math.round(mins / 60), km: Math.round(km) }
+}
 import { usePlanner } from '../store'
 import TripMap, { type MapPoint } from '../components/TripMap'
 import { DEST_HEX } from '../components/DayView'
@@ -13,6 +32,25 @@ export default function Summary() {
   const total = trip.budget.reduce((s, b) => s + b.amount, 0)
   const paid = trip.budget.filter((b) => b.status === 'paid').reduce((s, b) => s + b.amount, 0)
 
+  const fs = flightStats()
+  const catCount: Record<string, number> = {}
+  trip.days.forEach((d) => (d.stops ?? []).forEach((s) => { catCount[s.category] = (catCount[s.category] ?? 0) + 1 }))
+  const cruises = trip.days.flatMap((d) => d.stops ?? []).filter((s) => /crucero/i.test(s.name)).length
+  const kpis = [
+    { n: `${trip.stats.days}`, l: '🗓️ días' },
+    { n: `${trip.stats.destinations}`, l: '🌍 países' },
+    { n: `${fs.count}`, l: '✈️ vuelos' },
+    { n: `${fs.hours}h`, l: '🕐 en el aire' },
+    { n: `${(fs.km / 1000).toFixed(1)}k`, l: '🛬 km volados' },
+    { n: `${trip.stats.nights}`, l: '🛏️ noches' },
+  ]
+  const funFacts = [
+    `🛬 ${fs.km.toLocaleString('es-ES')} km en avión — casi ${(fs.km / 40075).toFixed(2).replace('.', ',')} vueltas al planeta`,
+    `🦧 ${cruises} cruceros de fauna por el río Kinabatangan`,
+    `🏛️ ${catCount['Templo'] ?? 0} templos · 🏖️ ${catCount['Playa'] ?? 0} playas · 🌿 ${catCount['Naturaleza'] ?? 0} planes de naturaleza`,
+    `💶 ${eur(total)} para 4 personas · ${eur(Math.round(total / trip.stats.days / 4))}/persona y día`,
+  ]
+
   // Mapa global: una parada por destino, en orden de ruta
   const routePoints: MapPoint[] = dests
     .filter((d) => d.coords)
@@ -23,6 +61,19 @@ export default function Summary() {
       <div className="page-head">
         <h1>Resumen del viaje</h1>
         <div className="sub">{trip.subtitle}</div>
+      </div>
+
+      {/* KPIs */}
+      <div className="card kpi-grid">
+        {kpis.map((k, i) => (
+          <div key={i} className="kpi"><div className="kpi-n">{k.n}</div><div className="kpi-l">{k.l}</div></div>
+        ))}
+      </div>
+
+      {/* Fun facts */}
+      <div className="section-title">¿Sabías que…?</div>
+      <div className="card">
+        {funFacts.map((f, i) => <div key={i} className="qtip"><span className="qi">✨</span><span>{f}</span></div>)}
       </div>
 
       {/* Mapa de toda la ruta */}
