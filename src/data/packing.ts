@@ -112,6 +112,49 @@ export const packGroups: PackGroup[] = [
   },
 ]
 
+// Apps imprescindibles a descargar (con WiFi, antes de salir). Se marcan en la
+// checklist igual que la maleta (mismo packDone, ids con prefijo app-).
+export const appGroups: { title: string; icon: string; items: PackItem[] }[] = [
+  {
+    title: 'Transporte (taxi/coche)', icon: '🚗',
+    items: [
+      { id: 'app-grab', label: 'Grab', note: 'Singapur y Malasia: taxi, coche, también comida (GrabFood). El “Uber” de la zona.' },
+      { id: 'app-gojek', label: 'Gojek', note: 'Bali/Indonesia: moto, coche, comida (GoFood) y pagos. Imprescindible en Bali.' },
+    ],
+  },
+  {
+    title: 'Comida a domicilio y reservas', icon: '🍜',
+    items: [
+      { id: 'app-grabfood', label: 'GrabFood / Foodpanda', note: 'Comida a domicilio en SG y KL (Foodpanda es la otra grande).' },
+      { id: 'app-chope', label: 'Chope', note: 'Reservar restaurantes en Singapur y KL (la app de “Grill/reservas” que recordabas).' },
+    ],
+  },
+  {
+    title: 'Mapas y traductor', icon: '🗺️',
+    items: [
+      { id: 'app-gmaps', label: 'Google Maps', note: 'Descarga offline las zonas (Singapur, KL, Ubud, Sanur) antes de ir.' },
+      { id: 'app-translate', label: 'Google Translate', note: 'Descarga malayo e indonesio para traducir sin conexión y con la cámara.' },
+      { id: 'app-whatsapp', label: 'WhatsApp', note: 'Hoteles, transfers y operadores se comunican por aquí.' },
+    ],
+  },
+  {
+    title: 'Vuelos (check-in online)', icon: '✈️',
+    items: [
+      { id: 'app-airasia', label: 'AirAsia (MOVE)', note: 'Vuelos AK: check-in online y tarjeta de embarque. Clave para los trasbordos.' },
+      { id: 'app-sia', label: 'Singapore Airlines', note: 'Vuelo BCN↔SIN (SQ387/388).' },
+      { id: 'app-scoot', label: 'Scoot', note: 'Vuelo DPS→SIN de vuelta (TR289).' },
+    ],
+  },
+  {
+    title: 'Tickets, planes y conectividad', icon: '🎟️',
+    items: [
+      { id: 'app-klook', label: 'Klook', note: 'Entradas más baratas y sin colas: Gardens by the Bay, Petronas, parques…' },
+      { id: 'app-airalo', label: 'Airalo (eSIM)', note: 'Datos en cada país sin cambiar de SIM. Activar al aterrizar.' },
+      { id: 'app-revolut', label: 'Revolut', note: 'Tu tarjeta de viaje; paga siempre en moneda local.' },
+    ],
+  },
+]
+
 // Plan de lavandería: con maleta de cabina y 23 días, lavar 2–3 veces.
 export const laundryPlan = [
   { when: 'Borneo (Sepilok / Sukau · 15–20 jul)', what: 'La ropa de selva acaba sudada y embarrada. Los lodges ofrecen lavado; lava lo de safari aquí antes de KL.' },

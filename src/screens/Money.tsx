@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CURRENCIES, type Cur, useRates, fetchRates, convert, fmtCur } from '../lib/fx'
-import { cashNorms } from '../data/money'
+import { cashNorms, cardTip } from '../data/money'
 
 export default function Money() {
   const [rates, setRates] = useState(useRates())
@@ -58,12 +58,14 @@ export default function Money() {
         ))}
       </div>
 
-      {/* Efectivo y propina por país */}
-      <div className="section-title">💵 Efectivo, tarjeta y propina</div>
+      {/* Efectivo, tarjeta, propina y cajeros por país */}
+      <div className="section-title">💵 Efectivo, tarjeta y cajeros</div>
+      <div className="card tip info" style={{ margin: '0 14px 10px' }}>💳 {cardTip}</div>
       {cashNorms.map((c) => (
         <div key={c.id} className="card cash-card">
           <div className="cash-head">{c.flag} {c.country} · <span className="cash-cur">{c.cur}</span></div>
           <div className="cash-kv"><span className="k">💳 Tarjeta</span><span>{c.cards}</span></div>
+          <div className="cash-kv"><span className="k">🏧 Cajeros</span><span>{c.atm}</span></div>
           <div className="cash-kv"><span className="k">🪙 Propina</span><span>{c.tipping}</span></div>
           <div className="cash-kv"><span className="k">💵 Efectivo</span><span>{c.cash}</span></div>
         </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { packGroups, laundryPlan, luggageStrategy } from '../data/packing'
+import { packGroups, appGroups, laundryPlan, luggageStrategy } from '../data/packing'
 import { usePlanner } from '../store'
 
 export default function Packing() {
@@ -68,6 +68,29 @@ export default function Packing() {
           </div>
         )
       })}
+
+      {/* Apps imprescindibles */}
+      <div className="section-title" style={{ marginTop: 18 }}>📲 Apps para descargar (con WiFi, antes de salir)</div>
+      <div className="pack-intro">Instálalas y configúralas en casa: en destino tendrás datos justos. Grab/Gojek para moverte, AirAsia para el check-in, Google Maps y Translate offline.</div>
+      {appGroups.map((g) => (
+        <div key={g.title}>
+          <div className="section-title pack-head" style={{ fontSize: '.82em' }}><span>{g.icon} {g.title}</span></div>
+          <div className="card">
+            {g.items.map((it) => {
+              const on = !!packDone[it.id]
+              return (
+                <button key={it.id} className={`check pack-item ${on ? 'on' : ''}`} onClick={() => togglePack(it.id)}>
+                  <span className="box">{on ? '✓' : ''}</span>
+                  <span className="ct">
+                    <span className="pi-label">{it.label}</span>
+                    {it.note && <span className="pi-note">{it.note}</span>}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ))}
       <div style={{ height: 12 }} />
     </div>
   )
