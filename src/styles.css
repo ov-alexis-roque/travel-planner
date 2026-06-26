@@ -183,6 +183,7 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .day-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 8px 14px 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .day-tabs::-webkit-scrollbar { display: none; }
 .day-tab { flex-shrink: 0; min-width: 56px; text-align: center; padding: 8px 12px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); transition: .15s; }
+.day-tab .dt-emoji { font-size: 1.1em; line-height: 1; margin-bottom: 3px; }
 .day-tab .dt-wd { font-size: .68em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; }
 .day-tab .dt-d { font-size: 1.05em; font-weight: 800; margin-top: 1px; }
 .day-tab .dt-dot { width: 5px; height: 5px; border-radius: 50%; margin: 3px auto 0; background: var(--dest, var(--tr)); }

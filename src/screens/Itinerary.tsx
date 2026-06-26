@@ -36,6 +36,7 @@ export default function Itinerary() {
               style={{ ['--dest' as string]: DEST_HEX[dest.colorVar] }}
               onClick={() => setSel(d.id)}
             >
+              <div className="dt-emoji">{dest.emoji}</div>
               <div className="dt-wd">{d.weekday}</div>
               <div className="dt-d">{d.date.replace(' ', ' ')}</div>
               <div className="dt-dot" />
