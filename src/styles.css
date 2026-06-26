@@ -232,6 +232,22 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .transit-info b { color: var(--ink); }
 .transit-info .ti-tip { margin-top: 4px; color: #555; }
 
+/* ===== Region intro card ===== */
+.region-card { border-top: 4px solid var(--dest, var(--sa)); }
+.region-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; text-align: left; font-weight: 800; font-size: .98em; }
+.region-head .region-sub { font-weight: 500; color: var(--muted); font-size: .85em; }
+.region-body { margin-top: 10px; }
+.region-intro { font-size: .9em; line-height: 1.5; color: #333; }
+.region-sec { font-size: .74em; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 800; margin: 14px 0 6px; }
+.region-legend { background: var(--dest-l, #f0f4ff); border-radius: 11px; padding: 11px 13px; margin-top: 8px; }
+.region-legend .rl-title { font-weight: 800; font-size: .9em; }
+.region-legend .rl-text { font-size: .86em; line-height: 1.5; margin-top: 4px; color: #333; }
+.phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.phrase { background: #f3f1ec; border-radius: 11px; padding: 9px 11px; text-align: left; display: flex; flex-direction: column; gap: 2px; }
+.phrase .ph-es { font-size: .76em; color: var(--muted); font-weight: 700; }
+.phrase .ph-local { font-weight: 800; font-size: .95em; }
+.region-shop { font-size: .86em; line-height: 1.5; margin-top: 3px; }
+
 /* ===== Climate chip ===== */
 .climate { display: flex; align-items: center; gap: 12px; }
 .climate .temp { font-size: 2em; font-weight: 800; letter-spacing: -1px; }

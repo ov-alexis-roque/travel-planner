@@ -4,9 +4,20 @@ import { trip } from '../data/trip'
 import { destById, destStyle, KIND_LABEL } from '../lib/utils'
 import { usePlanner } from '../store'
 import { buildAgenda, type AgendaItem } from '../lib/agenda'
+import { regionInfo } from '../data/regions'
 import TripMap, { type MapPoint } from './TripMap'
 import DayPicker from './DayPicker'
 import { Tip } from './common'
+
+function speak(text: string, lang: string) {
+  try {
+    const u = new SpeechSynthesisUtterance(text)
+    u.lang = lang
+    u.rate = 0.9
+    window.speechSynthesis.cancel()
+    window.speechSynthesis.speak(u)
+  } catch { /* sin soporte de voz */ }
+}
 
 const TRANSIT_ICON: Record<TransitMode, string> = {
   walk: '🚶', car: '🚗', flight: '✈️', ferry: '⛴️', boat: '🛥️', train: '🚆', bus: '🚌',
@@ -56,6 +67,8 @@ export default function DayView({ day }: { day: Day }) {
   const addPlace = usePlanner((s) => s.addPlace)
   const removePlace = usePlanner((s) => s.removePlace)
   const [moving, setMoving] = useState<AgendaItem | null>(null)
+  const region = regionInfo[day.id]
+  const [openRegion, setOpenRegion] = useState(true)
 
   const legs = (day.legIds ?? []).map((lid) => trip.legs.find((l) => l.id === lid)).filter(Boolean)
   const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
@@ -109,6 +122,39 @@ export default function DayView({ day }: { day: Day }) {
           </div>
         )}
       </div>
+
+      {/* Intro de país (al iniciar un destino) */}
+      {region && (
+        <div className="card region-card">
+          <button className="region-head" onClick={() => setOpenRegion((v) => !v)}>
+            <span>{region.flag} Conoce {region.title} <span className="region-sub">— para contarles a los peques</span></span>
+            <span>{openRegion ? '▲' : '▼'}</span>
+          </button>
+          {openRegion && (
+            <div className="region-body">
+              <p className="region-intro">{region.intro}</p>
+              <div className="region-sec">🤓 ¿Sabías que…?</div>
+              {region.funFacts.map((f, i) => <div key={i} className="qtip"><span className="qi">✨</span><span>{f}</span></div>)}
+              <div className="region-legend">
+                <div className="rl-title">{region.legend.title}</div>
+                <div className="rl-text">{region.legend.text}</div>
+              </div>
+              <div className="region-sec">🗣️ Cuatro palabras (toca 🔊 para oírlas)</div>
+              <div className="phrase-grid">
+                {region.phrases.map((ph, i) => (
+                  <button key={i} className="phrase" onClick={() => speak(ph.local, ph.lang)}>
+                    <span className="ph-es">{ph.es}</span>
+                    <span className="ph-local">🔊 {ph.local}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="region-sec">🛍️ De compras</div>
+              <div className="region-shop"><b>Qué:</b> {region.shopping.what}</div>
+              <div className="region-shop"><b>Dónde:</b> {region.shopping.where}</div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Mapa del día */}
       {mapPointsResolved.length > 0 && (
