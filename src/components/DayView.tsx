@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Day, Stop, TransitMode } from '../types'
 import { trip } from '../data/trip'
 import { destById, destStyle, KIND_LABEL } from '../lib/utils'
-import { usePlanner } from '../store'
+import { usePlanner, useUI } from '../store'
 import { buildAgenda, type AgendaItem } from '../lib/agenda'
 import { dayAnchors } from '../lib/anchors'
 import { gmapsUrl } from '../lib/places-helpers'
@@ -71,6 +71,8 @@ export default function DayView({ day }: { day: Day }) {
   const [moving, setMoving] = useState<AgendaItem | null>(null)
   const region = regionInfo[day.id]
   const [openRegion, setOpenRegion] = useState(true)
+  const setFocusDay = useUI((s) => s.setFocusDay)
+  useEffect(() => { setFocusDay(day.id) }, [day.id, setFocusDay])
 
   const legs = (day.legIds ?? []).map((lid) => trip.legs.find((l) => l.id === lid)).filter(Boolean)
   const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'

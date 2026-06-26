@@ -1,7 +1,8 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { activeDay, daysUntilTrip, destById, destStyle, dayIntro, distanceKm, visitStops } from '../lib/utils'
-import { usePlanner } from '../store'
+import { usePlanner, useUI } from '../store'
 import { useWeather, weatherEmoji } from '../lib/weather'
 import { useGeo } from '../lib/useGeo'
 import { todayBrief } from '../lib/brief'
@@ -20,6 +21,8 @@ export default function Today() {
   const { data: wx, live } = useWeather(focusDest.coords)
   const geo = useGeo()
   const brief = todayBrief(now, isTaskDoneSel)
+  const setFocusDay = useUI((s) => s.setFocusDay)
+  useEffect(() => { setFocusDay(today.id) }, [today.id, setFocusDay])
 
   const idx = trip.days.findIndex((d) => d.id === today.id)
   const nextDay = trip.days[idx + 1]

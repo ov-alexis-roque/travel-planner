@@ -8,6 +8,7 @@ import Explore from './screens/Explore'
 import Flights from './screens/Flights'
 import Tasks from './screens/Tasks'
 import Budget from './screens/Budget'
+import SideMap from './components/SideMap'
 
 const NAV = [
   { to: '/', icon: '🏠', label: 'Hoy', end: true },
@@ -29,30 +30,36 @@ export default function App() {
   }, [])
 
   return (
-    <div className="app">
-      {!online && (
-        <div className="offline-bar">📴 Sin conexión · plan e itinerario disponibles · los mapas usan lo ya descargado</div>
-      )}
-      <Routes>
-        <Route path="/" element={<Today />} />
-        <Route path="/resumen" element={<Summary />} />
-        <Route path="/itinerario" element={<Itinerary />} />
-        <Route path="/explorar" element={<Explore />} />
-        <Route path="/dia/:id" element={<DayDetail />} />
-        <Route path="/vuelos" element={<Flights />} />
-        <Route path="/pendientes" element={<Tasks />} />
-        <Route path="/presupuesto" element={<Budget />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+    <div className="app-shell">
+      <div className="app">
+        {!online && (
+          <div className="offline-bar">📴 Sin conexión · plan e itinerario disponibles · los mapas usan lo ya descargado</div>
+        )}
+        <Routes>
+          <Route path="/" element={<Today />} />
+          <Route path="/resumen" element={<Summary />} />
+          <Route path="/itinerario" element={<Itinerary />} />
+          <Route path="/explorar" element={<Explore />} />
+          <Route path="/dia/:id" element={<DayDetail />} />
+          <Route path="/vuelos" element={<Flights />} />
+          <Route path="/pendientes" element={<Tasks />} />
+          <Route path="/presupuesto" element={<Budget />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
 
-      <nav className="bottom">
-        {NAV.map((n) => (
-          <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => (isActive ? 'active' : '')}>
-            <span className="ni">{n.icon}</span>
-            <span>{n.label}</span>
-          </NavLink>
-        ))}
-      </nav>
+        <nav className="bottom">
+          {NAV.map((n) => (
+            <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => (isActive ? 'active' : '')}>
+              <span className="ni">{n.icon}</span>
+              <span>{n.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+      </div>
+
+      <aside className="side-map">
+        <SideMap />
+      </aside>
     </div>
   )
 }
