@@ -157,6 +157,22 @@ export interface Restaurant {
   needsReservation: boolean
 }
 
+// Catálogo "Explorar": sitios que el usuario puede añadir a un día.
+export interface Place {
+  id: ID
+  destinationId: ID
+  name: string
+  category: string // Naturaleza · Playa · Templo · Comida · Mirador · Show · Parque · Compras · Actividad
+  emoji: string
+  coords?: { lat: number; lon: number }
+  blurb: string
+  kids?: string // por qué mola para los niños
+  price?: string
+  hours?: string
+  rank: number // posición en el "top"
+  booking?: string // requiere reserva (url / nota)
+}
+
 export interface Trip {
   name: string
   subtitle: string
@@ -171,4 +187,5 @@ export interface Trip {
   tasks: Task[]
   budget: BudgetItem[]
   restaurants: Restaurant[]
+  catalog: Place[]
 }

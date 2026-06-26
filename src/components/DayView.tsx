@@ -29,14 +29,19 @@ export default function DayView({ day }: { day: Day }) {
   const dest = destById(day.destinationId)
   const isStatusDone = usePlanner((s) => s.isStatusDone)
   const toggleStatus = usePlanner((s) => s.toggleStatus)
+  const addedIds = usePlanner((s) => s.addedByDay[day.id]) ?? []
+  const removePlace = usePlanner((s) => s.removePlace)
   const legs = (day.legIds ?? []).map((lid) => trip.legs.find((l) => l.id === lid)).filter(Boolean)
 
-  const mapPoints: MapPoint[] = (day.stops ?? [])
-    .filter((s) => s.coords)
-    .map((s) => ({ lat: s.coords!.lat, lon: s.coords!.lon, n: s.n, label: s.name, color: `var(${dest.colorVar})` }))
-  // resolver var() a color real para Leaflet (no entiende CSS vars en inline marker)
   const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
-  const mapPointsResolved = mapPoints.map((p) => ({ ...p, color: destColor }))
+  const baseStops = (day.stops ?? []).filter((s) => s.coords)
+  const addedPlaces = addedIds.map((id) => trip.catalog.find((p) => p.id === id)).filter(Boolean) as NonNullable<ReturnType<typeof trip.catalog.find>>[]
+
+  const mapPointsResolved: MapPoint[] = [
+    ...baseStops.map((s) => ({ lat: s.coords!.lat, lon: s.coords!.lon, n: s.n, label: s.name, color: destColor })),
+    ...addedPlaces.filter((p) => p.coords).map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: '⭐', label: p.name, color: '#d4900a' })),
+  ]
+  const routeCount = baseStops.length
 
   return (
     <div style={destStyle(day.destinationId)} className="fadein">
@@ -62,9 +67,28 @@ export default function DayView({ day }: { day: Day }) {
       {/* Mapa del día */}
       {mapPointsResolved.length > 0 && (
         <div className="map-wrap">
-          <TripMap points={mapPointsResolved} height={190} />
-          <span className="map-cap">🗺️ Recorrido del día · {mapPointsResolved.length} paradas</span>
+          <TripMap points={mapPointsResolved} height={190} routeCount={routeCount} />
+          <span className="map-cap">🗺️ Recorrido del día · {mapPointsResolved.length} paradas{addedPlaces.length ? ` (⭐ ${addedPlaces.length} añadidas)` : ''}</span>
         </div>
+      )}
+
+      {/* Añadidos por ti (desde Explorar) */}
+      {addedPlaces.length > 0 && (
+        <>
+          <div className="section-title">⭐ Añadidos por ti</div>
+          <div className="card">
+            {addedPlaces.map((p) => (
+              <div className="added-place" key={p.id}>
+                <span style={{ fontSize: '1.2em' }}>{p.emoji}</span>
+                <div className="ap-body">
+                  <div className="ap-name">{p.name}</div>
+                  <div className="ap-meta">{p.category}{p.hours ? ` · 🕒 ${p.hours}` : ''}{p.price ? ` · ${p.price}` : ''}</div>
+                </div>
+                <button className="ap-rm" onClick={() => removePlace(day.id, p.id)} aria-label="Quitar">✕</button>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* Reservas / estado */}

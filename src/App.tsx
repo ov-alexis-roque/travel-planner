@@ -3,6 +3,7 @@ import Today from './screens/Today'
 import Summary from './screens/Summary'
 import Itinerary from './screens/Itinerary'
 import DayDetail from './screens/DayDetail'
+import Explore from './screens/Explore'
 import Flights from './screens/Flights'
 import Tasks from './screens/Tasks'
 import Budget from './screens/Budget'
@@ -10,8 +11,8 @@ import Budget from './screens/Budget'
 const NAV = [
   { to: '/', icon: '🏠', label: 'Hoy', end: true },
   { to: '/itinerario', icon: '🗓️', label: 'Días' },
+  { to: '/explorar', icon: '🔍', label: 'Explorar' },
   { to: '/resumen', icon: '🧭', label: 'Resumen' },
-  { to: '/vuelos', icon: '✈️', label: 'Vuelos' },
   { to: '/presupuesto', icon: '💶', label: 'Budget' },
   { to: '/pendientes', icon: '📋', label: 'Tareas' },
 ]
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<Today />} />
         <Route path="/resumen" element={<Summary />} />
         <Route path="/itinerario" element={<Itinerary />} />
+        <Route path="/explorar" element={<Explore />} />
         <Route path="/dia/:id" element={<DayDetail />} />
         <Route path="/vuelos" element={<Flights />} />
         <Route path="/pendientes" element={<Tasks />} />

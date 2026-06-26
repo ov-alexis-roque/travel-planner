@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { destStyle, eur } from '../lib/utils'
 import { usePlanner } from '../store'
@@ -37,6 +38,12 @@ export default function Summary() {
         <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.flights}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>VUELOS</div></div>
         <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.nights}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>NOCHES</div></div>
       </div>
+
+      {/* Accesos */}
+      <Link to="/vuelos" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span><strong>✈️ Vuelos y transporte</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>{trip.legs.filter((l) => l.type === 'flight').length} vuelos · {trip.legs.filter((l) => l.type === 'ferry').length} ferries · trasbordo propio</div></span>
+        <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
+      </Link>
 
       {/* Progreso */}
       <div className="card tight">

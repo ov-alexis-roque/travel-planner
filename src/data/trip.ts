@@ -1,5 +1,6 @@
 import type { Trip } from '../types'
 import { destGeo, dayEnrich } from './geo'
+import { catalog } from './places'
 
 // Fuente canónica: docx Marco v1.0 + HTML (Sukau Greenview, trasbordo KUL, con Gili Air).
 // 12 Jul – 5 Ago 2026 · 23 días · Familia Roque.
@@ -603,6 +604,8 @@ const baseTrip: Trip = {
     { id: 'r11', destinationId: 'sanur', name: 'Massimo (italiano)', cuisine: 'Italiano', priceApprox: '25-35€', kidFriendly: true, moment: 'Cena', specialty: 'Pizza y pasta — los niños lo agradecerán', area: 'Sanur', needsReservation: false },
     { id: 'r12', destinationId: 'sanur', name: 'Kayu Api Smoke Grill & Coffee', cuisine: 'Grill / café', priceApprox: '20-30€', kidFriendly: true, moment: 'Comida', specialty: 'BBQ y café de especialidad', area: 'Sanur', needsReservation: false },
   ],
+
+  catalog,
 }
 
 // Fusionar geolocalización y clima (módulo geo) sobre el contenido base.

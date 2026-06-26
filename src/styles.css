@@ -229,6 +229,45 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .route-step .rs-name { font-weight: 800; }
 .route-step .rs-meta { font-size: .8em; color: var(--muted); }
 
+/* ===== Explore place cards ===== */
+.place-card { display: flex; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 15px; margin: 10px 14px; padding: 13px; border-left: 5px solid var(--dest, var(--tr)); }
+.place-card .pc-rank { width: 26px; height: 26px; border-radius: 50%; background: var(--dest, var(--tr)); color: #fff; font-weight: 800; font-size: .85em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.place-card .pc-body { flex: 1; min-width: 0; }
+.place-card .pc-name { font-weight: 700; font-size: 1em; }
+.place-card .pc-meta { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; font-size: .76em; color: var(--muted); margin-top: 5px; }
+.place-card .pc-blurb { font-size: .86em; color: #3a3a3a; margin-top: 7px; line-height: 1.45; }
+.place-card .pc-kids { font-size: .82em; color: var(--dest, #555); background: var(--dest-l, #eef); border-radius: 9px; padding: 6px 9px; margin-top: 8px; }
+.place-card .pc-actions { display: flex; gap: 8px; align-items: center; margin-top: 11px; flex-wrap: wrap; }
+.pc-btn { font-size: .8em; font-weight: 700; padding: 7px 13px; border-radius: 10px; }
+.pc-btn.add { background: var(--dest, var(--ink)); color: #fff; }
+.pc-btn.ghost { background: #f0eee9; color: #555; }
+.pc-btn.ghost.danger { color: var(--urg); }
+.pc-assigned { font-size: .82em; font-weight: 800; color: var(--ok); }
+
+/* ===== Bottom sheet (day picker) ===== */
+.sheet-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; display: flex; align-items: flex-end; justify-content: center; animation: fadein .15s ease; }
+.sheet { background: var(--bg); width: 100%; max-width: 560px; border-radius: 20px 20px 0 0; padding: 10px 16px calc(16px + var(--safe-b)); max-height: 80vh; overflow-y: auto; animation: slideup .22s ease; }
+@keyframes slideup { from { transform: translateY(100%); } to { transform: none; } }
+.sheet-handle { width: 38px; height: 4px; background: #ccc; border-radius: 2px; margin: 4px auto 12px; }
+.sheet-title { font-weight: 800; font-size: 1.05em; }
+.sheet-sub { color: var(--muted); font-size: .85em; margin: 2px 0 12px; }
+.sheet-days { display: flex; flex-direction: column; gap: 8px; }
+.sheet-day { display: flex; align-items: center; gap: 12px; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 11px 13px; border-left: 4px solid var(--dest, var(--tr)); }
+.sheet-day .sd-num { font-size: .72em; font-weight: 800; color: var(--dest, var(--muted)); text-transform: uppercase; width: 44px; flex-shrink: 0; }
+.sheet-day .sd-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.sheet-day .sd-info b { font-size: .9em; }
+.sheet-day .sd-info span { font-size: .8em; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sheet-day .sd-go { font-size: 1.3em; font-weight: 800; color: var(--dest, var(--ink)); }
+.sheet-cancel { width: 100%; padding: 13px; margin-top: 12px; border-radius: 12px; background: #ececec; font-weight: 700; color: #555; }
+
+/* ===== Added places in day ===== */
+.added-place { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.added-place:last-child { border-bottom: none; }
+.added-place .ap-body { flex: 1; min-width: 0; }
+.added-place .ap-name { font-weight: 700; font-size: .92em; }
+.added-place .ap-meta { font-size: .76em; color: var(--muted); }
+.added-place .ap-rm { color: var(--urg); font-size: 1.1em; padding: 4px 8px; }
+
 /* fade-in for screen mounts */
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .fadein { animation: fadein .25s ease; }

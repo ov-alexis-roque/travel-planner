@@ -18,10 +18,11 @@ interface Props {
   interactive?: boolean
   rounded?: boolean
   fitPadding?: number
+  routeCount?: number // solo enrutar los primeros N puntos (el resto son pins sueltos)
 }
 
 // Mapa Leaflet con marcadores numerados y ruta. Online (tiles CARTO Voyager).
-export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40 }: Props) {
+export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
 
@@ -48,8 +49,9 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
     }).addTo(map)
     L.control.attribution({ position: 'bottomright', prefix: false }).addAttribution('© OpenStreetMap · CARTO').addTo(map)
 
-    if (showRoute && valid.length > 1) {
-      L.polyline(valid.map((p) => [p.lat, p.lon]), {
+    const routePts = routeCount ? valid.slice(0, routeCount) : valid
+    if (showRoute && routePts.length > 1) {
+      L.polyline(routePts.map((p) => [p.lat, p.lon]), {
         color: routeColor, weight: 3, opacity: 0.55, dashArray: '1 8', lineCap: 'round',
       }).addTo(map)
     }
@@ -78,7 +80,7 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       mapRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(points), height])
+  }, [JSON.stringify(points), height, routeCount])
 
   return <div ref={ref} className={`trip-map ${rounded ? 'rounded' : ''}`} style={{ height }} />
 }
