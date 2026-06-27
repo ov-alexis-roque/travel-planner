@@ -181,6 +181,12 @@ export default function Summary() {
           </div>
         )
       })}
+
+      {/* Sello de versión: ayuda a comprobar que tienes lo último publicado */}
+      <div className="version-stamp">
+        🧳 Travel Planner Roque · <strong>v{__APP_VERSION__}</strong><br />
+        Última versión: {new Date(__BUILD_TIME__).toLocaleString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+      </div>
       <div style={{ height: 12 }} />
     </div>
   )

@@ -644,3 +644,6 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .ppc-card { max-width: 320px; }
 .ppc-fact { margin-top: 12px; font-size: .86em; line-height: 1.45; color: var(--ink); background: var(--bg); border-radius: 12px; padding: 10px 12px; text-align: left; }
 .pp-celebrate .ppc-tap { margin-top: 10px; font-size: .72em; color: var(--muted); }
+
+/* Sello de versión (Resumen) */
+.version-stamp { text-align: center; color: var(--muted); font-size: .72em; line-height: 1.5; padding: 16px 14px 4px; }
