@@ -1,123 +1,162 @@
-// Checklist de maleta contextual a TODO el recorrido: Singapur (ciudad tropical),
-// Borneo (selva/safari/trekking), KL (ciudad), Bali/Gili (playa, snorkel, templos).
+// Checklist de maleta SEPARADA POR PERSONA para todo el recorrido:
+// Singapur (ciudad tropical), Borneo (selva/safari/trekking), KL (ciudad),
+// Bali/Gili (playa, snorkel, templos).
 // Estrategia: 2 bultos por persona (mochila + maleta de cabina), SIN facturar,
 // check-in online en los 6 vuelos, y lavandería por el camino.
+//
+// Cada persona marca su propia lista (clave en el store: `${personaId}:${itemId}`).
+// Común = lo que se comparte en familia (uno para todos).
+// Aira (9) y Leo (4) tienen su lista con celebración al marcar.
+// Leo puede activar "modo lectura": etiquetas en MAYÚSCULAS y palabras sencillas
+// (kidLabel) para practicar leer mientras prepara su maleta.
 
 export interface PackItem {
   id: string
   label: string
-  qty?: string // cantidad recomendada para 23 días lavando por el camino
+  icon: string // emoji por ítem (gamificación)
+  qty?: string
   note?: string
-  kids?: boolean // especialmente relevante para Aira (9) y Leo (5)
+  kidLabel?: string // etiqueta simplificada en mayúsculas para el modo lectura de Leo
 }
-export interface PackGroup {
-  id: string
-  title: string
-  icon: string
+
+export interface PackPerson {
+  id: string // 'comun' | 'papa' | 'mama' | 'aira' | 'leo'
+  name: string
+  emoji: string
+  kid?: boolean // Aira y Leo: activan la celebración al marcar
+  reader?: boolean // Leo: puede activar el modo lectura
   intro?: string
   items: PackItem[]
 }
 
-export const packGroups: PackGroup[] = [
+// ── Ropa/enseres personales que llevan Papá y Mamá (misma plantilla) ──
+function adultItems(prefix: string): PackItem[] {
+  return [
+    { id: `${prefix}-camisetas`, label: 'Camisetas transpirables', icon: '👕', qty: '5–6', note: 'Tejidos que sequen rápido; se lava por el camino.' },
+    { id: `${prefix}-shorts`, label: 'Pantalones cortos / faldas', icon: '🩳', qty: '3–4' },
+    { id: `${prefix}-pantalon-largo`, label: 'Pantalón largo ligero', icon: '👖', qty: '1–2', note: 'Templos (tapar rodillas), safari y mosquitos. Lino o técnico.' },
+    { id: `${prefix}-ropa-interior`, label: 'Ropa interior', icon: '🩲', qty: '7 mudas' },
+    { id: `${prefix}-calcetines`, label: 'Calcetines', icon: '🧦', qty: '5 pares + 2 altos finos', note: 'Los altos, para las botas de trekking en Borneo.' },
+    { id: `${prefix}-cena`, label: 'Una muda “buena”', icon: '👔', qty: '1', note: 'Para cenas (Murni’s, Dirty Duck). Camisa/vestido ligero.' },
+    { id: `${prefix}-capa`, label: 'Sudadera / capa fina', icon: '🧥', qty: '1', note: 'Aire acondicionado de aviones y madrugadas.' },
+    { id: `${prefix}-pijama`, label: 'Pijama ligero', icon: '🛌', qty: '1' },
+    { id: `${prefix}-banador`, label: 'Bañadores', icon: '🩱', qty: '2', note: 'Rotando se secan; casi a diario.' },
+    { id: `${prefix}-snorkel`, label: 'Gafas de snorkel propias', icon: '🤿', note: 'Más cómodo e higiénico que las de alquiler.' },
+    { id: `${prefix}-chanclas`, label: 'Chanclas', icon: '🩴', qty: '1' },
+    { id: `${prefix}-botas`, label: 'Zapatillas de trekking', icon: '🥾', qty: '1 par', note: 'Cerradas, que puedan mojarse/embarrarse (Borneo).' },
+    { id: `${prefix}-sombrero`, label: 'Sombrero / gorra', icon: '🧢', qty: '1' },
+    { id: `${prefix}-gafas-sol`, label: 'Gafas de sol', icon: '🕶️', qty: '1' },
+    { id: `${prefix}-aseo`, label: 'Neceser personal', icon: '🪥', note: 'Cepillo, desodorante, cosas de aseo. Líquidos ≤100 ml en cabina.' },
+    { id: `${prefix}-chubasquero`, label: 'Chubasquero / poncho', icon: '🌂', qty: '1', note: 'Lluvia tropical y Gomantong Cave.' },
+    { id: `${prefix}-movil`, label: 'Móvil + cargador', icon: '📱' },
+  ]
+}
+
+export const packPeople: PackPerson[] = [
   {
-    id: 'ropa',
-    title: 'Ropa (clima tropical, 27–33°)',
-    icon: '👕',
-    intro: 'Húmedo y caluroso todo el viaje. Tejidos transpirables que sequen rápido — se lava por el camino, no hace falta llevar para 23 días.',
+    id: 'comun',
+    name: 'Común',
+    emoji: '🎒',
+    intro: 'Lo que se comparte en familia — uno para todos. Repartidlo en las mochilas.',
     items: [
-      { id: 'p-camisetas', label: 'Camisetas transpirables', qty: '5–6 por persona' },
-      { id: 'p-shorts', label: 'Pantalones cortos / faldas', qty: '3–4' },
-      { id: 'p-pantalon-largo', label: 'Pantalón largo ligero', qty: '1–2', note: 'Templos (tapar rodillas), safari y noches con mosquitos. Tipo lino o técnico.' },
-      { id: 'p-ropa-interior', label: 'Ropa interior', qty: '7 mudas' },
-      { id: 'p-calcetines', label: 'Calcetines normales', qty: '5 pares' },
-      { id: 'p-calcetines-altos', label: 'Calcetines altos finos', qty: '2 pares', note: 'Para las botas de trekking en Borneo (sanguijuelas/mosquitos).' },
-      { id: 'p-cena', label: 'Una muda “buena”', qty: '1 por persona', note: 'Para cenas (Murni’s, Dirty Duck). Camisa/vestido ligero.' },
-      { id: 'p-capa', label: 'Capa fina / sudadera ligera', qty: '1', note: 'Aire acondicionado de aviones y madrugadas. No hace falta ropa de frío ni guantes.' },
-      { id: 'p-pijama', label: 'Pijama ligero', qty: '1' },
+      { id: 'c-botiquin', label: 'Botiquín básico', icon: '🩹', note: 'Paracetamol/ibuprofeno, antidiarreico, suero oral, antihistamínico, tiritas, Betadine, termómetro.' },
+      { id: 'c-pediatrico', label: 'Medicación pediátrica', icon: '🧒', note: 'Dosis para Aira y Leo (paracetamol/ibuprofeno infantil).' },
+      { id: 'c-antimalaria', label: 'Antipalúdico (malaria)', icon: '💊', note: '⚠️ Consultar al médico/vacunación internacional: el interior de Borneo (Kinabatangan) es zona de riesgo. Pauta completa.' },
+      { id: 'c-repelente', label: 'Repelente DEET fuerte', icon: '🦟', qty: '2 botes', note: 'Imprescindible en Borneo. DEET 30–50%.' },
+      { id: 'c-afterbite', label: 'After-bite / crema picaduras', icon: '🧴' },
+      { id: 'c-solar', label: 'Protector solar 50+', icon: '☀️', qty: '2', note: 'Mejor reef-safe para el snorkel de Gili.' },
+      { id: 'c-gel', label: 'Gel hidroalcohólico', icon: '🧼' },
+      { id: 'c-binoculares', label: 'Binoculares', icon: '🔭', note: 'Clave para orangutanes y elefantes pigmeos desde el barco.' },
+      { id: 'c-linterna', label: 'Linterna frontal', icon: '🔦', note: 'Night walk y lodge sin mucha luz.' },
+      { id: 'c-mochila-dia', label: 'Mochila de día', icon: '🎒', note: 'Agua, repelente, cámara. Cierre seguro (los macacos roban).' },
+      { id: 'c-toalla', label: 'Toallas de microfibra', icon: '🏖️', qty: '2–3', note: 'Secan rápido y ocupan poco.' },
+      { id: 'c-bolsa-mojado', label: 'Bolsa estanca / para mojado', icon: '💧', qty: '1–2' },
+      { id: 'c-adaptador-g', label: 'Adaptador enchufe Tipo G', icon: '🔌', note: 'Singapur y Malasia (clavija británica de 3 patas).' },
+      { id: 'c-adaptador-c', label: 'Adaptador enchufe Tipo C/F', icon: '🔌', note: 'Indonesia (Bali/Gili): clavija europea, la de casa sirve.' },
+      { id: 'c-powerbank', label: 'Power bank', icon: '🔋', qty: '1–2', note: 'SIEMPRE en cabina (nunca bodega). <100 Wh.' },
+      { id: 'c-multipuerto', label: 'Cargador multipuerto USB + cables', icon: '⚡', note: 'Uno por dispositivo: móviles, cámara, power bank, iPad, consola.' },
+      { id: 'c-ipad', label: 'iPad + cargador', icon: '📲', note: 'Vuelos largos. Descargad pelis/series/juegos offline antes de salir.' },
+      { id: 'c-splitter', label: 'Splitter de auriculares (2 en 1)', icon: '🎧', note: 'Para que Aira y Leo vean lo mismo en el avión.' },
+      { id: 'c-esim', label: 'eSIM / datos', icon: '📶', note: 'eSIM regional Asia o local. Bali: Gojek/Grab necesitan datos.' },
+      { id: 'c-docs', label: 'Documentos + copias', icon: '🛂', note: 'Pasaportes (validez 6+ meses), copias digitales y en papel, seguro, reservas.' },
+      { id: 'c-dinero', label: 'Tarjetas + algo de efectivo', icon: '💳', note: 'Cambiar/sacar SGD, MYR e IDR. Una tarjeta de respaldo aparte.' },
     ],
   },
   {
-    id: 'agua',
-    title: 'Playa, snorkel y agua',
-    icon: '🤿',
-    intro: 'Gili Air y Sanur son puro mar; también piscinas casi cada día.',
+    id: 'papa',
+    name: 'Papá',
+    emoji: '👨',
+    intro: 'Tu maleta de cabina + mochila. Sin facturar.',
+    items: adultItems('pa'),
+  },
+  {
+    id: 'mama',
+    name: 'Mamá',
+    emoji: '👩',
+    intro: 'Tu maleta de cabina + mochila. Sin facturar.',
+    items: adultItems('ma'),
+  },
+  {
+    id: 'aira',
+    name: 'Aira',
+    emoji: '👧',
+    kid: true,
+    intro: '¡Tu maleta, Aira! Ve marcando cada cosa que metas tú misma. 🌟',
     items: [
-      { id: 'p-banador', label: 'Bañadores', qty: '2 por persona', note: 'Rotando se secan; casi se usan a diario.' },
-      { id: 'p-snorkel', label: 'Gafas de snorkel propias', note: 'Más higiénico y cómodo que las de alquiler, sobre todo para los niños.' },
-      { id: 'p-chanclas', label: 'Chanclas', qty: '1 por persona' },
-      { id: 'p-escarpines', label: 'Escarpines de agua', note: 'Opcional, útil en arrecife/rocas de Gili.' },
-      { id: 'p-toalla', label: 'Toalla de microfibra', qty: '2', note: 'Secan rápido y ocupan poco.' },
-      { id: 'p-licra', label: 'Camiseta de licra / UV', qty: '1 por niño', kids: true, note: 'Sol y posibles medusas al hacer snorkel.' },
-      { id: 'p-bolsa-mojado', label: 'Bolsa estanca / para mojado', qty: '1–2' },
+      { id: 'ai-camisetas', label: 'Camisetas', icon: '👕', qty: '5–6' },
+      { id: 'ai-shorts', label: 'Pantalones cortos / faldas', icon: '🩳', qty: '3–4' },
+      { id: 'ai-vestido', label: 'Un vestido bonito para cenas', icon: '👗', qty: '1' },
+      { id: 'ai-pantalon', label: 'Pantalón largo ligero', icon: '👖', qty: '1', note: 'Templos y mosquitos.' },
+      { id: 'ai-interior', label: 'Ropa interior', icon: '🩲', qty: '7 mudas' },
+      { id: 'ai-calcetines', label: 'Calcetines', icon: '🧦', qty: '5 pares' },
+      { id: 'ai-pijama', label: 'Pijama', icon: '🛌', qty: '1' },
+      { id: 'ai-banador', label: 'Bañadores', icon: '🩱', qty: '2' },
+      { id: 'ai-licra', label: 'Camiseta de licra / UV', icon: '🏄‍♀️', note: 'Para el sol y las medusas al hacer snorkel.' },
+      { id: 'ai-snorkel', label: 'Gafas de snorkel', icon: '🤿' },
+      { id: 'ai-chanclas', label: 'Chanclas', icon: '🩴' },
+      { id: 'ai-botas', label: 'Zapatillas de trekking', icon: '🥾', note: 'Para la selva de Borneo.' },
+      { id: 'ai-gorra', label: 'Gorra o sombrero', icon: '🧢' },
+      { id: 'ai-gafas-sol', label: 'Gafas de sol', icon: '🕶️' },
+      { id: 'ai-aseo', label: 'Cepillo de dientes y cosas de aseo', icon: '🪥' },
+      { id: 'ai-tablet', label: 'Tablet/libro + auriculares', icon: '📚', note: 'Para los vuelos largos.' },
+      { id: 'ai-peluche', label: 'Peluche o algo especial', icon: '🧸' },
+      { id: 'ai-diario', label: 'Cuaderno de viaje y lápices', icon: '✏️', note: 'Para dibujar lo que veas y los sellos del pasaporte.' },
     ],
   },
   {
-    id: 'trekking',
-    title: 'Trekking y selva (Borneo)',
-    icon: '🥾',
-    intro: 'Sepilok y el río Kinabatangan: pasarelas, barro, mosquitos y cruceros de fauna.',
+    id: 'leo',
+    name: 'Leo',
+    emoji: '👦',
+    kid: true,
+    reader: true,
+    intro: 'La maleta de Leo. Papá o mamá la marcan; con el modo lectura, Leo lee cada cosa. 🦕',
     items: [
-      { id: 'p-botas', label: 'Botas o zapatillas de trekking', qty: '1 par', note: 'Cerradas, que puedan mojarse/embarrarse.' },
-      { id: 'p-pantalon-trek', label: 'Pantalón largo de trekking', note: 'Cubre de mosquitos y sanguijuelas (cubierto en Ropa, pero tenlo a mano).' },
-      { id: 'p-chubasquero', label: 'Chubasquero / poncho ligero', qty: '1 por persona', note: 'Lluvia tropical y guano en Gomantong Cave.' },
-      { id: 'p-mochila-dia', label: 'Mochila de día', qty: '1', note: 'Agua, repelente, cámara. Cierre seguro (los macacos roban).' },
-      { id: 'p-binoculares', label: 'Binoculares', note: 'Clave para orangutanes y elefantes pigmeos desde el barco.' },
-      { id: 'p-linterna', label: 'Linterna frontal', note: 'Night walk y lodge sin mucha luz.' },
-    ],
-  },
-  {
-    id: 'salud',
-    title: 'Salud y protección',
-    icon: '🧴',
-    intro: 'Sol fuerte, mosquitos y zona rural de Borneo: lo más importante de la maleta.',
-    items: [
-      { id: 'p-antimalaria', label: 'Antipalúdico (malaria)', note: '⚠️ Consultar al médico/centro de vacunación internacional antes del viaje: el interior de Borneo (Kinabatangan) es zona de riesgo. Llevar la pauta completa.' },
-      { id: 'p-repelente', label: 'Repelente DEET fuerte', qty: '2 botes', note: 'Imprescindible en Borneo. DEET 30–50%.' },
-      { id: 'p-afterbite', label: 'After-bite / crema picaduras', qty: '1' },
-      { id: 'p-solar', label: 'Protector solar alto (50+)', qty: '2', note: 'Mejor reef-safe para el snorkel de Gili.' },
-      { id: 'p-sombrero', label: 'Sombrero / gorra', qty: '1 por persona' },
-      { id: 'p-gafas-sol', label: 'Gafas de sol', qty: '1 por persona' },
-      { id: 'p-botiquin', label: 'Botiquín básico', note: 'Paracetamol/ibuprofeno, antidiarreico, suero oral, antihistamínico, tiritas, Betadine, termómetro.' },
-      { id: 'p-pediatrico', label: 'Medicación pediátrica', kids: true, note: 'Dosis para Aira y Leo (paracetamol/ibuprofeno infantil).' },
-      { id: 'p-gel', label: 'Gel hidroalcohólico', qty: '1' },
-    ],
-  },
-  {
-    id: 'tech',
-    title: 'Tecnología y documentos',
-    icon: '🔌',
-    intro: 'Ojo: el enchufe cambia entre Malasia/Singapur y Bali.',
-    items: [
-      { id: 'p-adaptador-g', label: 'Adaptador enchufe Tipo G', note: 'Singapur y Malasia (clavija británica de 3 patas).' },
-      { id: 'p-adaptador-c', label: 'Adaptador enchufe Tipo C/F', note: 'Indonesia (Bali/Gili) usa clavija europea de 2 patas redondas — la vuestra de casa sirve.' },
-      { id: 'p-powerbank', label: 'Power bank', qty: '1–2', note: 'Siempre en la mochila de mano (NUNCA en bodega, aunque no facturéis). Revisar capacidad permitida (<100 Wh).' },
-      { id: 'p-cargadores', label: 'Cargadores y cables', note: 'Uno por dispositivo: móviles, cámara, power bank, iPad, consola. Mejor un cargador multipuerto USB.' },
-      { id: 'p-ipad', label: 'iPad + cargador', note: 'Vuelos largos y escalas. Descargad pelis/series y juegos offline antes de salir.' },
-      { id: 'p-consola', label: 'Consola retro + juegos + cargador', kids: true, note: 'Para los trayectos y esperas. Cargada y con los juegos ya metidos.' },
-      { id: 'p-auriculares', label: 'Auriculares (y splitter para 2)', kids: true, note: 'Un repartidor de audio para que Aira y Leo vean lo mismo en el avión.' },
-      { id: 'p-esim', label: 'eSIM / datos', note: 'eSIM regional Asia o local. Bali: app Gojek/Grab necesita datos.' },
-      { id: 'p-apps', label: 'Apps offline listas', note: 'Esta app instalada, Google Maps offline de cada zona, Grab (SG/MY) y Gojek (Bali).' },
-      { id: 'p-docs', label: 'Documentos + copias', note: 'Pasaportes (validez 6+ meses), copias digitales y en papel, seguro de viaje, reservas.' },
-      { id: 'p-dinero', label: 'Tarjetas + algo de efectivo', note: 'Cambiar/sacar SGD, MYR e IDR. Llevar una tarjeta de respaldo aparte.' },
-    ],
-  },
-  {
-    id: 'ninos',
-    title: 'Niños (Aira 9 · Leo 5)',
-    icon: '🧒',
-    items: [
-      { id: 'p-entretenimiento', label: 'Tablet/libros + auriculares', kids: true, note: 'Para los vuelos y escalas largas (la del KUL son 4h).' },
-      { id: 'p-peluche', label: 'Peluche / objeto de apego', kids: true },
-      { id: 'p-snacks', label: 'Snacks de casa', kids: true, note: 'Para aviones y trayectos en coche por Bali.' },
-      { id: 'p-muda-mano', label: 'Muda de recambio en mano', kids: true, note: 'Sobre todo para Leo, en vuelos y barcos.' },
-      { id: 'p-mareo', label: 'Pulseras / pastillas para el mareo', kids: true, note: 'Fast boat a Gili y coche de montaña en Ubud.' },
+      { id: 'le-camisetas', label: 'Camisetas', icon: '👕', qty: '5–6', kidLabel: 'CAMISETAS' },
+      { id: 'le-shorts', label: 'Pantalones cortos', icon: '🩳', qty: '4', kidLabel: 'PANTALONES' },
+      { id: 'le-pantalon', label: 'Pantalón largo (mosquitos)', icon: '👖', qty: '1', kidLabel: 'UN PANTALÓN LARGO' },
+      { id: 'le-interior', label: 'Calzoncillos', icon: '🩲', qty: '7', kidLabel: 'CALZONCILLOS' },
+      { id: 'le-calcetines', label: 'Calcetines', icon: '🧦', qty: '5 pares', kidLabel: 'CALCETINES' },
+      { id: 'le-pijama', label: 'Pijama', icon: '🛌', qty: '1', kidLabel: 'EL PIJAMA' },
+      { id: 'le-banador', label: 'Bañadores', icon: '🩳', qty: '2', kidLabel: 'EL BAÑADOR' },
+      { id: 'le-licra', label: 'Camiseta de licra / UV', icon: '🏄', kidLabel: 'CAMISETA DE AGUA' },
+      { id: 'le-snorkel', label: 'Gafas de bucear', icon: '🤿', kidLabel: 'GAFAS DE BUCEAR' },
+      { id: 'le-chanclas', label: 'Chanclas', icon: '🩴', kidLabel: 'CHANCLAS' },
+      { id: 'le-botas', label: 'Zapatillas de la selva', icon: '🥾', kidLabel: 'ZAPATILLAS' },
+      { id: 'le-gorra', label: 'Gorra', icon: '🧢', kidLabel: 'LA GORRA' },
+      { id: 'le-gafas-sol', label: 'Gafas de sol', icon: '🕶️', kidLabel: 'GAFAS DE SOL' },
+      { id: 'le-aseo', label: 'Cepillo de dientes', icon: '🪥', kidLabel: 'CEPILLO DE DIENTES' },
+      { id: 'le-consola', label: 'Consola retro + juegos + cargador', icon: '🎮', kidLabel: 'LA CONSOLA' },
+      { id: 'le-peluche', label: 'Peluche', icon: '🧸', kidLabel: 'EL PELUCHE' },
+      { id: 'le-snacks', label: 'Snacks de casa', icon: '🍪', kidLabel: 'GALLETAS' },
+      { id: 'le-muda-mano', label: 'Muda de recambio en la mochila', icon: '🎒', note: 'Por si acaso en aviones y barcos.', kidLabel: 'ROPA DE REPUESTO' },
+      { id: 'le-mareo', label: 'Pulseras para el mareo', icon: '⌚', note: 'Fast boat a Gili y coche de montaña en Ubud.', kidLabel: 'PULSERAS' },
     ],
   },
 ]
 
-// Apps imprescindibles a descargar (con WiFi, antes de salir). Se marcan en la
-// checklist igual que la maleta (mismo packDone, ids con prefijo app-).
-export const appGroups: { title: string; icon: string; items: PackItem[] }[] = [
+// Apps imprescindibles a descargar (con WiFi, antes de salir). Se marcan igual
+// que la maleta (mismo store packDone, con prefijo app-).
+export const appGroups: { title: string; icon: string; items: { id: string; label: string; note?: string }[] }[] = [
   {
     title: 'Transporte (taxi/coche)', icon: '🚗',
     items: [
@@ -129,7 +168,7 @@ export const appGroups: { title: string; icon: string; items: PackItem[] }[] = [
     title: 'Comida a domicilio y reservas', icon: '🍜',
     items: [
       { id: 'app-grabfood', label: 'GrabFood / Foodpanda', note: 'Comida a domicilio en SG y KL (Foodpanda es la otra grande).' },
-      { id: 'app-chope', label: 'Chope', note: 'Reservar restaurantes en Singapur y KL (la app de “Grill/reservas” que recordabas).' },
+      { id: 'app-chope', label: 'Chope', note: 'Reservar restaurantes en Singapur y KL.' },
     ],
   },
   {

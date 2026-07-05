@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { usePlanner } from '../store'
-import { packGroups } from '../data/packing'
+import { packPeople } from '../data/packing'
 import type { Task, TaskUrgency } from '../types'
 
 const GROUPS: { key: TaskUrgency; label: string; color: string }[] = [
@@ -22,8 +22,8 @@ export default function Tasks() {
   const done = doneTasks.length
 
   const packDone = usePlanner((s) => s.packDone)
-  const packItems = packGroups.flatMap((g) => g.items)
-  const packReady = packItems.filter((it) => packDone[it.id]).length
+  const packItems = packPeople.flatMap((p) => p.items.map((it) => `${p.id}:${it.id}`))
+  const packReady = packItems.filter((k) => packDone[k]).length
 
   const TaskRow = ({ t }: { t: Task }) => {
     const on = isTaskDone(t.id, t.done)
