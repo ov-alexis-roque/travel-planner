@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { packPeople, appGroups, laundryPlan, luggageStrategy, PackItem } from '../data/packing'
+import { packPeople, appGroups, laundryPlan, luggageStrategy, itemCount, PackItem, PackPerson } from '../data/packing'
 import { usePlanner } from '../store'
 import Celebrate from '../components/Celebrate'
 
@@ -9,37 +9,51 @@ const key = (personId: string, itemId: string) => `${personId}:${itemId}`
 export default function Packing() {
   const packDone = usePlanner((s) => s.packDone)
   const togglePack = usePlanner((s) => s.togglePack)
+  const packUnits = usePlanner((s) => s.packUnits)
+  const setPackUnits = usePlanner((s) => s.setPackUnits)
   const [active, setActive] = useState('comun')
   const [leoRead, setLeoRead] = useState(false)
   const [celebrate, setCelebrate] = useState<{ emoji: string; title: string; sub: string } | null>(null)
 
   const person = packPeople.find((p) => p.id === active)!
 
-  // Matriz de progreso por persona
+  // Matriz de progreso por persona, contando unidades (cada círculo cuenta)
   const matrix = useMemo(
     () =>
       packPeople.map((p) => {
-        const done = p.items.filter((it) => packDone[key(p.id, it.id)]).length
-        return { ...p, done, total: p.items.length }
+        let done = 0
+        let total = 0
+        p.items.forEach((it) => {
+          const c = itemCount(it)
+          total += c
+          done += Math.min(packUnits[key(p.id, it.id)] || 0, c)
+        })
+        return { ...p, done, total }
       }),
-    [packDone],
+    [packUnits],
   )
 
-  const onToggle = (p: typeof person, it: PackItem) => {
+  // Marca/desmarca una unidad (patrón "estrellas": clic rellena hasta ahí; clic en la última la quita)
+  const onUnit = (p: PackPerson, it: PackItem, idx: number) => {
     const k = key(p.id, it.id)
-    const wasOn = !!packDone[k]
-    togglePack(k)
-    if (!wasOn && p.kid) {
-      setCelebrate({ emoji: it.icon, title: `¡${it.label.split(' ')[0]} lista!`, sub: `¡Bien hecho, ${p.name}! 🎒` })
+    const count = itemCount(it)
+    const done = Math.min(packUnits[k] || 0, count)
+    const next = done === idx + 1 ? idx : idx + 1
+    setPackUnits(k, next)
+    if (p.kid && done < count && next === count) {
+      // ítem completado del todo por un peque → microcelebración tipo sello
+      setCelebrate({ emoji: it.icon, title: '¡Perfecto! ✨', sub: `${it.label.split(' ')[0]} en la maleta` })
     }
   }
+
+  const personDone = person.items.filter((it) => (Math.min(packUnits[key(person.id, it.id)] || 0, itemCount(it))) === itemCount(it)).length
 
   return (
     <div className="fadein">
       <div className="page-head">
         <Link to="/resumen" className="back-link">‹ Resumen</Link>
         <h1>Maleta</h1>
-        <div className="sub">Cada uno marca la suya · adaptada a todo el recorrido</div>
+        <div className="sub">Cada uno marca la suya · un círculo por unidad</div>
       </div>
 
       {/* Matriz de progreso por persona */}
@@ -70,7 +84,7 @@ export default function Packing() {
       {/* Lista de la persona activa */}
       <div className="section-title pack-head" style={{ marginTop: 16 }}>
         <span>{person.emoji} Maleta de {person.name}</span>
-        <span className="pack-count">{person.items.filter((it) => packDone[key(person.id, it.id)]).length}/{person.items.length}</span>
+        <span className="pack-count">{personDone}/{person.items.length} ✓</span>
       </div>
       {person.intro && <div className="pack-intro">{person.intro}</div>}
 
@@ -81,20 +95,21 @@ export default function Packing() {
         </button>
       )}
 
-      <div className={`card ${leoRead && person.reader ? 'leo-reading' : ''}`}>
+      <div className={`card pack-list ${person.kid ? 'kid-list' : ''} ${leoRead && person.reader ? 'leo-reading' : ''}`}>
         {person.items.map((it) => {
           const k = key(person.id, it.id)
-          const on = !!packDone[k]
+          const count = itemCount(it)
+          const done = Math.min(packUnits[k] || 0, count)
+          const full = done === count
           const showKid = leoRead && person.reader
           return (
-            <button key={it.id} className={`check pack-item ${on ? 'on' : ''} ${showKid ? 'pi-reading' : ''}`} onClick={() => onToggle(person, it)}>
-              <span className="box">{on ? '✓' : ''}</span>
+            <div key={it.id} className={`pack-row ${full ? 'full' : ''} ${showKid ? 'pi-reading' : ''}`}>
               <span className="pi-icon" aria-hidden>{it.icon}</span>
-              <span className="ct">
+              <span className="pr-text">
                 {showKid ? (
                   <>
                     <span className="pi-kidlabel">{it.kidLabel ?? it.label.toUpperCase()}</span>
-                    <span className="pi-label-small">{it.label}{it.qty && ` · ${it.qty}`}</span>
+                    <span className="pi-label-small">{it.label}{count > 1 && ` · ${count}`}</span>
                   </>
                 ) : (
                   <>
@@ -103,7 +118,19 @@ export default function Packing() {
                   </>
                 )}
               </span>
-            </button>
+              <span className={`pi-units ${count > 6 ? 'wrap' : ''}`}>
+                {Array.from({ length: count }).map((_, j) => (
+                  <button
+                    key={j}
+                    className={`unit-dot ${j < done ? 'on' : ''}`}
+                    onClick={() => onUnit(person, it, j)}
+                    aria-label={`${it.label} ${j + 1}/${count}`}
+                  >
+                    {j < done ? '✓' : ''}
+                  </button>
+                ))}
+              </span>
+            </div>
           )
         })}
       </div>

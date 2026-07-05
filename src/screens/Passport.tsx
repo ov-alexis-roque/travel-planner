@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { passportCategories, passportRanks, type Stamp } from '../data/passport'
-import { usePlanner } from '../store'
+import { usePlanner, useUI } from '../store'
+import TripMap, { type MapPoint } from '../components/TripMap'
 
 const CONFETTI = ['🎉', '✨', '🎊', '⭐', '🌟', '🥳']
 const KIDS = [{ id: 'aira', name: 'Aira', emoji: '👧' }, { id: 'leo', name: 'Leo', emoji: '👦' }]
@@ -9,8 +10,11 @@ const KIDS = [{ id: 'aira', name: 'Aira', emoji: '👧' }, { id: 'leo', name: 'L
 export default function Passport() {
   const passportDone = usePlanner((s) => s.passportDone)
   const togglePassport = usePlanner((s) => s.togglePassport)
+  const passportGeo = usePlanner((s) => s.passportGeo)
+  const setPassportGeo = usePlanner((s) => s.setPassportGeo)
+  const kid = useUI((s) => s.passportKid)
+  const setKid = useUI((s) => s.setPassportKid)
   const [celebrate, setCelebrate] = useState<Stamp | null>(null)
-  const [kid, setKid] = useState('aira')
   const key = (stampId: string) => `${kid}:${stampId}`
 
   const allStamps = passportCategories.flatMap((c) => c.stamps)
@@ -20,6 +24,11 @@ export default function Passport() {
   const rank = [...passportRanks].reverse().find((r) => got >= r.min) ?? passportRanks[0]
   const kidName = KIDS.find((k) => k.id === kid)?.name ?? ''
 
+  // Sellos con ubicación guardada → puntos para el mapa
+  const stampPoints: MapPoint[] = allStamps
+    .filter((s) => passportGeo[key(s.id)])
+    .map((s) => { const g = passportGeo[key(s.id)]; return { lat: g.lat, lon: g.lng, emoji: s.emoji, label: s.label } })
+
   function onToggle(stamp: Stamp) {
     const k = key(stamp.id)
     const wasOn = !!passportDone[k]
@@ -27,6 +36,14 @@ export default function Passport() {
     if (!wasOn) {
       setCelebrate(stamp)
       setTimeout(() => setCelebrate(null), 5000)
+      // Guardamos dónde se consiguió el sello (si el peque da permiso de ubicación)
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => setPassportGeo(k, { lat: pos.coords.latitude, lng: pos.coords.longitude, ts: Date.now() }),
+          () => {},
+          { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 },
+        )
+      }
     }
   }
 
@@ -50,6 +67,16 @@ export default function Passport() {
         <div className="pp-rank"><span className="pp-rank-emoji">{rank.emoji}</span><div><div className="pp-rank-label">{rank.label}</div><div className="pp-rank-count">{kidName}: {got} de {total} sellos · {pct}%</div></div></div>
         <div className="prog" style={{ marginTop: 10 }}><i style={{ width: `${pct}%`, background: 'var(--ok)' }} /></div>
       </div>
+
+      {/* Mapa de sellos: dónde consiguió cada sello */}
+      <div className="section-title">🗺️ Mapa de sellos de {kidName}</div>
+      {stampPoints.length > 0 ? (
+        <div className="card tight" style={{ padding: 0, overflow: 'hidden' }}>
+          <TripMap key={`pp-${kid}-${stampPoints.length}`} points={stampPoints} showRoute={false} height="240px" rounded={false} expandable fitPadding={40} />
+        </div>
+      ) : (
+        <div className="pack-intro">Aún no hay sellos con ubicación. Cuando {kidName} consiga un sello y deis permiso de ubicación, aparecerá aquí en el mapa. 📍</div>
+      )}
 
       {passportCategories.map((cat) => {
         const cGot = cat.stamps.filter((s) => passportDone[key(s.id)]).length

@@ -12,6 +12,8 @@ interface UIState {
   setExploreDest: (id: string) => void
   exploreView: ExploreView
   setExploreView: (v: ExploreView) => void
+  passportKid: string // niño activo en el Pasaporte (compartido con el mapa lateral)
+  setPassportKid: (id: string) => void
 }
 export const useUI = create<UIState>((set) => ({
   focusDayId: null,
@@ -20,6 +22,8 @@ export const useUI = create<UIState>((set) => ({
   setExploreDest: (id) => set({ exploreDest: id }),
   exploreView: 'all',
   setExploreView: (v) => set({ exploreView: v }),
+  passportKid: 'aira',
+  setPassportKid: (id) => set({ passportKid: id }),
 }))
 
 // Estado persistente del usuario (v1: localStorage; v2: IndexedDB + sync).
@@ -32,9 +36,11 @@ interface PlannerState {
   movedBase: Record<string, string> // baseKey `${origDayId}:${n}` -> targetDayId
   hiddenBase: Record<string, boolean> // baseKey -> oculto
   order: Record<string, string[]> // dayId -> orden explícito de claves de agenda
-  packDone: Record<string, boolean> // id de ítem de maleta -> empacado
+  packDone: Record<string, boolean> // id de ítem de maleta -> empacado (apps: 1 check)
   togglePack: (id: string) => void
   isPackDone: (id: string) => boolean
+  packUnits: Record<string, number> // clave `${persona}:${item}` -> nº de unidades marcadas
+  setPackUnits: (key: string, n: number) => void
   vaultText: Record<string, string> // campos editables de la bóveda (seguro, contactos, niños…)
   setVaultText: (key: string, value: string) => void
   mapPacks: Record<string, { tiles: number; ts: number }> // destId -> mapa offline descargado
@@ -44,6 +50,8 @@ interface PlannerState {
   removeExpense: (id: string) => void
   passportDone: Record<string, boolean> // sellos conseguidos (clave: `${niño}:${selloId}`)
   togglePassport: (id: string) => void
+  passportGeo: Record<string, { lat: number; lng: number; ts: number }> // dónde se consiguió cada sello
+  setPassportGeo: (id: string, geo: { lat: number; lng: number; ts: number }) => void
   dayComplete: Record<string, boolean> // días marcados como completados
   toggleDayComplete: (dayId: string) => void
   toggleTask: (id: string) => void
@@ -72,6 +80,9 @@ export const usePlanner = create<PlannerState>()(
       togglePack: (id) =>
         set((s) => ({ packDone: { ...s.packDone, [id]: !s.packDone[id] } })),
       isPackDone: (id) => !!get().packDone[id],
+      packUnits: {},
+      setPackUnits: (key, n) =>
+        set((s) => ({ packUnits: { ...s.packUnits, [key]: Math.max(0, n) } })),
       vaultText: {},
       setVaultText: (key, value) =>
         set((s) => ({ vaultText: { ...s.vaultText, [key]: value } })),
@@ -85,7 +96,15 @@ export const usePlanner = create<PlannerState>()(
         set((s) => ({ expenses: s.expenses.filter((x) => x.id !== id) })),
       passportDone: {},
       togglePassport: (id) =>
-        set((s) => ({ passportDone: { ...s.passportDone, [id]: !s.passportDone[id] } })),
+        set((s) => {
+          const on = !s.passportDone[id]
+          const geo = { ...s.passportGeo }
+          if (!on) delete geo[id] // al quitar el sello, olvidamos su ubicación
+          return { passportDone: { ...s.passportDone, [id]: on }, passportGeo: geo }
+        }),
+      passportGeo: {},
+      setPassportGeo: (id, geo) =>
+        set((s) => ({ passportGeo: { ...s.passportGeo, [id]: geo } })),
       dayComplete: {},
       toggleDayComplete: (dayId) =>
         set((s) => ({ dayComplete: { ...s.dayComplete, [dayId]: !s.dayComplete[dayId] } })),
@@ -133,7 +152,7 @@ export const usePlanner = create<PlannerState>()(
           return { order: { ...s.order, [dayId]: keys } }
         }),
       setOrder: (dayId, keys) => set((s) => ({ order: { ...s.order, [dayId]: keys } })),
-      reset: () => set({ taskDone: {}, statusDone: {}, addedByDay: {}, movedBase: {}, hiddenBase: {}, order: {}, packDone: {}, passportDone: {}, dayComplete: {} }),
+      reset: () => set({ taskDone: {}, statusDone: {}, addedByDay: {}, movedBase: {}, hiddenBase: {}, order: {}, packDone: {}, packUnits: {}, passportDone: {}, passportGeo: {}, dayComplete: {} }),
     }),
     { name: 'roque-asia-2026' },
   ),

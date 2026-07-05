@@ -15,6 +15,7 @@ export interface PackItem {
   label: string
   icon: string // emoji por ítem (gamificación)
   qty?: string
+  count?: number // nº explícito de unidades a marcar (si no, se deduce de qty)
   note?: string
   kidLabel?: string // etiqueta simplificada en mayúsculas para el modo lectura de Leo
 }
@@ -76,6 +77,8 @@ export const packPeople: PackPerson[] = [
       { id: 'c-powerbank', label: 'Power bank', icon: '🔋', qty: '1–2', note: 'SIEMPRE en cabina (nunca bodega). <100 Wh.' },
       { id: 'c-multipuerto', label: 'Cargador multipuerto USB + cables', icon: '⚡', note: 'Uno por dispositivo: móviles, cámara, power bank, iPad, consola.' },
       { id: 'c-ipad', label: 'iPad + cargador', icon: '📲', note: 'Vuelos largos. Descargad pelis/series/juegos offline antes de salir.' },
+      { id: 'c-consola', label: 'Consola retro + juegos + cargador', icon: '🎮', note: 'Para trayectos y esperas. Cargada y con los juegos ya metidos.' },
+      { id: 'c-mareo', label: 'Pulseras para el mareo', icon: '⌚', note: 'Fast boat a Gili y coche de montaña en Ubud. Sirven para Aira y Leo.' },
       { id: 'c-splitter', label: 'Splitter de auriculares (2 en 1)', icon: '🎧', note: 'Para que Aira y Leo vean lo mismo en el avión.' },
       { id: 'c-esim', label: 'eSIM / datos', icon: '📶', note: 'eSIM regional Asia o local. Bali: Gojek/Grab necesitan datos.' },
       { id: 'c-docs', label: 'Documentos + copias', icon: '🛂', note: 'Pasaportes (validez 6+ meses), copias digitales y en papel, seguro, reservas.' },
@@ -145,14 +148,20 @@ export const packPeople: PackPerson[] = [
       { id: 'le-gorra', label: 'Gorra', icon: '🧢', kidLabel: 'LA GORRA' },
       { id: 'le-gafas-sol', label: 'Gafas de sol', icon: '🕶️', kidLabel: 'GAFAS DE SOL' },
       { id: 'le-aseo', label: 'Cepillo de dientes', icon: '🪥', kidLabel: 'CEPILLO DE DIENTES' },
-      { id: 'le-consola', label: 'Consola retro + juegos + cargador', icon: '🎮', kidLabel: 'LA CONSOLA' },
-      { id: 'le-peluche', label: 'Peluche', icon: '🧸', kidLabel: 'EL PELUCHE' },
-      { id: 'le-snacks', label: 'Snacks de casa', icon: '🍪', kidLabel: 'GALLETAS' },
-      { id: 'le-muda-mano', label: 'Muda de recambio en la mochila', icon: '🎒', note: 'Por si acaso en aviones y barcos.', kidLabel: 'ROPA DE REPUESTO' },
-      { id: 'le-mareo', label: 'Pulseras para el mareo', icon: '⌚', note: 'Fast boat a Gili y coche de montaña en Ubud.', kidLabel: 'PULSERAS' },
     ],
   },
 ]
+
+// Nº de unidades a marcar por ítem (un círculo por unidad). Se saca de `count`
+// o del número más alto que aparezca en `qty` ("5–6"→6, "5 pares"→5, "7"→7).
+// Sin cantidad → 1. Tope de 12 para que la fila no se descontrole.
+export function itemCount(it: PackItem): number {
+  if (it.count && it.count > 0) return Math.min(it.count, 12)
+  if (!it.qty) return 1
+  const nums = (it.qty.match(/\d+/g) || []).map(Number)
+  if (!nums.length) return 1
+  return Math.min(Math.max(...nums), 12)
+}
 
 // Apps imprescindibles a descargar (con WiFi, antes de salir). Se marcan igual
 // que la maleta (mismo store packDone, con prefijo app-).

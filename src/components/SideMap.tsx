@@ -7,6 +7,7 @@ import { atmsByDest } from '../data/atms'
 import { usePlanner, useUI } from '../store'
 import TripMap, { type MapPoint, type MapAnchor } from './TripMap'
 import { DEST_HEX } from './DayView'
+import { passportCategories } from '../data/passport'
 import type { Place } from '../types'
 
 const VIEW_LABEL: Record<string, string> = { all: '🗂️ Todo', must: '⭐ Imprescindibles', activity: '🎒 Actividades', food: '🍽️ Restaurantes', kids: '🧒 Ideal niños' }
@@ -18,14 +19,39 @@ const matchView = (p: Place, v: string) => (v === 'all' ? true : v === 'must' ? 
 //  · Resumen → la ruta completa del viaje (todos los destinos)
 export default function SideMap() {
   const { pathname } = useLocation()
-  const mode = pathname.startsWith('/explorar') ? 'explore' : pathname.startsWith('/resumen') ? 'route' : 'day'
+  const mode = pathname.startsWith('/explorar') ? 'explore' : pathname.startsWith('/resumen') ? 'route' : pathname.startsWith('/pasaporte') ? 'passport' : 'day'
 
   const focusDayId = useUI((s) => s.focusDayId)
   const exploreDest = useUI((s) => s.exploreDest)
   const exploreView = useUI((s) => s.exploreView)
+  const passportKid = useUI((s) => s.passportKid)
+  const passportGeo = usePlanner((s) => s.passportGeo)
   const { addedByDay, movedBase, hiddenBase, order } = usePlanner((s) => ({
     addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase, order: s.order,
   }))
+
+  // ===== Pasaporte: mapa de sellos conseguidos por el niño activo =====
+  if (mode === 'passport') {
+    const allStamps = passportCategories.flatMap((c) => c.stamps)
+    const points: MapPoint[] = allStamps
+      .map((s) => ({ s, g: passportGeo[`${passportKid}:${s.id}`] }))
+      .filter((x) => x.g)
+      .map(({ s, g }) => ({ lat: g!.lat, lon: g!.lng, emoji: s.emoji, label: s.label, color: '#1a1a2a' }))
+    const kidName = passportKid === 'leo' ? 'Leo' : 'Aira'
+    return (
+      <div className="side-map-inner" style={{ ['--dest' as string]: '#1a1a2a' }}>
+        <div className="side-map-head">🛂 Sellos de {kidName} · {points.length} con ubicación</div>
+        <div className="side-map-canvas">
+          {points.length > 0 ? (
+            <TripMap key={`pp-side-${passportKid}-${points.length}`} points={points} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} />
+          ) : (
+            <div className="empty">Aún sin sellos con ubicación.<br />Al conseguir un sello y dar permiso de ubicación, aparecerá aquí.</div>
+          )}
+        </div>
+        <div className="side-map-foot">El mapa de los sellos que {kidName} ha conseguido por el viaje 🌟</div>
+      </div>
+    )
+  }
 
   // ===== Resumen: ruta completa del viaje =====
   if (mode === 'route') {

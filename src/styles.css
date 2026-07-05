@@ -444,6 +444,25 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .pi-label-small { font-size: .74em; color: var(--muted); margin-top: 1px; }
 .card.leo-reading .check .box { width: 28px; height: 28px; border-radius: 9px; }
 
+/* Filas de la maleta con círculos por unidad */
+.pack-list { padding: 4px 16px; }
+.pack-row { display: flex; align-items: center; gap: 11px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.pack-row:last-child { border-bottom: 0; }
+.pack-row .pr-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.pack-row.full .pi-label, .pack-row.full .pi-kidlabel { color: var(--muted); }
+.pi-units { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.pi-units.wrap { display: grid; grid-template-columns: repeat(4, auto); gap: 5px; justify-content: end; }
+.unit-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); background: var(--card); color: #fff; font-size: .8em; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform .12s, background .12s, border-color .12s; }
+.unit-dot:active { transform: scale(.82); }
+.unit-dot.on { background: var(--ok); border-color: var(--ok); }
+/* Peques: círculos más grandes y con más "chicha" (tipo sello) */
+.kid-list .pack-row { padding: 13px 0; }
+.kid-list .pi-icon { font-size: 1.5em; width: 34px; }
+.kid-list .unit-dot { width: 32px; height: 32px; border-width: 2.5px; font-size: .95em; }
+.kid-list .unit-dot.on { animation: dot-pop .28s ease; box-shadow: 0 2px 8px color-mix(in srgb, var(--ok) 45%, transparent); }
+@keyframes dot-pop { 0% { transform: scale(.5); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.leo-reading .pack-row { padding: 14px 0; }
+
 /* ============ Checklist imprimible (niños) ============ */
 .print-btn { width: 100%; padding: 12px; background: var(--sa); color: #fff; border-radius: 12px; font-weight: 800; font-size: .95em; }
 .print-btn:active { opacity: .8; }
@@ -455,9 +474,10 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .psh-sub { margin: 2px 0 0; font-size: .78em; color: var(--muted); }
 .psh-list { list-style: none; margin: 0; padding: 0; }
 .psh-list li { display: flex; align-items: center; gap: 11px; padding: 9px 0; border-bottom: 1px solid var(--line); }
-.psh-box { flex-shrink: 0; width: 22px; height: 22px; border: 2px solid var(--ink); border-radius: 6px; }
 .psh-ico { font-size: 1.25em; width: 28px; text-align: center; flex-shrink: 0; }
-.psh-txt { display: flex; flex-direction: column; }
+.psh-txt { display: flex; flex-direction: column; flex: 1; }
+.psh-dots { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; max-width: 45%; margin-left: auto; }
+.psh-dot { width: 20px; height: 20px; border: 2px solid var(--ink); border-radius: 50%; flex-shrink: 0; }
 .psh-normal { font-weight: 600; font-size: 1.02em; }
 .psh-normal em { color: var(--muted); font-style: normal; font-size: .82em; }
 .psh-big { font-family: 'Comic Sans MS', 'Trebuchet MS', system-ui, sans-serif; font-size: 1.3em; font-weight: 800; letter-spacing: .6px; line-height: 1.15; }
@@ -471,7 +491,7 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
   .print-sheet { border: none; box-shadow: none; padding: 0 0 24px; page-break-after: always; break-after: page; }
   .print-sheet:last-child { page-break-after: auto; break-after: auto; }
   .print-sheets { padding: 0; }
-  .psh-box { border-color: #000; }
+  .psh-dot { border-color: #000; }
   .psh-head { border-color: #000; }
 }
 
