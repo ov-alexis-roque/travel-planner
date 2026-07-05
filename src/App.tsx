@@ -8,6 +8,7 @@ import Explore from './screens/Explore'
 import Flights from './screens/Flights'
 import Hotels from './screens/Hotels'
 import Packing from './screens/Packing'
+import PackingPrint from './screens/PackingPrint'
 import Docs from './screens/Docs'
 import Money from './screens/Money'
 import Phrases from './screens/Phrases'
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/vuelos" element={<Flights />} />
           <Route path="/hoteles" element={<Hotels />} />
           <Route path="/maleta" element={<Packing />} />
+          <Route path="/maleta-print" element={<PackingPrint />} />
           <Route path="/documentos" element={<Docs />} />
           <Route path="/cambio" element={<Money />} />
           <Route path="/frases" element={<Phrases />} />
