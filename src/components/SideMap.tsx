@@ -25,6 +25,7 @@ export default function SideMap() {
   const exploreDest = useUI((s) => s.exploreDest)
   const exploreView = useUI((s) => s.exploreView)
   const passportKid = useUI((s) => s.passportKid)
+  const highlight = useUI((s) => s.highlight)
   const passportGeo = usePlanner((s) => s.passportGeo)
   const { addedByDay, movedBase, hiddenBase, order } = usePlanner((s) => ({
     addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase, order: s.order,
@@ -73,7 +74,7 @@ export default function SideMap() {
     const dest = destById(exploreDest)
     const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
     const places = trip.catalog.filter((p) => p.destinationId === exploreDest && p.coords && matchView(p, exploreView))
-    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: destColor }))
+    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: destColor, key: p.id }))
     const acc = trip.accommodations.find((a) => a.destinationId === exploreDest && a.coords)
     const anchors: MapAnchor[] = [
       ...(acc?.coords ? [{ lat: acc.coords.lat, lon: acc.coords.lon, kind: 'hotel' as const, label: acc.name }] : []),
@@ -84,7 +85,7 @@ export default function SideMap() {
         <div className="side-map-head">{dest.emoji} {dest.name.replace(/^.*— /, '')} · {VIEW_LABEL[exploreView]} ({places.length})</div>
         <div className="side-map-canvas">
           {points.length > 0 ? (
-            <TripMap key={`${exploreDest}-${exploreView}`} points={points} anchors={anchors} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} />
+            <TripMap key={`${exploreDest}-${exploreView}`} points={points} anchors={anchors} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} highlight={highlight} />
           ) : (
             <div className="empty">Nada en esta categoría aquí.</div>
           )}
@@ -122,7 +123,7 @@ export default function SideMap() {
       <div className="side-map-head">🗺️ {day.dayNumber === null ? 'Salida' : `Día ${day.dayNumber}`} · {day.date} · {dest.emoji} {day.title}</div>
       <div className="side-map-canvas">
         {points.length > 0 ? (
-          <TripMap key={day.id} points={points} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} />
+          <TripMap key={day.id} points={points} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} highlight={highlight} />
         ) : (
           <div className="empty">Sin mapa para este día.</div>
         )}

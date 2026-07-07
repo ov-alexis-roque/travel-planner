@@ -14,6 +14,8 @@ interface UIState {
   setExploreView: (v: ExploreView) => void
   passportKid: string // niño activo en el Pasaporte (compartido con el mapa lateral)
   setPassportKid: (id: string) => void
+  highlight: string | null // punto resaltado en el mapa lateral (clic en la lista)
+  setHighlight: (k: string | null) => void
 }
 export const useUI = create<UIState>((set) => ({
   focusDayId: null,
@@ -24,6 +26,8 @@ export const useUI = create<UIState>((set) => ({
   setExploreView: (v) => set({ exploreView: v }),
   passportKid: 'aira',
   setPassportKid: (id) => set({ passportKid: id }),
+  highlight: null,
+  setHighlight: (k) => set({ highlight: k }),
 }))
 
 // Estado persistente del usuario (v1: localStorage; v2: IndexedDB + sync).

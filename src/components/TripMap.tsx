@@ -26,12 +26,14 @@ interface Props {
   extraPoints?: MapPoint[] // sitios "por explorar" cerca (otro color, no en la ruta)
   anchors?: MapAnchor[] // hotel / aeropuerto: iconos fijos destacados
   onPointClick?: (key: string) => void
+  highlight?: string | null // key de un punto a resaltar/centrar (clic desde la lista)
 }
 
 // Mapa Leaflet con marcadores numerados y ruta. Online (tiles CARTO Voyager).
-export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount, expandable = true, caption, extraPoints, anchors, onPointClick }: Props) {
+export default function TripMap({ points, height = 200, showRoute = true, routeColor = '#1a1a2a', interactive = true, rounded = true, fitPadding = 40, routeCount, expandable = true, caption, extraPoints, anchors, onPointClick, highlight }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
+  const markersRef = useRef<Record<string, L.Marker>>({})
   const [full, setFull] = useState(false)
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       tap: interactive,
     })
     mapRef.current = map
+    markersRef.current = {}
     if (interactive) map.zoomControl.setPosition('bottomleft')
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -76,6 +79,7 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
       const m = L.marker([p.lat, p.lon], { icon }).addTo(map)
       if (p.label) m.bindPopup(`<b>${p.label}</b>`, { closeButton: false })
       if (onPointClick && p.key) m.on('click', () => onPointClick(p.key as string))
+      if (p.key) markersRef.current[p.key] = m
     })
 
     // Anclas fijas destacadas: hotel, aeropuerto y cajeros
@@ -116,6 +120,21 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(points), JSON.stringify(extraPoints), JSON.stringify(anchors), height, routeCount])
+
+  // Resaltar y centrar el punto seleccionado desde la lista
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    // Quitar énfasis previo de todos los pines
+    Object.values(markersRef.current).forEach((m) => m.getElement()?.querySelector('.map-pin')?.classList.remove('pin-hi'))
+    if (!highlight) return
+    const m = markersRef.current[highlight]
+    if (!m) return
+    map.panTo(m.getLatLng(), { animate: true })
+    m.openPopup()
+    m.getElement()?.querySelector('.map-pin')?.classList.add('pin-hi')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlight])
 
   // Recalcular tamaño al entrar/salir de pantalla completa
   useEffect(() => {

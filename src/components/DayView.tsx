@@ -76,6 +76,8 @@ export default function DayView({ day }: { day: Day }) {
   const setFocusDay = useUI((s) => s.setFocusDay)
   const setExploreDest = useUI((s) => s.setExploreDest)
   const setExploreView = useUI((s) => s.setExploreView)
+  const highlight = useUI((s) => s.highlight)
+  const setHighlight = useUI((s) => s.setHighlight)
   useEffect(() => { setFocusDay(day.id) }, [day.id, setFocusDay])
 
   const legs = (day.legIds ?? []).map((lid) => trip.legs.find((l) => l.id === lid)).filter(Boolean)
@@ -223,9 +225,9 @@ export default function DayView({ day }: { day: Day }) {
                   <div className="line" />
                 </div>
                 <div className="content">
-                  <div className="stop-card">
+                  <div className={`stop-card ${highlight === item.key ? 'hi' : ''}`}>
                     <div className="sc-top">
-                      <span className="sc-name">{item.alt && <span className={`alt-badge alt-${item.alt}`}>Opción {item.alt}</span>}{item.emoji} {item.name}{item.kind === 'added' && <span className="added-tag"> ⭐ añadido</span>}</span>
+                      <span className={`sc-name ${item.coords ? 'sc-name-btn' : ''}`} onClick={() => item.coords && setHighlight(highlight === item.key ? null : item.key)}>{item.alt && <span className={`alt-badge alt-${item.alt}`}>Opción {item.alt}</span>}{item.emoji} {item.name}{item.coords && <span className="pc-locate"> 📍</span>}{item.kind === 'added' && <span className="added-tag"> ⭐ añadido</span>}</span>
                       {item.time && <span className="sc-time">{item.time}</span>}
                     </div>
                     <div className="sc-meta">

@@ -40,6 +40,8 @@ export default function Explore() {
   const setDestId = useUI((s) => s.setExploreDest)
   const view = useUI((s) => s.exploreView) as View
   const setView = useUI((s) => s.setExploreView)
+  const highlight = useUI((s) => s.highlight)
+  const setHighlight = useUI((s) => s.setHighlight)
   const [sort, setSort] = useState<Sort>('rank')
   const [picker, setPicker] = useState<Place | null>(null)
 
@@ -110,11 +112,13 @@ export default function Explore() {
         const inPlan = findPlaceInPlan(p, { addedByDay, movedBase, hiddenBase })
         const dist = distanceFromHotel(p)
         return (
-          <div key={p.id} className={`place-card ${inPlan ? 'in-plan' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}>
+          <div key={p.id} className={`place-card ${inPlan ? 'in-plan' : ''} ${highlight === p.id ? 'hi' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}>
             <div className="pc-rank">{inPlan ? '✓' : p.rank}</div>
             <div className="pc-body">
               <div className="pc-top">
-                <span className="pc-name">{p.emoji} {p.name}</span>
+                {p.coords
+                  ? <button className="pc-name pc-name-btn" onClick={() => setHighlight(highlight === p.id ? null : p.id)} title="Ver en el mapa">{p.emoji} {p.name} <span className="pc-locate">📍</span></button>
+                  : <span className="pc-name">{p.emoji} {p.name}</span>}
               </div>
               <div className="pc-meta">
                 {p.zone && <span className="zone-tag">📍 {p.zone}</span>}
