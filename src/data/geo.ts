@@ -59,8 +59,8 @@ export const dayEnrich: Record<string, Enrich> = {
             'En el Orchid Garden, retadles a encontrar la orquídea "Vanda Miss Joaquim", la flor nacional de Singapur.',
           ],
           eat: [
-            { name: 'Adam Road Food Centre', dish: 'nasi lemak de Selera Rasa, mee rebus', note: 'Hawker famoso y de locales a 5 min de la Bukit Timah Gate. Barato, con aire libre y muy limpio (nota NEA a la vista). La mejor opción local al salir.' },
-            { name: 'Casa Verde (dentro del jardín)', note: 'Solo si llueve o no queréis moveros: cómodo pero más occidental y caro. Mejor el hawker de Adam Road.' },
+            { name: 'Adam Road Food Centre', dish: 'nasi lemak de Selera Rasa, mee rebus', note: 'Hawker famoso y de locales a 5 min de la Bukit Timah Gate. Barato, con aire libre y muy limpio (nota NEA a la vista). La mejor opción local al salir.', loc: { lat: 1.3236, lon: 103.8140 } },
+            { name: 'Casa Verde (dentro del jardín)', note: 'Solo si llueve o no queréis moveros: cómodo pero más occidental y caro. Mejor el hawker de Adam Road.', loc: { lat: 1.3138, lon: 103.8159 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 5, note: 'Dentro de los jardines' } },
@@ -88,8 +88,8 @@ export const dayEnrich: Record<string, Enrich> = {
             'Explicadles que están literalmente en el punto más al sur del continente asiático, ¡a un pasito del ecuador!',
           ],
           eat: [
-            { name: 'Malaysian Food Street (Resorts World Sentosa)', dish: 'Hainanese chicken rice, char kway teow, laksa', note: 'Puestos malayos clásicos con aire acondicionado, dentro de la isla. Tourist-friendly y sabor local, sin desviarse.' },
-            { name: 'Coastes / FOC Sentosa (Siloso Beach)', note: 'Cena con los pies casi en la arena, camino del show de Wings of Time.' },
+            { name: 'Malaysian Food Street (Resorts World Sentosa)', dish: 'Hainanese chicken rice, char kway teow, laksa', note: 'Puestos malayos clásicos con aire acondicionado, dentro de la isla. Tourist-friendly y sabor local, sin desviarse.', loc: { lat: 1.2541, lon: 103.8236 } },
+            { name: 'Coastes / FOC Sentosa (Siloso Beach)', note: 'Cena con los pies casi en la arena, camino del show de Wings of Time.', loc: { lat: 1.2560, lon: 103.8118 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 10, note: 'Beach tram / paseo a Beach Station' } },
@@ -111,7 +111,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'En el panel gigante, contad juntos cuántas mantas pasan — a Leo le encantará.',
           ],
           eat: [
-            { name: 'Malaysian Food Street (Resorts World)', dish: 'chicken rice, char kway teow', note: 'Hawker con AC en el mismo complejo, sin salir de Sentosa.' },
+            { name: 'Malaysian Food Street (Resorts World)', dish: 'chicken rice, char kway teow', note: 'Hawker con AC en el mismo complejo, sin salir de Sentosa.', loc: { lat: 1.2541, lon: 103.8236 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 10, note: 'Beach tram a Beach Station' } },
@@ -162,7 +162,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Explicadles que los Supertrees son árboles "de mentira" que recogen agua de lluvia y energía del sol — de noche se iluminan y "cantan".',
           ],
           eat: [
-            { name: 'Satay by the Bay', dish: 'satay, fideos, marisco hawker', note: 'Hawker dentro de los propios jardines: os pilla de camino y es donde cenaréis antes del show. Local y barato.' },
+            { name: 'Satay by the Bay', dish: 'satay, fideos, marisco hawker', note: 'Hawker dentro de los propios jardines: os pilla de camino y es donde cenaréis antes del show. Local y barato.', loc: { lat: 1.2812, lon: 103.8698 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 12, note: 'Paseo por el waterfront hasta el Merlion', tip: 'Cruzando la pasarela del helix y por delante de Marina Bay Sands.' } },
@@ -185,8 +185,8 @@ export const dayEnrich: Record<string, Enrich> = {
             'Foto divertida: colocarse para "beber" o "recoger" el chorro de agua del Merlion.',
           ],
           eat: [
-            { name: 'Makansutra Gluttons Bay', dish: 'char kway teow, BBQ stingray, satay', note: 'Hawker icónico junto al agua, a 5 min andando por el paseo. Local, barato y con vistas a la bahía.' },
-            { name: 'Satay Street — Lau Pa Sat', dish: 'satay a la brasa', note: 'A un paseo hacia el CBD; brutal de noche cuando cortan la calle. Buen plan si acabáis por la zona.' },
+            { name: 'Makansutra Gluttons Bay', dish: 'char kway teow, BBQ stingray, satay', note: 'Hawker icónico junto al agua, a 5 min andando por el paseo. Local, barato y con vistas a la bahía.', loc: { lat: 1.2903, lon: 103.8556 } },
+            { name: 'Satay Street — Lau Pa Sat', dish: 'satay a la brasa', note: 'A un paseo hacia el CBD; brutal de noche cuando cortan la calle. Buen plan si acabáis por la zona.', loc: { lat: 1.2807, lon: 103.8504 } },
           ],
         },
         transitToNext: { mode: 'train', min: 12, note: 'MRT a Chinatown', line: 'Downtown (azul)', board: 'Bayfront', alight: 'Chinatown', fare: '~1,5 SGD', freq: 'cada 3-5 min' } },
@@ -212,8 +212,8 @@ export const dayEnrich: Record<string, Enrich> = {
             'En el Sri Mariamman, retadles a contar cuántos dioses y animales de colores hay en la torre de la entrada (¡hay decenas!).',
           ],
           eat: [
-            { name: 'Tian Tian (Maxwell Food Centre)', dish: 'Hainanese chicken rice', note: 'El chicken rice nº1, dentro del recorrido. Bib Gourmand, ~5 SGD. Ya está en el plan como comida.' },
-            { name: 'Hawker Chan', dish: 'soya sauce chicken rice', note: 'Pollo en salsa de soja con estrella Michelin, a 2 min. El más barato del mundo con estrella.' },
+            { name: 'Tian Tian (Maxwell Food Centre)', dish: 'Hainanese chicken rice', note: 'El chicken rice nº1, dentro del recorrido. Bib Gourmand, ~5 SGD. Ya está en el plan como comida.', loc: { lat: 1.2803, lon: 103.8447 } },
+            { name: 'Hawker Chan', dish: 'soya sauce chicken rice', note: 'Pollo en salsa de soja con estrella Michelin, a 2 min. El más barato del mundo con estrella.', loc: { lat: 1.2822, lon: 103.8429 } },
           ],
         },
         transitToNext: { mode: 'train', min: 12, note: 'MRT de vuelta al hotel a descansar', line: 'North-East (morada) + roja', alight: 'Orchard', fare: '~1,5 SGD' } },
@@ -299,7 +299,7 @@ export const dayEnrich: Record<string, Enrich> = {
           ],
           eat: [
             { name: 'Cafés del centro / lodge de Sepilok', note: 'Se come en el propio centro o en el lodge, sin desplazarse. Sencillo pero de paso.' },
-            { name: 'Sim Sim Seafood (Sandakan)', dish: 'marisco sobre el agua', note: 'Si volvéis por Sandakan, el mejor marisco de la zona.' },
+            { name: 'Sim Sim Seafood (Sandakan)', dish: 'marisco sobre el agua', note: 'Si volvéis por Sandakan, el mejor marisco de la zona.', loc: { lat: 5.8348, lon: 118.1230 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 5 } },
@@ -527,7 +527,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Dar de comer a los loros en el brazo y las fotos con las aves son puro "wow" para Aira y Leo.',
           ],
           eat: [
-            { name: 'Hornbill Restaurant (dentro) / warungs de Lake Gardens', dish: 'local malayo', note: 'Restaurante dentro del parque con aves alrededor; cómodo sin salir.' },
+            { name: 'Hornbill Restaurant (dentro) / warungs de Lake Gardens', dish: 'local malayo', note: 'Restaurante dentro del parque con aves alrededor; cómodo sin salir.', loc: { lat: 3.1432, lon: 101.6875 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 8, note: 'Almuerzo en el parque' } },
@@ -573,7 +573,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'En el parque KLCC hay zona de juegos y una fuente/piscina infantil para que se refresquen.',
           ],
           eat: [
-            { name: 'Madam Kwan\'s (Suria KLCC)', dish: 'nasi lemak, nasi bojari', note: 'Malayo cómodo con AC en el propio centro comercial, al pie de las torres.' },
+            { name: 'Madam Kwan\'s (Suria KLCC)', dish: 'nasi lemak, nasi bojari', note: 'Malayo cómodo con AC en el propio centro comercial, al pie de las torres.', loc: { lat: 3.1580, lon: 101.7125 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 8, note: 'A Suria KLCC' } },
@@ -597,7 +597,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Si coincide, la alimentación de tiburones con buzos les encanta.',
           ],
           eat: [
-            { name: 'Madam Kwan\'s / Lot 10 Hutong', dish: 'nasi lemak / hawker', note: 'A un paso, en Suria KLCC o Bukit Bintang.' },
+            { name: 'Madam Kwan\'s / Lot 10 Hutong', dish: 'nasi lemak / hawker', note: 'A un paso, en Suria KLCC o Bukit Bintang.', loc: { lat: 3.1580, lon: 101.7125 } },
           ],
         },
         transitToNext: { mode: 'car', min: 12, note: 'Grab a KL Tower (si eliges B) o al hotel' } },
@@ -619,7 +619,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'El Sky Box de cristal es pura adrenalina divertida para Aira (y para los papás valientes).',
           ],
           eat: [
-            { name: 'Jalan Alor (después, en Bukit Bintang)', dish: 'char kuey teow, satay, marisco', note: 'Bajáis a cenar a la calle de comida nocturna, cerca.' },
+            { name: 'Jalan Alor (después, en Bukit Bintang)', dish: 'char kuey teow, satay, marisco', note: 'Bajáis a cenar a la calle de comida nocturna, cerca.', loc: { lat: 3.1457, lon: 101.7090 } },
           ],
         },
         transitToNext: { mode: 'car', min: 10, note: 'Grab a Bukit Bintang' } },
@@ -655,7 +655,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Ojo con los monos: divertidos de ver, pero se les mira desde lejos y no se les toca.',
           ],
           eat: [
-            { name: 'Puestos indios al pie de Batu Caves', dish: 'thosai, teh tarik, banana leaf', note: 'Puestos vegetarianos del sur de India junto a la entrada: desayuno barato y auténtico sin moverse.' },
+            { name: 'Puestos indios al pie de Batu Caves', dish: 'thosai, teh tarik, banana leaf', note: 'Puestos vegetarianos del sur de India junto a la entrada: desayuno barato y auténtico sin moverse.', loc: { lat: 3.2373, lon: 101.6839 } },
           ],
         },
         transitToNext: { mode: 'car', min: 25, note: 'Grab de vuelta hacia KLCC', fare: '~25 MYR', tip: 'Kampung Baru está de camino al hotel, no hay que desviarse.' } },
@@ -672,7 +672,7 @@ export const dayEnrich: Record<string, Enrich> = {
           ],
           tips: ['Entradas en taquilla o online; hay altura mínima en la tirolina/simulador.', 'Está en el mismo KLCC: encadénalo con el parque de la fuente al anochecer.'],
           family: ['Museo pensado para "cacharrear": ideal 5-9 años. Leo y Aira se lo pasan en grande sin darse cuenta de que aprenden.'],
-          eat: [{ name: 'Madam Kwan\'s / Lot 10 Hutong', dish: 'nasi lemak / hawker', note: 'A un paso, en el propio KLCC o Bukit Bintang.' }],
+          eat: [{ name: 'Madam Kwan\'s / Lot 10 Hutong', dish: 'nasi lemak / hawker', note: 'A un paso, en el propio KLCC o Bukit Bintang.', loc: { lat: 3.1466, lon: 101.7110 } }],
         },
         transitToNext: { mode: 'walk', min: 8, note: 'Al hotel (al lado) a descansar' } },
       { n: 4, name: 'Sunway Lagoon', category: 'Parque', emoji: '💦', alt: 'B', coords: { lat: 3.0707, lon: 101.6075 }, time: '13:00', hours: '10:00–18:00 · ~80€', note: 'Multiparque: agua + atracciones + wildlife. Medio día largo. ⚠️ Solapa con Waterbom (Bali): elige solo si quieres dos parques acuáticos.', status: 'pending',
@@ -714,7 +714,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Dejad que Aira y Leo elijan un pequeño souvenir/imán: les hace ilusión "comprar" ellos.',
           ],
           eat: [
-            { name: 'Madras Lane / Nam Heong (Chinatown)', dish: 'curry laksa, chicken rice', note: 'Hawkers de Chinatown a 5 min andando; comida local antes del aeropuerto.' },
+            { name: 'Madras Lane / Nam Heong (Chinatown)', dish: 'curry laksa, chicken rice', note: 'Hawkers de Chinatown a 5 min andando; comida local antes del aeropuerto.', loc: { lat: 3.1443, lon: 101.6970 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 6, note: 'Andando al museo (opcional) o a comer' } },
@@ -765,8 +765,8 @@ export const dayEnrich: Record<string, Enrich> = {
             'Buscad los patos y espantapájaros entre los arrozales y las ofrendas (canang sari) de flores.',
           ],
           eat: [
-            { name: 'Cafés con vistas de Tegallalang (Tis Café, D\'Tukad)', dish: 'nasi/mie goreng, zumos', note: 'Comer mirando los bancales, sin moverse. Algo más turístico pero la vista lo vale.' },
-            { name: 'Nasi Ayam Kedewatan Ibu Mangku', dish: 'pollo betutu con nasi campur', note: 'De camino de vuelta a Ubud: pollo betutu de institución, local y barato.' },
+            { name: 'Cafés con vistas de Tegallalang (Tis Café, D\'Tukad)', dish: 'nasi/mie goreng, zumos', note: 'Comer mirando los bancales, sin moverse. Algo más turístico pero la vista lo vale.', loc: { lat: -8.4330, lon: 115.2812 } },
+            { name: 'Nasi Ayam Kedewatan Ibu Mangku', dish: 'pollo betutu con nasi campur', note: 'De camino de vuelta a Ubud: pollo betutu de institución, local y barato.', loc: { lat: -8.5237, lon: 115.2478 } },
           ],
         },
         transitToNext: { mode: 'car', min: 10, note: 'Al Bali Swing (misma zona de Tegallalang)' } },
@@ -790,7 +790,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Turno de "el más valiente": que cada uno elija su altura — se lo pasan en grande animándose.',
           ],
           eat: [
-            { name: 'Cafetería del propio parque / Tegallalang', dish: 'zumos, snacks, nasi goreng', note: 'Se come ahí mismo con vistas al valle; la zona es la misma de los arrozales.' },
+            { name: 'Cafetería del propio parque / Tegallalang', dish: 'zumos, snacks, nasi goreng', note: 'Se come ahí mismo con vistas al valle; la zona es la misma de los arrozales.', loc: { lat: -8.4480, lon: 115.2540 } },
           ],
         },
         transitToNext: { mode: 'car', min: 15, note: 'De vuelta hacia Ubud, a comer entre arrozales' } },
@@ -815,8 +815,8 @@ export const dayEnrich: Record<string, Enrich> = {
             'Buscad las crías agarradas a las madres — pero siempre desde la distancia.',
           ],
           eat: [
-            { name: 'Bebek Bengil (Dirty Duck)', dish: 'pato crujiente', note: 'Justo al lado del bosque, con vistas a arrozales. Kid-friendly.' },
-            { name: 'Warungs de Jl. Monkey Forest', dish: 'nasi/mie goreng, sate', note: 'La calle que sube al centro está llena de warungs locales de paso.' },
+            { name: 'Bebek Bengil (Dirty Duck)', dish: 'pato crujiente', note: 'Justo al lado del bosque, con vistas a arrozales. Kid-friendly.', loc: { lat: -8.5147, lon: 115.2625 } },
+            { name: 'Warungs de Jl. Monkey Forest', dish: 'nasi/mie goreng, sate', note: 'La calle que sube al centro está llena de warungs locales de paso.', loc: { lat: -8.5150, lon: 115.2607 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 8, note: 'Al mercado y centro' } },
@@ -838,7 +838,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'La danza con máscaras (Barong, el león) les engancha aunque no entiendan la historia.',
           ],
           eat: [
-            { name: 'Warung Biah Biah / Ibu Oka', dish: 'nasi campur / babi guling', note: 'A un paso del Palacio, en el centro de Ubud.' },
+            { name: 'Warung Biah Biah / Ibu Oka', dish: 'nasi campur / babi guling', note: 'A un paso del Palacio, en el centro de Ubud.', loc: { lat: -8.5064, lon: 115.2618 } },
           ],
         },
         transitToNext: { mode: 'car', min: 10, note: 'Al hotel a refrescarse' } },
@@ -870,7 +870,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Paseo llano y seguro, apto para Leo caminando. Buscad libélulas y flores entre la hierba alta.',
           ],
           eat: [
-            { name: 'Cafés del final de la cresta / centro de Ubud', dish: 'desayuno, kopi, pisang goreng', note: 'Desayuno con vistas al valle o de vuelta en el centro, a un paseo.' },
+            { name: 'Cafés del final de la cresta / centro de Ubud', dish: 'desayuno, kopi, pisang goreng', note: 'Desayuno con vistas al valle o de vuelta en el centro, a un paseo.', loc: { lat: -8.4977, lon: 115.2540 } },
           ],
         },
         transitToNext: { mode: 'car', min: 10, note: 'Desayuno en el hotel' } },
@@ -896,7 +896,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'En Gunung Kawi, buscad los santuarios como "casas de los reyes" excavadas en la roca hace 1.000 años.',
           ],
           eat: [
-            { name: 'Warungs de Tampaksiring / Nasi Ayam Ibu Mangku (Kedewatan)', dish: 'nasi campur, pollo betutu', note: 'Warungs locales de camino de vuelta a Ubud; el betutu de Ibu Mangku pilla en la ruta.' },
+            { name: 'Warungs de Tampaksiring / Nasi Ayam Ibu Mangku (Kedewatan)', dish: 'nasi campur, pollo betutu', note: 'Warungs locales de camino de vuelta a Ubud; el betutu de Ibu Mangku pilla en la ruta.', loc: { lat: -8.4180, lon: 115.3120 } },
           ],
         },
         transitToNext: { mode: 'car', min: 25, note: 'A comer' } },
@@ -921,7 +921,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Juego: sentir la "lluvia" de la cascada de lejos antes de meterse.',
           ],
           eat: [
-            { name: 'Warungs con vista a la cascada', dish: 'nasi goreng, zumos, coco', note: 'Arriba, junto al mirador, para reponer tras el baño sin moverse.' },
+            { name: 'Warungs con vista a la cascada', dish: 'nasi goreng, zumos, coco', note: 'Arriba, junto al mirador, para reponer tras el baño sin moverse.', loc: { lat: -8.5746, lon: 115.2889 } },
           ],
         },
         transitToNext: { mode: 'car', min: 25, note: 'A cenar en Ubud centro' } },
@@ -980,7 +980,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Las estatuas sumergidas parecen un tesoro perdido — a Aira y Leo les encanta "descubrirlas".',
           ],
           eat: [
-            { name: 'Warungs de Gili Meno / Gili Air', dish: 'nasi campur, pescado a la brasa', note: 'Comida local en la parada o al volver; de noche, el mercado nocturno de Gili Air.' },
+            { name: 'Warungs de Gili Meno / Gili Air', dish: 'nasi campur, pescado a la brasa', note: 'Comida local en la parada o al volver; de noche, el mercado nocturno de Gili Air.', loc: { lat: -8.3555, lon: 116.0830 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 5, note: 'A comer' } },
@@ -1040,7 +1040,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'A los peques la espera de la foto se les hace larga: llevad agua/snack y turnaos para subir a los otros templos.',
           ],
           eat: [
-            { name: 'Warungs de Tirta Gangga', dish: 'nasi campur, mie goreng', note: 'Comer cerca de Tirta Gangga, la siguiente parada del día (con vistas a arrozales).' },
+            { name: 'Warungs de Tirta Gangga', dish: 'nasi campur, mie goreng', note: 'Comer cerca de Tirta Gangga, la siguiente parada del día (con vistas a arrozales).', loc: { lat: -8.4120, lon: 115.5870 } },
           ],
         },
         transitToNext: { mode: 'car', min: 40, note: 'A Tirta Gangga' } },
@@ -1064,7 +1064,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Reto de equilibrio: cruzar el estanque saltando de piedra en piedra (con adulto).',
           ],
           eat: [
-            { name: 'Warungs con vistas de Tirta Gangga', dish: 'nasi campur, mie goreng, coco', note: 'Terrazas mirando a los arrozales de Karangasem, justo al lado.' },
+            { name: 'Warungs con vistas de Tirta Gangga', dish: 'nasi campur, mie goreng, coco', note: 'Terrazas mirando a los arrozales de Karangasem, justo al lado.', loc: { lat: -8.4125, lon: 115.5875 } },
           ],
         },
         transitToNext: { mode: 'car', min: 90, note: 'Vuelta a Sanur' } },
@@ -1100,7 +1100,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Para bañarse, mejor Crystal Bay (arena y aguas más calmadas) que las calas de acantilado.',
           ],
           eat: [
-            { name: 'Warungs de los miradores / Crystal Bay', dish: 'nasi goreng, coco, pescado', note: 'Puestos sencillos junto a los puntos turísticos; comida básica local para no perder tiempo.' },
+            { name: 'Warungs de los miradores / Crystal Bay', dish: 'nasi goreng, coco, pescado', note: 'Puestos sencillos junto a los puntos turísticos; comida básica local para no perder tiempo.', loc: { lat: -8.7185, lon: 115.4525 } },
           ],
         },
         transitToNext: { mode: 'car', min: 25, note: 'A Crystal Bay' } },
@@ -1125,7 +1125,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Buscad tortugas y peces de colores — el agua transparente lo pone fácil.',
           ],
           eat: [
-            { name: 'Warungs de Crystal Bay', dish: 'nasi/mie goreng, coco fresco', note: 'Chiringuitos a pie de playa para comer sin moverse.' },
+            { name: 'Warungs de Crystal Bay', dish: 'nasi/mie goreng, coco fresco', note: 'Chiringuitos a pie de playa para comer sin moverse.', loc: { lat: -8.7190, lon: 115.4520 } },
           ],
         },
         transitToNext: { mode: 'ferry', min: 45, note: 'Fast boat de vuelta ~17:00' } },
@@ -1162,7 +1162,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Zona Funtastic pensada para los peques: Leo tiene sus propios toboganes seguros.',
           ],
           eat: [
-            { name: 'Food court de Waterbom', dish: 'nasi goreng, satay, burgers, fruta', note: 'Dentro del parque, variado y decente: no merece la pena salir a comer.' },
+            { name: 'Food court de Waterbom', dish: 'nasi goreng, satay, burgers, fruta', note: 'Dentro del parque, variado y decente: no merece la pena salir a comer.', loc: { lat: -8.7222, lon: 115.1722 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 3, note: 'Food court interior' } },
@@ -1204,11 +1204,11 @@ export const dayEnrich: Record<string, Enrich> = {
             'Aviso claro a Aira y Leo: nada en las manos ni en la cabeza cerca de los monos.',
           ],
           eat: [
-            { name: '🥐 Suka Espresso (desayuno/brunch)', dish: 'huevos, bowls, café', note: 'En Pecatu/Uluwatu, popular y con opciones para peques. Para empezar el día en la zona.' },
-            { name: '🍜 Warung Local / Warung Men Yeni (comida)', dish: 'nasi/mie goreng, nasi campur', note: 'Warungs baratos cerca del templo: comida balinesa sin volver al hotel.' },
-            { name: '🍹 Single Fin (atardecer / tomar algo)', dish: 'bebidas, pizzas, vistas de acantilado', note: 'El bar-mirador de Uluwatu: atardecer brutal sobre el océano. Llega pronto los fines de semana.' },
-            { name: '🥤 Nalu Bowls (postre/merienda)', dish: 'açaí y smoothie bowls', note: 'Bowls de fruta y helado sano: el capricho perfecto para Aira y Leo en la zona.' },
-            { name: '🦐 Cena de marisco en Jimbaran', dish: 'pescado a la brasa en la arena', note: 'De camino de vuelta a Sanur, con los pies en la arena y velas al atardecer.' },
+            { name: '🥐 Suka Espresso (desayuno/brunch)', dish: 'huevos, bowls, café', note: 'En Pecatu/Uluwatu, popular y con opciones para peques. Para empezar el día en la zona.', loc: { lat: -8.8135, lon: 115.0902 } },
+            { name: '🍜 Warung Local / Warung Men Yeni (comida)', dish: 'nasi/mie goreng, nasi campur', note: 'Warungs baratos cerca del templo: comida balinesa sin volver al hotel.', loc: { lat: -8.8290, lon: 115.0884 } },
+            { name: '🍹 Single Fin (atardecer / tomar algo)', dish: 'bebidas, pizzas, vistas de acantilado', note: 'El bar-mirador de Uluwatu: atardecer brutal sobre el océano. Llega pronto los fines de semana.', loc: { lat: -8.8148, lon: 115.0876 } },
+            { name: '🥤 Nalu Bowls (postre/merienda)', dish: 'açaí y smoothie bowls', note: 'Bowls de fruta y helado sano: el capricho perfecto para Aira y Leo en la zona.', loc: { lat: -8.8142, lon: 115.0906 } },
+            { name: '🦐 Cena de marisco en Jimbaran', dish: 'pescado a la brasa en la arena', note: 'De camino de vuelta a Sanur, con los pies en la arena y velas al atardecer.', loc: { lat: -8.7776, lon: 115.1567 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 5, note: 'Al anfiteatro del Kecak' } },
@@ -1285,7 +1285,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Celebrad la primera vez de pie de Aira — ¡sello de "surfer" en el pasaporte!',
           ],
           eat: [
-            { name: 'Warung Mak Beng / warungs de la playa de Sanur', dish: 'pescado frito, nasi campur', note: 'Desayuno-comida local justo al salir del agua, sin moverse de Sanur.' },
+            { name: 'Warung Mak Beng / warungs de la playa de Sanur', dish: 'pescado frito, nasi campur', note: 'Desayuno-comida local justo al salir del agua, sin moverse de Sanur.', loc: { lat: -8.6770, lon: 115.2620 } },
           ],
         },
         transitToNext: { mode: 'walk', min: 6, note: 'A comer' } },
@@ -1310,7 +1310,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Juego: esperar el momento exacto en que el sol toca el mar detrás del templo.',
           ],
           eat: [
-            { name: 'Cafés-terraza de Tanah Lot', dish: 'nasi goreng, satay, bebidas', note: 'Terrazas del acantilado con vista al templo para merendar/cenar al atardecer.' },
+            { name: 'Cafés-terraza de Tanah Lot', dish: 'nasi goreng, satay, bebidas', note: 'Terrazas del acantilado con vista al templo para merendar/cenar al atardecer.', loc: { lat: -8.6212, lon: 115.0880 } },
           ],
         },
         transitToNext: { mode: 'car', min: 45, note: 'Vuelta a Sanur' } },
@@ -1349,7 +1349,7 @@ export const dayEnrich: Record<string, Enrich> = {
             'Cronometrad el show de luz de la cascada: se lleva el aplauso.',
           ],
           eat: [
-            { name: 'Food court de Jewel / hawker de Changi', dish: 'último chicken rice, laksa, kaya toast', note: 'Última comida singapurense antes de volar. Los food courts de Changi son buenos y baratos.' },
+            { name: 'Food court de Jewel / hawker de Changi', dish: 'último chicken rice, laksa, kaya toast', note: 'Última comida singapurense antes de volar. Los food courts de Changi son buenos y baratos.', loc: { lat: 1.3601, lon: 103.9890 } },
           ],
         },
         transitToNext: { mode: 'flight', min: 800, note: 'SQ388 SIN→BCN · 23:35 → 06:55+1 (13h20)' } },

@@ -111,6 +111,19 @@ export default function SideMap() {
     .filter((p) => !agendaKeys.has(`${p.coords!.lat.toFixed(3)},${p.coords!.lon.toFixed(3)}`))
     .map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name }))
 
+  // "Dónde comer hoy" con coordenadas → mismos pines 🍴 y misma clave que en DayView
+  const norm = (n: string) => n.toLowerCase().replace(/^[^a-zà-ÿ0-9]+/, '').replace(/\s*\(.*?\)\s*/g, ' ').replace(/[^a-zà-ÿ0-9]/g, '').trim()
+  const seenEat = new Set<string>()
+  const foodPoints: MapPoint[] = []
+  for (const it of agenda) {
+    for (const e of it.guide?.eat ?? []) {
+      const k = norm(e.name)
+      if (seenEat.has(k)) continue
+      seenEat.add(k)
+      if (e.loc) foodPoints.push({ lat: e.loc.lat, lon: e.loc.lon, label: e.name, key: `eat-${k}` })
+    }
+  }
+
   function scrollToStop(key: string) {
     const el = document.getElementById(`stop-${key}`)
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -123,7 +136,7 @@ export default function SideMap() {
       <div className="side-map-head">🗺️ {day.dayNumber === null ? 'Salida' : `Día ${day.dayNumber}`} · {day.date} · {dest.emoji} {day.title}</div>
       <div className="side-map-canvas">
         {points.length > 0 ? (
-          <TripMap key={day.id} points={points} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} highlight={highlight} />
+          <TripMap key={day.id} points={points} extraPoints={extraPoints} foodPoints={foodPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} highlight={highlight} />
         ) : (
           <div className="empty">Sin mapa para este día.</div>
         )}

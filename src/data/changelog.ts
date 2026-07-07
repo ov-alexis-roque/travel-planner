@@ -2,6 +2,15 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
+    v: '1.14.0', date: 'Jul 2026', title: 'Restaurantes en el mapa + tocar para localizar',
+    notes: [
+      '🍴 Los sitios de "Dónde comer hoy" salen ahora en el mapa con un marcador propio (tenedor), distinto de las actividades: se ve de un vistazo si quedan cerca.',
+      '📍 Toca un restaurante de la lista y el mapa hace zoom a su pin (igual que con las actividades).',
+      '🗺️ Arreglado el zoom del mapa al tocar una actividad del itinerario (se había roto).',
+      '🔽 El bloque "Dónde comer por la zona hoy" ahora se pliega y despliega.',
+    ],
+  },
+  {
     v: '1.12.3', date: 'Jul 2026', title: 'Restaurantes foodie ya en Explorar (y añadibles)',
     notes: [
       '🍽️ Los restaurantes curados de "Sabores" ahora salen en Explorar → Restaurantes y se pueden AÑADIR al día (antes estaban escondidos).',

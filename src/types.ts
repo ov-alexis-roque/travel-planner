@@ -60,7 +60,7 @@ export interface StopGuide {
   route?: string[] // recorrido recomendado: por dónde empezar → ... → dónde acabar
   tips?: string[] // trucos de local: colas, precios, qué saltarse, dónde foto
   family?: string[] // qué contar/hacer con los peques para el "wow"
-  eat?: { name: string; dish?: string; note?: string }[] // dónde comer/picar CERCA (local auténtico, no desplazarse solo a comer)
+  eat?: { name: string; dish?: string; note?: string; loc?: { lat: number; lon: number } }[] // dónde comer/picar CERCA (local auténtico, no desplazarse solo a comer)
 }
 
 export type TransitMode = 'walk' | 'car' | 'flight' | 'ferry' | 'train' | 'bus' | 'boat'

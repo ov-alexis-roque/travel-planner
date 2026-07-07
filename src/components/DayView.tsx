@@ -71,6 +71,7 @@ export default function DayView({ day }: { day: Day }) {
   const removePlace = usePlanner((s) => s.removePlace)
   const [moving, setMoving] = useState<AgendaItem | null>(null)
   const [openGuide, setOpenGuide] = useState<string | null>(null)
+  const [openEats, setOpenEats] = useState(true)
   const region = regionInfo[day.id]
   const [openRegion, setOpenRegion] = useState(true)
   const setFocusDay = useUI((s) => s.setFocusDay)
@@ -111,19 +112,23 @@ export default function DayView({ day }: { day: Day }) {
   // Todas las sugerencias de "comer cerca" de las paradas del día, en un solo bloque visible
   const dayEats = (() => {
     const seen = new Set<string>()
-    const out: { name: string; dish?: string; note?: string }[] = []
+    const out: { name: string; dish?: string; note?: string; loc?: { lat: number; lon: number }; key: string }[] = []
     const norm = (n: string) => n.toLowerCase().replace(/^[^a-zà-ÿ0-9]+/, '').replace(/\s*\(.*?\)\s*/g, ' ').replace(/[^a-zà-ÿ0-9]/g, '').trim()
     for (const it of agenda) {
       for (const e of it.guide?.eat ?? []) {
         const k = norm(e.name)
         if (seen.has(k)) continue
         seen.add(k)
-        out.push(e)
+        out.push({ ...e, key: `eat-${k}` })
       }
     }
     return out
   })()
   const eatQuery = (name: string) => name.replace(/^[^A-Za-zÀ-ÿ0-9]+/, '').replace(/\s*\(.*?\)\s*/g, ' ').trim()
+  // Puntos de comida con coordenadas conocidas → marcador 🍴 en el mapa
+  const foodPoints: MapPoint[] = dayEats
+    .filter((e) => e.loc)
+    .map((e) => ({ lat: e.loc!.lat, lon: e.loc!.lon, label: e.name, key: e.key }))
 
   function moveItemTo(item: AgendaItem, targetDay: string) {
     if (item.kind === 'base' && item.origDayId && item.n != null) moveBaseToDay(item.origDayId, item.n, targetDay)
@@ -197,12 +202,12 @@ export default function DayView({ day }: { day: Day }) {
       {/* Mapa del día */}
       {mapPointsResolved.length > 0 && (
         <div className="map-wrap">
-          <TripMap points={mapPointsResolved} height={190} caption={`🗺️ ${day.title}`} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} highlight={highlight} onPointClick={(k) => setHighlight(highlight === k ? null : k)} />
+          <TripMap points={mapPointsResolved} height={190} caption={`🗺️ ${day.title}`} extraPoints={extraPoints} foodPoints={foodPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} highlight={highlight} onPointClick={(k) => setHighlight(highlight === k ? null : k)} />
           <span className="map-cap">🗺️ Recorrido del día · {mapPointsResolved.length} paradas</span>
         </div>
       )}
-      {extraPoints.length > 0 && (
-        <div className="map-legend">● paradas del día · <span className="lg-extra">◌</span> por explorar cerca · 🏧 cajeros · 🏨 hotel · ✈️ aeropuerto</div>
+      {mapPointsResolved.length > 0 && (
+        <div className="map-legend">● paradas del día{extraPoints.length > 0 && <> · <span className="lg-extra">◌</span> por explorar cerca</>}{foodPoints.length > 0 && <> · 🍴 dónde comer</>} · 🏧 cajeros · 🏨 hotel · ✈️ aeropuerto</div>
       )}
       {mapPointsResolved.length > 0 && (
         <Link to="/explorar" onClick={() => { setExploreDest(day.destinationId); setExploreView('all') }} className="map-explore-link">🔍 Explorar y añadir sitios en {dest.name.replace(/^.*— /, '')} →</Link>
@@ -211,16 +216,23 @@ export default function DayView({ day }: { day: Day }) {
       {/* Dónde comer por la zona hoy (agregado de las guías de las paradas, visible directamente) */}
       {dayEats.length > 0 && (
         <>
-          <div className="section-title">🍽️ Dónde comer por la zona hoy</div>
-          <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>
-            {dayEats.map((e, i) => (
-              <a key={i} className="sg-eat" style={{ marginTop: i === 0 ? 0 : 6 }} href={gmapsUrl(eatQuery(e.name), dest.name.replace(/^[^—]*—\s*/, ''))} target="_blank" rel="noreferrer">
-                <span className="sge-name">{e.name}{e.dish && <span className="sge-dish"> · {e.dish}</span>}</span>
-                {e.note && <span className="sge-note">{e.note}</span>}
-                <span className="sge-go">🗺️</span>
-              </a>
-            ))}
-          </div>
+          <button className="eats-title" onClick={() => setOpenEats((v) => !v)}>
+            <span>🍽️ Dónde comer por la zona hoy <span className="eats-count">· {dayEats.length}</span></span>
+            <span>{openEats ? '▲' : '▼'}</span>
+          </button>
+          {openEats && (
+            <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>
+              {dayEats.map((e, i) => (
+                <div key={e.key} className={`sg-eat sg-eat-row ${highlight === e.key ? 'hi' : ''}`} style={{ marginTop: i === 0 ? 0 : 6 }}>
+                  <button className="sge-main" onClick={() => e.loc && setHighlight(highlight === e.key ? null : e.key)} disabled={!e.loc}>
+                    <span className="sge-name">{e.name}{e.loc && <span className="pc-locate"> 📍</span>}{e.dish && <span className="sge-dish"> · {e.dish}</span>}</span>
+                    {e.note && <span className="sge-note">{e.note}</span>}
+                  </button>
+                  <a className="sge-go" href={gmapsUrl(eatQuery(e.name), dest.name.replace(/^[^—]*—\s*/, ''))} target="_blank" rel="noreferrer" aria-label="Abrir en Maps">🗺️</a>
+                </div>
+              ))}
+            </div>
+          )}
         </>
       )}
 
