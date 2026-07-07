@@ -473,6 +473,26 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .phase-items li { position: relative; padding: 5px 0 5px 18px; font-size: .88em; line-height: 1.4; border-top: 1px solid var(--line); }
 .phase-items li::before { content: '·'; position: absolute; left: 4px; top: 4px; color: var(--sa); font-weight: 900; }
 
+/* Guía "de local" dentro de la parada */
+.stop-guide { margin-top: 8px; border-top: 1px dashed var(--line); padding-top: 6px; }
+.sg-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px; padding: 6px 0; font-size: .82em; font-weight: 800; color: var(--sa); }
+.sg-body { padding: 4px 0 2px; }
+.sg-intro { margin: 4px 0 8px; font-size: .88em; line-height: 1.5; font-style: italic; color: var(--ink); }
+.sg-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.sg-meta span { font-size: .74em; font-weight: 700; background: var(--bg); border-radius: 999px; padding: 3px 9px; color: var(--muted); }
+.sg-sec { margin-top: 10px; }
+.sg-h { font-size: .78em; font-weight: 800; text-transform: uppercase; letter-spacing: .3px; color: var(--muted); margin-bottom: 5px; }
+.sg-route { margin: 0; padding-left: 20px; }
+.sg-route li { font-size: .86em; line-height: 1.45; padding: 3px 0; }
+.sg-list { list-style: none; margin: 0; padding: 0; }
+.sg-list li { position: relative; padding: 4px 0 4px 16px; font-size: .86em; line-height: 1.45; }
+.sg-list li::before { content: '›'; position: absolute; left: 2px; top: 3px; color: var(--sa); font-weight: 900; }
+.sg-eat { display: flex; flex-direction: column; gap: 1px; padding: 8px 10px; margin-top: 6px; background: var(--bg); border-radius: 10px; border: 1px solid var(--line); position: relative; }
+.sge-name { font-size: .88em; font-weight: 700; padding-right: 20px; }
+.sge-dish { font-weight: 500; color: var(--sa); }
+.sge-note { font-size: .78em; color: var(--muted); line-height: 1.4; }
+.sge-go { position: absolute; right: 10px; top: 8px; }
+
 /* ============ Checklist imprimible (niños) ============ */
 .print-btn { width: 100%; padding: 12px; background: var(--sa); color: #fff; border-radius: 12px; font-weight: 800; font-size: .95em; }
 .print-btn:active { opacity: .8; }

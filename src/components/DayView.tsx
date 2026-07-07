@@ -70,6 +70,7 @@ export default function DayView({ day }: { day: Day }) {
   const addPlace = usePlanner((s) => s.addPlace)
   const removePlace = usePlanner((s) => s.removePlace)
   const [moving, setMoving] = useState<AgendaItem | null>(null)
+  const [openGuide, setOpenGuide] = useState<string | null>(null)
   const region = regionInfo[day.id]
   const [openRegion, setOpenRegion] = useState(true)
   const setFocusDay = useUI((s) => s.setFocusDay)
@@ -234,6 +235,55 @@ export default function DayView({ day }: { day: Day }) {
                       {item.status === 'booked' && <span className="badge booked">✓ ok</span>}
                     </div>
                     {item.note && <div className="sc-note">{item.note}</div>}
+                    {item.guide && (
+                      <div className="stop-guide">
+                        <button className="sg-toggle" onClick={() => setOpenGuide((k) => (k === item.key ? null : item.key))}>
+                          <span>🧭 Guía local · cómo sacarle el máximo</span>
+                          <span>{openGuide === item.key ? '▲' : '▼'}</span>
+                        </button>
+                        {openGuide === item.key && (
+                          <div className="sg-body">
+                            {item.guide.intro && <p className="sg-intro">{item.guide.intro}</p>}
+                            {(item.guide.time || item.guide.bestTime) && (
+                              <div className="sg-meta">
+                                {item.guide.time && <span>⏱️ {item.guide.time}</span>}
+                                {item.guide.bestTime && <span>🕐 Mejor: {item.guide.bestTime}</span>}
+                              </div>
+                            )}
+                            {item.guide.route && item.guide.route.length > 0 && (
+                              <div className="sg-sec">
+                                <div className="sg-h">🚶 El recorrido</div>
+                                <ol className="sg-route">{item.guide.route.map((r, i) => <li key={i}>{r}</li>)}</ol>
+                              </div>
+                            )}
+                            {item.guide.tips && item.guide.tips.length > 0 && (
+                              <div className="sg-sec">
+                                <div className="sg-h">💡 Trucos de local</div>
+                                <ul className="sg-list">{item.guide.tips.map((t, i) => <li key={i}>{t}</li>)}</ul>
+                              </div>
+                            )}
+                            {item.guide.family && item.guide.family.length > 0 && (
+                              <div className="sg-sec">
+                                <div className="sg-h">👧👦 Para el “wow” de los peques</div>
+                                <ul className="sg-list">{item.guide.family.map((t, i) => <li key={i}>{t}</li>)}</ul>
+                              </div>
+                            )}
+                            {item.guide.eat && item.guide.eat.length > 0 && (
+                              <div className="sg-sec">
+                                <div className="sg-h">🍜 Comer cerca (local y a mano)</div>
+                                {item.guide.eat.map((e, i) => (
+                                  <a key={i} className="sg-eat" href={gmapsUrl(e.name, dest.name.replace(/^[^—]*—\s*/, ''))} target="_blank" rel="noreferrer">
+                                    <span className="sge-name">{e.name}{e.dish && <span className="sge-dish"> · {e.dish}</span>}</span>
+                                    {e.note && <span className="sge-note">{e.note}</span>}
+                                    <span className="sge-go">🗺️</span>
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                     <div className="stop-ctl">
                       <button onClick={() => reorder(day.id, item.key, -1, keys)} disabled={idx === 0} aria-label="Subir">▲</button>
                       <button onClick={() => reorder(day.id, item.key, 1, keys)} disabled={idx === agenda.length - 1} aria-label="Bajar">▼</button>

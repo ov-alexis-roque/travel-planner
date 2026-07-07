@@ -1,5 +1,5 @@
 import { trip } from '../data/trip'
-import type { Stop, Place } from '../types'
+import type { Stop, Place, StopGuide } from '../types'
 
 interface PlanOverrides {
   addedByDay: Record<string, string[]>
@@ -44,6 +44,7 @@ export interface AgendaItem {
   n?: number
   placeId?: string
   alt?: string
+  guide?: StopGuide
   transit?: Stop['transitToNext']
 }
 
@@ -68,7 +69,7 @@ export function buildAgenda(dayId: string, ov: Overrides): AgendaItem[] {
       items.push({
         key: `b:${baseKey}`, kind: 'base', name: s.name, emoji: s.emoji, category: s.category,
         time: s.time, hours: s.hours, note: s.note, coords: s.coords, status: s.status,
-        origDayId: d.id, n: s.n, transit: s.transitToNext, alt: s.alt,
+        origDayId: d.id, n: s.n, transit: s.transitToNext, alt: s.alt, guide: s.guide,
       })
     }
   }
