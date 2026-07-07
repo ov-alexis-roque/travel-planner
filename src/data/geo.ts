@@ -117,7 +117,20 @@ export const dayEnrich: Record<string, Enrich> = {
         transitToNext: { mode: 'walk', min: 10, note: 'Beach tram a Beach Station' } },
       { n: 8, name: 'Cena en Sentosa (Beach Station / FOC)', category: 'Comida', emoji: '🍤', coords: { lat: 1.2497, lon: 103.8186 }, time: '18:30', note: 'Cena con los pies casi en la arena: chiringuitos de Siloso (Coastes, FOC Sentosa) o food court de Beach Station. Sin prisa hasta el show.',
         transitToNext: { mode: 'walk', min: 6, note: 'Al anfiteatro de Wings of Time' } },
-      { n: 9, name: 'Wings of Time — show de luz y agua', category: 'Show', emoji: '✨', coords: { lat: 1.2487, lon: 103.8169 }, time: '19:40', hours: '~18 SGD · 19:40 y 20:40', note: 'Show nocturno sobre el mar: chorros de agua, láser, fuego y música en la playa de Sentosa. Cierre redondo del primer día. Grab de vuelta al hotel.' },
+      { n: 9, name: 'Wings of Time — show de luz y agua', category: 'Show', emoji: '✨', coords: { lat: 1.2487, lon: 103.8169 }, time: '19:40', hours: '~18 SGD · 19:40 y 20:40', note: 'Show nocturno sobre el mar: chorros de agua, láser, fuego y música en la playa de Sentosa. Cierre redondo del primer día. Grab de vuelta al hotel.',
+        guide: {
+          intro: 'El único show nocturno sobre el mar de Singapur: chorros de agua que hacen de pantalla para proyecciones, con láser, fuego y música, en la playa de Siloso. Un cierre "de fuegos artificiales" para el primer día en Sentosa.',
+          time: '25 min de show', bestTime: 'Pase de las 19:40 (el primero); mejor luz y los peques aguantan más despiertos.',
+          route: [
+            'Compra la entrada online o en taquilla; asientos numerados en el anfiteatro de la playa.',
+            'Llega 20 min antes para coger sitio centrado (mejor perspectiva de la pantalla de agua).',
+          ],
+          tips: [
+            'Elige el pase temprano (19:40) con niños; el de 20:40 acaba muy tarde.',
+            'Reserva el Grab de vuelta con antelación: al salir todos piden a la vez.',
+          ],
+          family: ['Fuego, agua y láser sin diálogo: puro espectáculo para Aira y Leo.'],
+        } },
     ],
   },
   d2: {
@@ -209,8 +222,29 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 7, name: 'Cena: Satay by the Bay + OCBC Skyway', category: 'Comida', emoji: '🍢', coords: { lat: 1.2812, lon: 103.8669 }, time: '18:30', hours: 'Skyway ~12 SGD', note: 'Cena en el hawker de los jardines (satay, fideos) y subida a la pasarela OCBC Skyway entre los Supertrees con la puesta de sol (~19:11).',
         transitToNext: { mode: 'walk', min: 5, note: 'Al césped del Supertree Grove' } },
       { n: 8, name: 'Garden Rhapsody — show de luz', category: 'Show', emoji: '🌳', coords: { lat: 1.2820, lon: 103.8645 }, time: '19:45', hours: 'Gratis · 19:45 y 20:45', note: 'Luz y sonido bajo los Supertrees, tumbados en el césped. Acabado el show, paseo cruzando la bahía hacia Marina Bay Sands.',
+        guide: {
+          intro: 'Los Supertrees de Gardens by the Bay se iluminan y "cantan" en un show de luz y música GRATIS, tumbado en el césped mirando arriba. Uno de los momentos más mágicos y relajados de Singapur — y no cuesta nada.',
+          time: '15 min de show', bestTime: 'Pase de las 19:45; llega antes para tumbaros justo bajo los árboles.',
+          route: [
+            'Colócate en el césped del Supertree Grove, bajo los árboles (no en los bordes).',
+            'Túmbate mirando arriba: la luz y la música van sincronizadas.',
+            'Al acabar, cruza la bahía andando hacia Marina Bay Sands para el show Spectra.',
+          ],
+          tips: ['Es gratis y no necesita entrada: solo llegar. Antes puedes cenar en Satay by the Bay, al lado.'],
+          family: ['Tumbarse en la hierba a ver los "árboles gigantes" iluminarse les encanta; llevad algo para sentarse.'],
+        },
         transitToNext: { mode: 'walk', min: 15, note: 'Paseo por la pasarela del helix hasta el Event Plaza de MBS' } },
-      { n: 9, name: 'Spectra — show de agua y luz (MBS)', category: 'Show', emoji: '💧', coords: { lat: 1.2834, lon: 103.8607 }, time: '21:00', hours: 'Gratis · 20:00 y 21:00', note: 'Cierre de Singapur: agua, láser y música frente a Marina Bay Sands, sentados junto al agua. Grab de vuelta y a dormir.' },
+      { n: 9, name: 'Spectra — show de agua y luz (MBS)', category: 'Show', emoji: '💧', coords: { lat: 1.2834, lon: 103.8607 }, time: '21:00', hours: 'Gratis · 20:00 y 21:00', note: 'Cierre de Singapur: agua, láser y música frente a Marina Bay Sands, sentados junto al agua. Grab de vuelta y a dormir.',
+        guide: {
+          intro: 'El gran show de agua, luz y láser frente a Marina Bay Sands, sobre la bahía. GRATIS, con fuentes danzantes y proyecciones sobre cortinas de agua. El broche perfecto a Singapur, sentados junto al agua con los rascacielos de fondo.',
+          time: '15 min de show', bestTime: 'Pase de las 21:00 (fin de semana también más tarde); llega 15 min antes para sitio en primera línea.',
+          route: [
+            'Ponte en la promenade de la Event Plaza (frente al MBS, junto al agua).',
+            'Primera fila para que las cortinas de agua queden entre tú y la ciudad.',
+          ],
+          tips: ['Gratis, sin entrada. Encadénalo con Garden Rhapsody cruzando la bahía (10 min andando).'],
+          family: ['Fuentes que "bailan" con láser y música: cierre redondo para los peques antes de dormir.'],
+        } },
     ],
   },
 
@@ -270,6 +304,26 @@ export const dayEnrich: Record<string, Enrich> = {
         },
         transitToNext: { mode: 'walk', min: 5 } },
       { n: 3, name: 'Bornean Sun Bear Centre', category: 'Naturaleza', emoji: '🐻', coords: { lat: 5.8732, lon: 117.9480 }, time: '11:00', hours: '~6€', note: 'El único centro del mundo de osos de sol. Pequeños y trepadores, encantan a los niños.',
+        guide: {
+          intro: 'El único centro del mundo dedicado al oso malayo (sun bear), el oso más pequeño que existe — con una mancha dorada en el pecho con forma de sol. Rescatan a los que fueron mascotas y los reeducan. Está pegado a Sepilok, así que se combina con los orangutanes.',
+          time: '45 min–1 h', bestTime: 'Al salir del centro de orangutanes (media mañana): están más activos con el fresco.',
+          route: [
+            'Sube a las plataformas de observación sobre el bosque.',
+            'Busca a los osos trepando y buscando comida entre los árboles y el suelo.',
+            'Lee los paneles de rescate: cada oso tiene su historia.',
+          ],
+          tips: [
+            'Binoculares: a veces están lejos entre la vegetación. Paciencia y silencio.',
+            'Entrada combinada barata; queda al lado del centro de orangutanes.',
+          ],
+          family: [
+            'Contadles que es el oso más pequeño del mundo y que la mancha del pecho parece un sol (de ahí el nombre).',
+            'Reto: contar cuántos osos veis trepando a la vez.',
+          ],
+          eat: [
+            { name: 'Cafés del centro / lodge de Sepilok', note: 'Se come en el propio centro o el lodge, a un paso.' },
+          ],
+        },
         transitToNext: { mode: 'walk', min: 8, note: 'Al restaurante' } },
       { n: 4, name: 'Comida: Sepilok Bistro / lodge', category: 'Comida', emoji: '🍛', coords: { lat: 5.8745, lon: 117.9460 }, time: '12:30', note: 'Arroz nasi goreng, fideos, fruta. Después, descanso/piscina en el resort (calor de mediodía).',
         transitToNext: { mode: 'car', min: 35, note: 'Grab a Labuk Bay', fare: '~40 MYR' } },
@@ -399,6 +453,27 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 3, name: 'Crucero de la tarde', category: 'Naturaleza', emoji: '🚤', coords: { lat: 5.5230, lon: 118.3100 }, time: '15:30', note: 'Último crucero vespertino del Kinabatangan, luz dorada. Despedida del río.',
         transitToNext: { mode: 'car', min: 45, note: 'Furgoneta a Gomantong' } },
       { n: 4, name: 'Gomantong Cave', category: 'Naturaleza', emoji: '🦇', coords: { lat: 5.5333, lon: 118.0667 }, time: '18:00', note: 'Cueva gigante: salida en espiral de millones de murciélagos al atardecer, con águilas cazándolos. Serpientes en la entrada.',
+        guide: {
+          intro: 'Una catedral de piedra caliza famosa por dos cosas: los nidos de vencejo que se recogen para la "sopa de nido" china, y la salida al atardecer de MILLONES de murciélagos en espiral, perseguidos por águilas y halcones. Naturaleza en estado puro y salvaje — no apto para aprensivos.',
+          time: '1–1½ h (llegar antes del ocaso)', bestTime: 'Al atardecer (~18:00): es cuando salen los murciélagos en masa.',
+          route: [
+            'Pasarela hasta la boca de la cueva (Simud Hitam): el olor a guano es fuerte, avisa a los peques.',
+            'Al caer el sol, sal fuera y mira al cielo: la columna de murciélagos empieza a salir en espiral.',
+            'Observa a las rapaces cazándolos al vuelo — espectáculo natural único.',
+          ],
+          tips: [
+            '⚠️ Suelo resbaladizo de guano y cucarachas/serpientes en la entrada: calzado cerrado y no tocar barandillas sin ganas.',
+            'La salida de murciélagos depende del día/clima: puede empezar antes o después. Paciencia.',
+            'Repelente y no llevar comida abierta.',
+          ],
+          family: [
+            'Para niños valientes es alucinante; a los sensibles el olor y los bichos pueden abrumar — valorad según Leo.',
+            'Contadles que esos nidos son los de la carísima "sopa de nido de pájaro" china.',
+          ],
+          eat: [
+            { name: 'Cena en el lodge del Kinabatangan', note: 'Se cena en el lodge; no hay dónde comer cerca de la cueva.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 45, note: 'Vuelta al lodge' } },
       { n: 5, name: 'Cena en el lodge', category: 'Comida', emoji: '🍽️', coords: { lat: 5.5170, lon: 118.2950 }, time: '20:00', note: 'Cena incluida, última noche. Mochilas listas: mañana crucero de despedida y aeropuerto.' },
     ],
@@ -435,12 +510,39 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 1, name: 'Desayuno + piscina del hotel', category: 'Hotel', emoji: '🏊', coords: { lat: 3.1577, lon: 101.7120 }, time: '09:00', note: 'Recuperación: desayuno tranquilo y piscina con vistas a las Petronas.',
         transitToNext: { mode: 'car', min: 20, note: 'Grab a Lake Gardens', fare: '~12 MYR' } },
       { n: 2, name: 'KL Bird Park (Lake Gardens)', category: 'Naturaleza', emoji: '🦜', coords: { lat: 3.1430, lon: 101.6869 }, time: '10:30', hours: '9:00–18:00 · ~15€/ad', note: 'Aviario libre gigantesco: loros, cálaos, flamencos. Los niños dan de comer a las aves.',
+        guide: {
+          intro: 'El aviario de vuelo libre más grande del mundo: 3.000 aves (loros, cálaos, flamencos, pavos reales) volando sueltas sobre ti bajo una malla gigante, en los jardines del Lake Gardens. Un paraíso para los peques.',
+          time: '2 h', bestTime: 'Por la mañana (10:30), con las alimentaciones y el bird show.',
+          route: [
+            'Empieza por las zonas 1-2 (vuelo libre): las aves se posan cerca.',
+            'No te pierdas el "bird show" (horario en la entrada) y la alimentación de loros/cálaos.',
+            'Zona de flamencos y la casa de las rapaces para acabar.',
+          ],
+          tips: [
+            'Mira los horarios de shows/alimentaciones al entrar y planifica alrededor.',
+            'Puedes comprar comida para dar a los loros: el momento estrella para los niños.',
+            'Poca sombra en partes: gorra, agua y crema.',
+          ],
+          family: [
+            'Dar de comer a los loros en el brazo y las fotos con las aves son puro "wow" para Aira y Leo.',
+          ],
+          eat: [
+            { name: 'Hornbill Restaurant (dentro) / warungs de Lake Gardens', dish: 'local malayo', note: 'Restaurante dentro del parque con aves alrededor; cómodo sin salir.' },
+          ],
+        },
         transitToNext: { mode: 'walk', min: 8, note: 'Almuerzo en el parque' } },
       { n: 3, name: 'Comida: Hornbill Restaurant', category: 'Comida', emoji: '🍛', coords: { lat: 3.1432, lon: 101.6875 }, time: '13:00', note: 'Restaurante dentro del Bird Park, con aves alrededor. Curry, fideos, ensaladas.',
         transitToNext: { mode: 'car', min: 20, note: 'Grab al hotel' } },
       { n: 4, name: 'Descanso / Suria KLCC', category: 'Compras', emoji: '🛍️', coords: { lat: 3.1580, lon: 101.7120 }, time: '15:30', note: 'Siesta o el centro comercial Suria (AC) bajo las Petronas si hace falta ropa.',
         transitToNext: { mode: 'walk', min: 5, note: 'Al KLCC Park' } },
       { n: 5, name: 'KLCC Park + show de fuentes', category: 'Parque', emoji: '⛲', coords: { lat: 3.1590, lon: 101.7140 }, time: '19:00', note: 'Playground y piscina de chapoteo; show de fuentes Lake Symphony al anochecer con las torres iluminadas.',
+        guide: {
+          intro: 'El parque a los pies de las Petronas, con un lago que hace un show de fuentes danzantes (Lake Symphony) al anochecer, justo cuando las torres se iluminan. Gratis, con zona de juegos y piscina infantil de chapoteo — el mejor sitio para ver las Petronas de noche sin pagar.',
+          time: '1 h', bestTime: 'Al anochecer (~19:30-20:30): show de fuentes cada media hora con las torres iluminadas.',
+          route: ['Coge sitio en el borde del lago mirando a las torres.', 'Espera el show de fuentes (cada ~30 min).', 'Deja que los peques suelten energía en el playground / splash pad.'],
+          tips: ['Gratis. Trae muda para Leo si se mete en la piscina de chapoteo (Water Playground).', 'La foto de las Petronas iluminadas con las fuentes es LA de KL de noche.'],
+          family: ['Piscina de chapoteo + parque infantil + fuentes: planazo gratis para acabar el día.'],
+        },
         transitToNext: { mode: 'walk', min: 12, note: 'A cenar' } },
       { n: 6, name: 'Cena: Jalan Alor', category: 'Comida', emoji: '🍢', coords: { lat: 3.1457, lon: 101.7090 }, time: '20:30', note: 'O Lot 10 Hutong (food court con AC) si prefieren tranquilidad.' },
     ],
@@ -478,8 +580,48 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 2, name: 'Comida: Madam Kwan\'s (Suria)', category: 'Comida', emoji: '🍽️', coords: { lat: 3.1580, lon: 101.7125 }, time: '12:30', note: 'Nasi lemak y laksa con vistas a las torres. Clásico familiar.',
         transitToNext: { mode: 'walk', min: 6, note: 'Bajo las torres' } },
       { n: 3, name: 'Aquaria KLCC', category: 'Naturaleza', emoji: '🐠', coords: { lat: 3.1533, lon: 101.7136 }, time: '14:00', hours: '10:00–20:00', note: 'Túnel de cristal con tiburones y rayas sobre la cabeza. Refugio del calor. (Esto se hace elijáis A o B.)', status: 'pending',
+        guide: {
+          intro: 'Un acuario bajo el centro de convenciones de KLCC con un túnel de 90 m donde tiburones y rayas pasan sobre tu cabeza. Es el plan de aire acondicionado perfecto para la hora de más calor, al pie de las Petronas.',
+          time: '1½ h', bestTime: 'Primera hora de la tarde (hora punta de calor fuera).',
+          route: [
+            'Sigue el recorrido desde los ríos y manglares hasta el gran tanque oceánico.',
+            'Párate en la cinta del túnel submarino: tiburones toro y rayas justo encima.',
+            'Mira el horario de la alimentación de tiburones (buceadores en el tanque).',
+          ],
+          tips: [
+            'Entradas online más baratas; evita el finde a mediodía (lleno de familias).',
+            'Está bajo el KLCC: se combina con las Petronas y el parque de la fuente sin moverse.',
+          ],
+          family: [
+            'El túnel con tiburones sobre la cabeza es puro "wow" para Aira y Leo.',
+            'Si coincide, la alimentación de tiburones con buzos les encanta.',
+          ],
+          eat: [
+            { name: 'Madam Kwan\'s / Lot 10 Hutong', dish: 'nasi lemak / hawker', note: 'A un paso, en Suria KLCC o Bukit Bintang.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 12, note: 'Grab a KL Tower (si eliges B) o al hotel' } },
       { n: 4, name: 'KL Tower — Sky Deck & Sky Box', category: 'Mirador', emoji: '🗼', alt: 'B', coords: { lat: 3.1528, lon: 101.7039 }, time: '17:30', hours: '~25€', note: 'OPCIÓN B de mirador: mirador abierto y cajas de cristal voladizas, con la mejor vista DE las Petronas al atardecer (~19:25). Elige esto O la Skybridge, no ambas.',
+        guide: {
+          intro: 'La torre de comunicaciones de KL, sobre una colina, tiene la MEJOR vista de las Torres Petronas enteras (desde ellas no las ves). El Sky Deck es un mirador abierto y el Sky Box, unas cajas de cristal voladizas para la foto de vértigo. La gran alternativa a subir a las Petronas.',
+          time: '1–1½ h', bestTime: 'Al atardecer (~18:00): ves KL de día, la puesta de sol y las Petronas encenderse. Lo mejor de tres en uno.',
+          route: [
+            'Sube al Sky Deck (abierto, planta alta) para la panorámica de 360°.',
+            'Haz cola para el Sky Box (caja de cristal): foto "flotando" sobre la ciudad.',
+            'Quédate a que caiga el sol y se iluminen las Petronas al fondo.',
+          ],
+          tips: [
+            'Compra el ticket que incluye Sky Deck + Sky Box (el observatorio interior a secas se queda corto).',
+            'Elige ESTO o la Skybridge de las Petronas, no las dos (se solapan como mirador).',
+            'La torre está en una colina con reserva forestal: hay bus lanzadera desde la entrada.',
+          ],
+          family: [
+            'El Sky Box de cristal es pura adrenalina divertida para Aira (y para los papás valientes).',
+          ],
+          eat: [
+            { name: 'Jalan Alor (después, en Bukit Bintang)', dish: 'char kuey teow, satay, marisco', note: 'Bajáis a cenar a la calle de comida nocturna, cerca.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 10, note: 'Grab a Bukit Bintang' } },
       { n: 5, name: 'Cena: Lot 10 Hutong', category: 'Comida', emoji: '🍜', coords: { lat: 3.1466, lon: 101.7110 }, time: '20:00', note: 'Los mejores puestos hawker de Malasia bajo un techo con AC. Para todos los gustos.' },
     ],
@@ -520,8 +662,28 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 2, name: 'Brunch: Nasi Lemak Kampung Baru', category: 'Comida', emoji: '🍛', coords: { lat: 3.1665, lon: 101.7045 }, time: '10:15', note: 'El nasi lemak más auténtico de KL (Nasi Lemak Antarabangsa y puestos del barrio), en el pueblo malayo de casas de madera pegado a las Petronas. Al lado del hotel.',
         transitToNext: { mode: 'car', min: 12, note: 'Al hotel a descansar / a la tarde elegida', fare: '~10 MYR' } },
       { n: 3, name: 'Petrosains Discovery Centre', category: 'Actividad', emoji: '⚗️', alt: 'A', coords: { lat: 3.1581, lon: 101.7122 }, time: '13:00', hours: '~10€ · en Suria KLCC', note: 'Museo de ciencia interactivo dentro de las Petronas: experimentos, dinosaurios, simulador. Con AC, 3-4h, ideal 5-9 años. Variedad sin repetir parque acuático.', status: 'pending',
+        guide: {
+          intro: 'Un museo de ciencia interactivo enorme DENTRO de las Torres Petronas: experimentos para tocar, dinosaurios, una tirolina, simulador de helicóptero y una zona del petróleo muy chula. Todo con AC — plan perfecto para las horas de calor y para que los peques "hagan" en vez de mirar.',
+          time: '3–4 h', bestTime: 'Primera hora de la tarde (calor fuera); entre semana hay menos colegios.',
+          route: [
+            'Entra en Suria KLCC (planta 4) y empieza por el "Dark Ride" que te lleva al recorrido.',
+            'Dedícate a las estaciones interactivas: Aira y Leo pueden tocar/experimentar en todas.',
+            'Guarda la tirolina y el simulador para el final.',
+          ],
+          tips: ['Entradas en taquilla o online; hay altura mínima en la tirolina/simulador.', 'Está en el mismo KLCC: encadénalo con el parque de la fuente al anochecer.'],
+          family: ['Museo pensado para "cacharrear": ideal 5-9 años. Leo y Aira se lo pasan en grande sin darse cuenta de que aprenden.'],
+          eat: [{ name: 'Madam Kwan\'s / Lot 10 Hutong', dish: 'nasi lemak / hawker', note: 'A un paso, en el propio KLCC o Bukit Bintang.' }],
+        },
         transitToNext: { mode: 'walk', min: 8, note: 'Al hotel (al lado) a descansar' } },
       { n: 4, name: 'Sunway Lagoon', category: 'Parque', emoji: '💦', alt: 'B', coords: { lat: 3.0707, lon: 101.6075 }, time: '13:00', hours: '10:00–18:00 · ~80€', note: 'Multiparque: agua + atracciones + wildlife. Medio día largo. ⚠️ Solapa con Waterbom (Bali): elige solo si quieres dos parques acuáticos.', status: 'pending',
+        guide: {
+          intro: 'Un multiparque a las afueras de KL: zona acuática, atracciones, tirolinas, un puente colgante icónico y hasta una zona de fauna. Medio día largo de diversión — pero OJO, se solapa con Waterbom en Bali, así que elige solo si quieres dos parques acuáticos en el viaje.',
+          time: 'Medio día / día', bestTime: 'Al abrir (10:00) para aprovechar; entre semana menos cola.',
+          route: ['Base a la sombra y taquilla al entrar.', 'Zona acuática (olas, ríos, toboganes) en las horas de calor.', 'Puente colgante y zona seca de atracciones para lo demás.'],
+          tips: ['⚠️ Piénsalo: ya tenéis Waterbom (Bali), mejor. Ve a Sunway solo si os sobra un día en KL y os van los parques.', 'Entradas online; está a ~40 min del centro (Grab).'],
+          family: ['Hay zonas para todas las edades, incluida infantil para Leo. La wildlife park gusta a los peques.'],
+          eat: [{ name: 'Food court del parque', dish: 'comida rápida local', note: 'Dentro del recinto, para no salir.' }],
+        },
         transitToNext: { mode: 'car', min: 35, note: 'Grab al hotel a descansar' } },
       { n: 5, name: 'Cena cerca del hotel: Jalan Alor', category: 'Comida', emoji: '🍢', coords: { lat: 3.1457, lon: 101.7090 }, time: '20:00', note: 'Cena de street food a 10 min del hotel (Bukit Bintang): satay, char kway teow, zumos. El nasi lemak ya lo habéis bordado en el brunch.' },
     ],
@@ -535,8 +697,35 @@ export const dayEnrich: Record<string, Enrich> = {
     ],
     stops: [
       { n: 1, name: 'Central Market + Merdeka Square', category: 'Compras', emoji: '🛍️', coords: { lat: 3.1457, lon: 101.6957 }, time: '09:30', note: 'Mañana de artesanía, batik y souvenirs (con AC) y paseo por Merdeka Square. Último vistazo a KL.',
+        guide: {
+          intro: 'El Central Market (Pasar Seni) es un mercado art déco de 1888, hoy centro de artesanía con AC: batik, telas, tallas y souvenirs. Al lado, Merdeka Square (donde se izó la bandera en la independencia de 1957) y el precioso edificio Sultan Abdul Samad. La mejor mañana de compras y foto de KL.',
+          time: '1½–2 h', bestTime: 'Por la mañana (fresco y sin agobios); es el plan de la mañana del día del aeropuerto.',
+          route: [
+            'Recorre los pasillos del Central Market por "calles" temáticas (malaya, china, india): batik y artesanía de verdad.',
+            'Sal al callejón Kasturi Walk para snacks y más puestos.',
+            'Cruza a Merdeka Square: foto del edificio Sultan Abdul Samad y el mástil gigante.',
+          ],
+          tips: [
+            'Regatea con cariño en los puestos (no en las tiendas con precio fijo).',
+            'Con AC dentro: buen refugio del calor. A un paso del Madras Lane hawker (Chinatown) para comer.',
+            'Es el plan del día de salida: no te alejes, el vuelo es por la tarde.',
+          ],
+          family: [
+            'Dejad que Aira y Leo elijan un pequeño souvenir/imán: les hace ilusión "comprar" ellos.',
+          ],
+          eat: [
+            { name: 'Madras Lane / Nam Heong (Chinatown)', dish: 'curry laksa, chicken rice', note: 'Hawkers de Chinatown a 5 min andando; comida local antes del aeropuerto.' },
+          ],
+        },
         transitToNext: { mode: 'walk', min: 6, note: 'Andando al museo (opcional) o a comer' } },
       { n: 2, name: 'Opcional: National Textile Museum', category: 'Cultura', emoji: '🏛️', coords: { lat: 3.1480, lon: 101.6940 }, time: '10:45', hours: 'Gratis · al lado del Central Market', note: 'OPCIONAL, solo si os sobra tiempo antes del vuelo: el museo del batik y los tejidos malayos, en un edificio colonial precioso y a 5 min andando. Como preferís lo auténtico, no le dedicamos un día propio: queda aquí como relleno del día de aeropuerto.',
+        guide: {
+          intro: 'Un pequeño museo GRATIS del batik y los tejidos malayos, en un precioso edificio colonial de estilo indo-sarraceno de 1896 junto a Merdeka Square. Rápido y con AC: buen relleno del día del aeropuerto si sobra un rato.',
+          time: '45 min', bestTime: 'Media mañana, encadenado con el Central Market (a 5 min).',
+          route: ['Planta baja: historia del textil malayo. Arriba: batik, songket y trajes tradicionales.', 'Foto del edificio colonial por fuera (es de los más bonitos de KL).'],
+          tips: ['Gratis y pequeño: entra y sal en 45 min. Solo si os sobra tiempo antes del vuelo.'],
+          family: ['Corto y con telas de colores; a los peques les gusta ver cómo se hace el batik con cera.'],
+        },
         transitToNext: { mode: 'car', min: 10, note: 'Grab a Bukit Bintang a comer' } },
       { n: 3, name: 'Comida: Lot 10 Hutong', category: 'Comida', emoji: '🍜', coords: { lat: 3.1466, lon: 101.7110 }, time: '12:00', note: 'Comida rápida y rica antes del aeropuerto. Check-out del hotel y maletas.',
         transitToNext: { mode: 'car', min: 50, note: 'Grab a KLIA2', fare: '~75 MYR', tip: 'Salir 13:00. KLIA2 es la terminal de AirAsia (≠ KLIA).' } },
@@ -632,6 +821,26 @@ export const dayEnrich: Record<string, Enrich> = {
         },
         transitToNext: { mode: 'walk', min: 8, note: 'Al mercado y centro' } },
       { n: 6, name: 'Ubud Art Market + Palacio', category: 'Compras', emoji: '🧺', coords: { lat: -8.5069, lon: 115.2625 }, time: '16:00', note: 'Artesanía, telas y recuerdos; el Palacio Real de Ubud al lado. Helado o café.',
+        guide: {
+          intro: 'El mercado de arte de Ubud (Pasar Seni), frente al Palacio Real, es donde comprar artesanía balinesa: pareos, bolsos, tallas, cometas y pinturas. El Palacio (Puri Saren) es la casa de la familia real de Ubud, con patios tallados — gratis y precioso, y por la noche hay danza balinesa.',
+          time: '1–1½ h', bestTime: 'Media tarde; y si os quedáis, la danza del Palacio es a las ~19:30.',
+          route: [
+            'Recorre el Art Market (mejor la planta de arriba y el fondo: más barato y menos turístico).',
+            'Cruza al Palacio de Ubud (Puri Saren): patios y puertas talladas, entrada gratis.',
+            'Termina con un helado/café en Jl. Raya y, si os animáis, entradas para la danza nocturna.',
+          ],
+          tips: [
+            'Regatea siempre (empieza sobre la mitad de lo que pidan) y compara puestos: se repite el género.',
+            'La danza balinesa (Legong/Barong) en el Palacio al anochecer es un planazo cultural barato.',
+          ],
+          family: [
+            'Comprad una cometa o un títere balinés: a los peques les encanta elegir.',
+            'La danza con máscaras (Barong, el león) les engancha aunque no entiendan la historia.',
+          ],
+          eat: [
+            { name: 'Warung Biah Biah / Ibu Oka', dish: 'nasi campur / babi guling', note: 'A un paso del Palacio, en el centro de Ubud.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 10, note: 'Al hotel a refrescarse' } },
       { n: 7, name: 'Cena: Murni\'s Warung', category: 'Comida', emoji: '🦆', coords: { lat: -8.5040, lon: 115.2550 }, time: '19:30', hours: 'Reservar', note: 'Bebek betutu (pato ahumado 24h) junto al puente Campuhan. Pedir con antelación.', status: 'pending' },
     ],
@@ -668,6 +877,28 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 2, name: 'Desayuno en el hotel', category: 'Comida', emoji: '🍳', coords: { lat: -8.5060, lon: 115.2620 }, time: '08:30', note: 'Desayuno sin prisa. Conductor a las 9:30.',
         transitToNext: { mode: 'car', min: 30, note: 'Coche privado a Tirta Empul' } },
       { n: 3, name: 'Tirta Empul + Gunung Kawi', category: 'Templo', emoji: '🙏', coords: { lat: -8.4156, lon: 115.3153 }, time: '10:00', hours: '~4€', note: 'Templo de manantiales sagrados; los balineses se purifican bajo las fuentes. A 5 min, los santuarios tallados en roca de Gunung Kawi entre arrozales.',
+        guide: {
+          intro: 'Tirta Empul es el templo del agua sagrada más importante de Bali: desde el año 962 los balineses hacen aquí el "melukat", purificándose bajo una hilera de fuentes. Podéis meteros vosotros también (con sarong especial) — una experiencia preciosa y respetuosa. A 5 min, Gunung Kawi esconde santuarios tallados en la roca entre arrozales.',
+          time: '1½–2 h (+ Gunung Kawi)', bestTime: 'A las 10:00 tras abrir: menos cola en las fuentes y menos calor.',
+          route: [
+            'Entra, coge sarong y deja la ropa en las taquillas si vais a purificaros.',
+            'En la piscina de purificación, avanza de fuente en fuente en orden (salta las 2 últimas, son para funerales); moja la cabeza en cada una.',
+            'Recorre los patios del templo y los estanques de peces.',
+            'Coge el coche a Gunung Kawi (5 min): baja los escalones entre arrozales hasta los santuarios tallados en el barranco.',
+          ],
+          tips: [
+            'Para meterse a las fuentes hace falta el sarong específico (lo dan/alquilan); lleva bañador debajo y una muda seca.',
+            'Respeta el turno de los balineses que rezan: no te pongas delante ni hagas fotos invasivas.',
+            'Gunung Kawi son muchos escalones: con Leo, dosifica (o quedaos arriba en el mirador).',
+          ],
+          family: [
+            'Explica el ritual "melukat" a Aira y Leo: cada fuente limpia algo malo — se lo toman como un juego de agua sagrada.',
+            'En Gunung Kawi, buscad los santuarios como "casas de los reyes" excavadas en la roca hace 1.000 años.',
+          ],
+          eat: [
+            { name: 'Warungs de Tampaksiring / Nasi Ayam Ibu Mangku (Kedewatan)', dish: 'nasi campur, pollo betutu', note: 'Warungs locales de camino de vuelta a Ubud; el betutu de Ibu Mangku pilla en la ruta.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 25, note: 'A comer' } },
       { n: 4, name: 'Comida: Warung Biah Biah', category: 'Comida', emoji: '🍲', coords: { lat: -8.5060, lon: 115.2600 }, time: '13:00', note: 'Cocina balinesa auténtica y barata, favorita de locales.',
         transitToNext: { mode: 'car', min: 15, note: 'A la clase de cocina o al hotel' } },
@@ -792,10 +1023,50 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 1, name: 'Desayuno + salida temprano', category: 'Comida', emoji: '🍳', coords: { lat: -8.6900, lon: 115.2630 }, time: '07:15', note: 'Desayuno y conductor a las 8:00 (1.5h hasta el este).',
         transitToNext: { mode: 'car', min: 90, note: 'Coche privado a Lempuyang' } },
       { n: 2, name: 'Pura Lempuyang — Gates of Heaven', category: 'Templo', emoji: '🏛️', coords: { lat: -8.3900, lon: 115.6310 }, time: '09:30', hours: '~5€', note: 'Las puertas que enmarcan el volcán Agung. Llegar pronto: la cola para la foto crece rápido.',
+        guide: {
+          intro: 'Las "Puertas del Cielo" (Candi Bentar) que enmarcan el volcán Agung: la foto más viral de Bali. Ojo con el truco: el famoso "reflejo" en el agua NO es un lago, es un espejo que el fotógrafo del templo pone bajo el móvil. Es un templo sagrado en la ladera del este, más lejos de Ubud.',
+          time: '1½–2 h (con la cola de la foto)', bestTime: 'Nada más abrir (~7:00-9:30): la cola para la foto llega a ser de 1-2 h a media mañana, y el Agung se nubla pronto.',
+          route: [
+            'Llega PRONTO y coge número para la foto en la puerta (hay cola organizada).',
+            'Mientras esperas, sube a ver los otros templos de la ladera (hay 7 en total).',
+            'Tu turno de foto: el fotógrafo del templo hace el efecto "espejo" con tu móvil (propina).',
+          ],
+          tips: [
+            'El "lago" es un espejo bajo el teléfono: no te decepciones, y no hace falta pagar de más por versiones.',
+            'Está lejos (este de Bali): combínalo con Tirta Gangga el mismo día, como en el plan.',
+            'Sarong obligatorio (lo dan). Nubes: el Agung se tapa a media mañana, ve temprano.',
+          ],
+          family: [
+            'A los peques la espera de la foto se les hace larga: llevad agua/snack y turnaos para subir a los otros templos.',
+          ],
+          eat: [
+            { name: 'Warungs de Tirta Gangga', dish: 'nasi campur, mie goreng', note: 'Comer cerca de Tirta Gangga, la siguiente parada del día (con vistas a arrozales).' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 40, note: 'A Tirta Gangga' } },
       { n: 3, name: 'Comida con vistas a arrozales', category: 'Comida', emoji: '🍛', coords: { lat: -8.4120, lon: 115.5850 }, time: '12:30', note: 'Warung con terraza sobre los campos del este (p.ej. cerca de Tirta Gangga). Cocina balinesa.',
         transitToNext: { mode: 'walk', min: 5 } },
       { n: 4, name: 'Tirta Gangga', category: 'Templo', emoji: '🐠', coords: { lat: -8.4120, lon: 115.5870 }, time: '14:00', hours: '~3€', note: 'Palacio del agua real: estanques de carpas gigantes y piedras para saltar sobre el agua. A los niños les encanta.',
+        guide: {
+          intro: 'El "palacio del agua" del último rey de Karangasem: jardines con estanques, fuentes y una pasarela de piedras redondas sobre el agua llena de carpas gigantes de colores. Tranquilo, verde y perfecto para que los peques corran tras la intensidad de Lempuyang.',
+          time: '1–1½ h', bestTime: 'Primera hora de la tarde, tras Lempuyang.',
+          route: [
+            'Entra al jardín principal y ve directo a las "piedras saltarinas" sobre el estanque de las carpas.',
+            'Compra un cucurucho de comida para los peces: se arremolinan las carpas (diversión asegurada).',
+            'Pasea por los jardines de arriba y las fuentes de la torre de 11 niveles.',
+          ],
+          tips: [
+            'Calzado con agarre: las piedras del estanque pueden resbalar. Vigila a Leo de la mano.',
+            'Es de los templos más relajados: buen sitio para bajar el ritmo y merendar.',
+          ],
+          family: [
+            'Dar de comer a las carpas gigantes desde las piedras es EL momento para Aira y Leo.',
+            'Reto de equilibrio: cruzar el estanque saltando de piedra en piedra (con adulto).',
+          ],
+          eat: [
+            { name: 'Warungs con vistas de Tirta Gangga', dish: 'nasi campur, mie goreng, coco', note: 'Terrazas mirando a los arrozales de Karangasem, justo al lado.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 90, note: 'Vuelta a Sanur' } },
       { n: 5, name: 'Cena en Sanur: Pregina Warung', category: 'Comida', emoji: '🍽️', coords: { lat: -8.6880, lon: 115.2600 }, time: '19:30', note: 'Cocina balinesa auténtica (nasi campur, sate lilit) de vuelta en Sanur.' },
     ],
@@ -836,6 +1107,27 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 3, name: 'Comida cerca de Crystal Bay', category: 'Comida', emoji: '🍤', coords: { lat: -8.7180, lon: 115.4530 }, time: '12:30', note: 'Warung sencillo junto a la playa. Sombra y reponer fuerzas.',
         transitToNext: { mode: 'walk', min: 5 } },
       { n: 4, name: 'Crystal Bay — snorkel', category: 'Playa', emoji: '🐠', coords: { lat: -8.7190, lon: 115.4520 }, time: '14:00', note: 'Snorkel con mantas y tortugas en agua cristalina. Chaleco para Leo. Angel\'s Billabong si queda tiempo y marea baja.',
+        guide: {
+          intro: 'La bahía más tranquila y bonita de Nusa Penida: arena blanca, aguas cristalinas y arrecife cerca de la orilla. Es la playa "de descanso" tras el mirador de Kelingking, y el punto de snorkel más familiar de la isla (con suerte, mantas y tortugas).',
+          time: '2 h', bestTime: 'Primera hora de la tarde con marea alta; el mar aquí suele estar calmado.',
+          route: [
+            'Baja a la playa y monta base a la sombra de los árboles.',
+            'Snorkel pegado al arrecife de la derecha (el más accesible desde la orilla).',
+            'Baño y descanso; si hay tiempo y marea baja, Angel\'s Billabong queda cerca.',
+          ],
+          tips: [
+            'Puede haber corriente al alejarse: quedaos en la zona de la bahía y con chaleco para Leo.',
+            'Vuestras gafas de snorkel + reef-safe. No pisar el coral.',
+            'Sombra limitada: sombrilla/árbol y agua.',
+          ],
+          family: [
+            'Leo con chaleco chapotea en la orilla; Aira puede hacer snorkel cerca vigilada.',
+            'Buscad tortugas y peces de colores — el agua transparente lo pone fácil.',
+          ],
+          eat: [
+            { name: 'Warungs de Crystal Bay', dish: 'nasi/mie goreng, coco fresco', note: 'Chiringuitos a pie de playa para comer sin moverse.' },
+          ],
+        },
         transitToNext: { mode: 'ferry', min: 45, note: 'Fast boat de vuelta ~17:00' } },
       { n: 5, name: 'Cena en Sanur: Soul on the Beach', category: 'Comida', emoji: '🌅', coords: { lat: -8.6840, lon: 115.2660 }, time: '19:30', note: 'Cena con los pies en la arena de vuelta en Sanur. Ducha del salitre primero.' },
     ],
@@ -917,6 +1209,26 @@ export const dayEnrich: Record<string, Enrich> = {
         },
         transitToNext: { mode: 'walk', min: 5, note: 'Al anfiteatro del Kecak' } },
       { n: 4, name: 'Kecak Fire Dance', category: 'Show', emoji: '🔥', coords: { lat: -8.8295, lon: 115.0855 }, time: '18:00', hours: '~15€/persona', note: '50 hombres cantando en círculo alrededor del fuego con el sol hundiéndose en el mar. Espectáculo inolvidable.', status: 'pending',
+        guide: {
+          intro: 'La danza kecak de Uluwatu: decenas de hombres sentados en círculo cantando "chak-chak-chak" a coro (sin instrumentos) mientras se representa el Ramayana con fuego, y el sol se hunde en el Índico detrás. De los espectáculos más hipnóticos que veréis.',
+          time: '1 h de show (llegar antes)', bestTime: 'Función de las ~18:00, coincidiendo con la puesta de sol.',
+          route: [
+            'Compra la entrada del anfiteatro (junto al templo de Uluwatu) con antelación o al llegar temprano.',
+            'Siéntate en la parte alta-central para ver el círculo y el mar de fondo.',
+            'Disfruta: canto, danza y fuego con el atardecer. Dura ~1 h.',
+          ],
+          tips: [
+            'Llega 30-45 min antes: se llena y los mejores sitios vuelan. Reserva si puedes.',
+            'El personaje de Hanuman (el mono) interactúa con el público y hace reír — parte del show.',
+            'Ojo con los macacos del templo antes/después: gafas y móvil bien guardados.',
+          ],
+          family: [
+            'A los peques les fascina el coro y el fuego: como una película en directo. Sin diálogos que entender.',
+          ],
+          eat: [
+            { name: 'Cena de marisco en Jimbaran (después)', dish: 'pescado a la brasa en la arena', note: 'De camino de vuelta a Sanur, la cena clásica de playa (parada siguiente).' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 25, note: 'A cenar a Jimbaran' } },
       { n: 5, name: 'Cena: marisco en Jimbaran', category: 'Comida', emoji: '🦐', coords: { lat: -8.7905, lon: 115.1620 }, time: '20:00', note: 'Pescado y marisco a la brasa con mesas en la arena y velas. Vuelta a Sanur ~21:30.',
         guide: {
@@ -976,6 +1288,27 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 2, name: 'Comida: Kayu Api Smoke Grill', category: 'Comida', emoji: '☕', coords: { lat: -8.6900, lon: 115.2620 }, time: '12:30', note: 'BBQ y café de especialidad, favorito de Sanur. Tarde para hacer maletas y descansar.',
         transitToNext: { mode: 'car', min: 45, note: 'Grab a Tanah Lot (salir 15:30)' } },
       { n: 3, name: 'Tanah Lot', category: 'Templo', emoji: '🌊', coords: { lat: -8.6212, lon: 115.0868 }, time: '16:30', hours: '~5€', note: 'Templo del s.XVI sobre una roca en el mar. Con marea baja se acerca uno; serpientes sagradas en las rocas. Atardecer detrás del templo.',
+        guide: {
+          intro: 'El templo más fotografiado de Bali: un santuario del s.XVI encaramado en una roca en medio del mar, que con la marea alta queda rodeado de agua. Al atardecer, con el sol poniéndose justo detrás, es de las postales más famosas de Indonesia.',
+          time: '1½–2 h con el atardecer', bestTime: 'Llegar 1-1½ h antes del ocaso: sitio para el sunset y con marea baja se accede a la base.',
+          route: [
+            'Desde el aparcamiento, atraviesa el paseo de puestos hasta el mirador del templo.',
+            'Con marea baja, baja a la base de la roca: hay una "serpiente sagrada" y agua bendita (los guardianes te bendicen por propina).',
+            'Sube a las terrazas-cafetería del acantilado para ver la puesta de sol detrás del templo.',
+          ],
+          tips: [
+            'Consulta la marea: con marea alta no se puede cruzar a la roca (pero la foto es más bonita).',
+            'Se llena al atardecer: coge sitio pronto en un café con vistas.',
+            'Al templo en sí (arriba de la roca) solo suben los fieles; la magia es la estampa desde fuera.',
+          ],
+          family: [
+            'A los peques les gusta ver la serpiente marina "sagrada" en la cueva de la base (con marea baja).',
+            'Juego: esperar el momento exacto en que el sol toca el mar detrás del templo.',
+          ],
+          eat: [
+            { name: 'Cafés-terraza de Tanah Lot', dish: 'nasi goreng, satay, bebidas', note: 'Terrazas del acantilado con vista al templo para merendar/cenar al atardecer.' },
+          ],
+        },
         transitToNext: { mode: 'car', min: 45, note: 'Vuelta a Sanur' } },
       { n: 4, name: 'Cena de despedida en Sanur', category: 'Comida', emoji: '🌅', coords: { lat: -8.6840, lon: 115.2660 }, time: '19:45', note: 'El sitio favorito que hayáis descubierto (Soul on the Beach, Three Monkeys...). Brindis final. Maletas listas.' },
     ],
@@ -993,6 +1326,28 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 2, name: 'Aeropuerto DPS — comida', category: 'Aeropuerto', emoji: '🛫', coords: { lat: -8.7467, lon: 115.1668 }, time: '12:00', note: 'Comer en Ngurah Rai antes del vuelo Scoot TR289 (14:05).',
         transitToNext: { mode: 'flight', min: 170, note: 'TR289 DPS→SIN · 14:05 → 16:55 (2h50)' } },
       { n: 3, name: 'Changi — escala de 6.5h (Jewel)', category: 'Mirador', emoji: '🌧️', coords: { lat: 1.3601, lon: 103.9890 }, time: '17:00', note: 'Aprovechad la escala: JEWEL — Rain Vortex (la cascada interior más alta del mundo), jardines, red de saltos y laberintos de setos. Además piscina rooftop T1 (~20 SGD, niños gratis), cine gratis y jardín de mariposas. Cena aquí antes del vuelo.',
+        guide: {
+          intro: 'Changi no es un aeropuerto, es una atracción: Jewel tiene la cascada interior más alta del mundo (Rain Vortex, 40 m) cayendo dentro de una selva bajo una cúpula de cristal. Con 6,5 h de escala, da para verlo TODO sin estrés — el mejor "mataminutos" del mundo.',
+          time: '3–4 h para Jewel + cena', bestTime: 'La Rain Vortex hace show de luz y sonido cada hora al anochecer (mira horarios).',
+          route: [
+            'Guarda el equipaje de mano en las consignas y ve a Jewel (conectado a T1; desde T2/T3 hay puente).',
+            'Baja al Rain Vortex y sube por los jardines en espiral (Shiseido Forest Valley).',
+            'Arriba, el Canopy Park (de pago): red de saltos, puente de cristal y laberintos de setos para los peques.',
+            'Cena en el food court de Jewel y vuelve a tu terminal con margen para el vuelo.',
+          ],
+          tips: [
+            'Controla la hora del vuelo y el tiempo de seguridad: pon una alarma. No te la juegues con la escala.',
+            'El Canopy Park (red de saltos, etc.) es de pago aparte; la cascada y jardines son gratis.',
+            'Hay duchas, sofás y hasta cine gratis y jardín de mariposas si sobra tiempo.',
+          ],
+          family: [
+            'La red de saltos gigante del Canopy Park es EL planazo para Aira y Leo antes del vuelo largo (que lleguen cansados = duermen en el avión).',
+            'Cronometrad el show de luz de la cascada: se lleva el aplauso.',
+          ],
+          eat: [
+            { name: 'Food court de Jewel / hawker de Changi', dish: 'último chicken rice, laksa, kaya toast', note: 'Última comida singapurense antes de volar. Los food courts de Changi son buenos y baratos.' },
+          ],
+        },
         transitToNext: { mode: 'flight', min: 800, note: 'SQ388 SIN→BCN · 23:35 → 06:55+1 (13h20)' } },
       { n: 4, name: 'Barcelona (BCN)', category: 'Aeropuerto', emoji: '🏡', coords: { lat: 41.2974, lon: 2.0833 }, time: '5 Ago 06:55', note: 'Llegada a casa. Fin de un viaje de los que no se olvidan.' },
     ],
