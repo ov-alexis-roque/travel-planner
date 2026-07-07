@@ -2,6 +2,16 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
+    v: '1.15.0', date: 'Ago 2026', title: 'Días de Bali reordenados para esquivar masas',
+    notes: [
+      '🗓️ Excursiones de Sanur reordenadas para que los grandes imanes caigan ENTRE SEMANA: Nusa Penida (jue), Uluwatu (vie) y Waterbom (lun).',
+      '🏖️ El fin de semana queda tranquilo: sábado relax en Sanur (surf + playa) y domingo el este de Bali (Lempuyang + Tirta Gangga), la zona menos turística.',
+      '🔥 Uluwatu sale del domingo (evita el gentío y la fiesta de Single Fin) y ya no es el último día → se disfruta sin prisa.',
+      '💦 Waterbom pasa al lunes: entre semana hay mucha menos cola y, al estar cerca y acabar pronto, es un último día ideal antes de volar.',
+      '🌊 Tanah Lot queda como plan opcional del sábado (atardecer muy concurrido).',
+    ],
+  },
+  {
     v: '1.14.0', date: 'Jul 2026', title: 'Restaurantes en el mapa + tocar para localizar',
     notes: [
       '🍴 Los sitios de "Dónde comer hoy" salen ahora en el mapa con un marcador propio (tenedor), distinto de las actividades: se ve de un vistazo si quedan cerca.',

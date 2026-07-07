@@ -1012,7 +1012,7 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 5, name: 'Cena: Massimo (italiano)', category: 'Comida', emoji: '🍕', coords: { lat: -8.6920, lon: 115.2610 }, time: '19:30', note: 'Pizza, pasta y el famoso gelato — los niños lo agradecen a mitad de viaje.' },
     ],
   },
-  d18: {
+  d21: {
     highlights: ['🏛️ Gates of Heaven', '🐠 Tirta Gangga', '🚗 Este de Bali'],
     quickTips: [
       'Salir 8:00 con coche privado (~45-50€/día). Lempuyang primero para evitar la cola de la foto.',
@@ -1071,7 +1071,7 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 5, name: 'Cena en Sanur: Pregina Warung', category: 'Comida', emoji: '🍽️', coords: { lat: -8.6880, lon: 115.2600 }, time: '19:30', note: 'Cocina balinesa auténtica (nasi campur, sate lilit) de vuelta en Sanur.' },
     ],
   },
-  d19: {
+  d18: {
     highlights: ['🦕 Kelingking', '🐠 Crystal Bay (mantas)', '🏝️ Nusa Penida'],
     quickTips: [
       '⚠️ Reservar fast boat con antelación (salida ~8:30 de Sanur). Día intenso pero de los más espectaculares.',
@@ -1132,12 +1132,13 @@ export const dayEnrich: Record<string, Enrich> = {
       { n: 5, name: 'Cena en Sanur: Soul on the Beach', category: 'Comida', emoji: '🌅', coords: { lat: -8.6840, lon: 115.2660 }, time: '19:30', note: 'Cena con los pies en la arena de vuelta en Sanur. Ducha del salitre primero.' },
     ],
   },
-  d20: {
-    highlights: ['💦 Waterbom', '🏆 #1 de Asia', '🛝 Día de los peques'],
+  d22: {
+    highlights: ['💦 Waterbom', '🏆 #1 de Asia', '🛝 Último día completo'],
     quickTips: [
       'Abre 9:00: llegar pronto para hacer más toboganes. Comprar online con descuento.',
+      'En lunes (entre semana) hay MUCHA menos cola que el finde: día perfecto para el parque.',
       'Leo pasa el mínimo (~90cm) en muchas atracciones; zona Kids\' Waterpark para los más pequeños.',
-      'Día relajado: dejar la tarde para piscina del hotel.',
+      'Acaba pronto y cerca del hotel: ideal para el último día. Preparad las maletas esta noche (mañana check-out 10:00 y vuelo 14:05).',
     ],
     stops: [
       { n: 1, name: 'Grab Sanur → Waterbom (Kuta)', category: 'Parque', emoji: '🚗', coords: { lat: -8.7000, lon: 115.2400 }, time: '08:30', note: 'Desayuno y Grab (~20 min, ~8€). Llevar bañadores puestos.',
@@ -1170,10 +1171,10 @@ export const dayEnrich: Record<string, Enrich> = {
         transitToNext: { mode: 'car', min: 20, note: 'Grab al hotel' } },
       { n: 4, name: 'Piscina del hotel + descanso', category: 'Hotel', emoji: '🏊', coords: { lat: -8.6900, lon: 115.2630 }, time: '16:30', note: 'Descanso en la suite. Los niños reventados (en el buen sentido).',
         transitToNext: { mode: 'walk', min: 6, note: 'A cenar' } },
-      { n: 5, name: 'Cena: Merta Sari o Mamma Mia', category: 'Comida', emoji: '🍽️', coords: { lat: -8.6890, lon: 115.2610 }, time: '19:30', note: 'Pescado picante balinés (Merta Sari) o italiano fácil (Mamma Mia) para los peques.' },
+      { n: 5, name: 'Cena de despedida: Merta Sari o Mamma Mia', category: 'Comida', emoji: '🍽️', coords: { lat: -8.6890, lon: 115.2610 }, time: '19:30', note: 'Última cena en Bali: pescado picante balinés (Merta Sari) o italiano fácil (Mamma Mia) para los peques. Maletas listas — mañana check-out y vuelo.' },
     ],
   },
-  d21: {
+  d19: {
     highlights: ['🏯 Uluwatu', '🔥 Kecak Fire Dance', '🦐 Jimbaran'],
     quickTips: [
       'Mañana de playa/piscina y salir 15:00 hacia Uluwatu (~1h). EL momento Bali.',
@@ -1258,12 +1259,12 @@ export const dayEnrich: Record<string, Enrich> = {
         } },
     ],
   },
-  d22: {
-    highlights: ['🏄 Surf para Aira', '🌊 Tanah Lot sunset', '🌅 Última noche'],
+  d20: {
+    highlights: ['🏄 Surf para Aira', '🏖️ Relax en Sanur', '🌊 Tanah Lot (opcional)'],
     quickTips: [
+      'Día para bajar el ritmo cerca del hotel en pleno finde: Sanur no se masifica como el sur.',
       'Sanur tiene olas suaves de arrecife: perfecto para la primera clase de surf de Aira.',
-      'Tanah Lot: salir 15:30, llegar 16:30 para pasear antes del atardecer (~18:09).',
-      'Preparar maletas por la tarde; mañana vuelo a las 14:05.',
+      'Tanah Lot es OPCIONAL: atardecer muy concurrido. Si vais, salir 15:30 y llegar ~16:30; si no, piscina y playa en Sanur.',
     ],
     stops: [
       { n: 1, name: 'Clase de surf en Sanur', category: 'Actividad', emoji: '🏄', coords: { lat: -8.6850, lon: 115.2680 }, time: '08:30', hours: '~30€', note: 'Olas suaves para aprender; Leo juega en la orilla. Escuelas locales en la playa.',
@@ -1289,9 +1290,9 @@ export const dayEnrich: Record<string, Enrich> = {
           ],
         },
         transitToNext: { mode: 'walk', min: 6, note: 'A comer' } },
-      { n: 2, name: 'Comida: Kayu Api Smoke Grill', category: 'Comida', emoji: '☕', coords: { lat: -8.6900, lon: 115.2620 }, time: '12:30', note: 'BBQ y café de especialidad, favorito de Sanur. Tarde para hacer maletas y descansar.',
-        transitToNext: { mode: 'car', min: 45, note: 'Grab a Tanah Lot (salir 15:30)' } },
-      { n: 3, name: 'Tanah Lot', category: 'Templo', emoji: '🌊', coords: { lat: -8.6212, lon: 115.0868 }, time: '16:30', hours: '~5€', note: 'Templo del s.XVI sobre una roca en el mar. Con marea baja se acerca uno; serpientes sagradas en las rocas. Atardecer detrás del templo.',
+      { n: 2, name: 'Comida: Kayu Api Smoke Grill', category: 'Comida', emoji: '☕', coords: { lat: -8.6900, lon: 115.2620 }, time: '12:30', note: 'BBQ y café de especialidad, favorito de Sanur. Tarde de piscina del hotel y descanso, sin prisa.',
+        transitToNext: { mode: 'car', min: 45, note: '(Opcional) Grab a Tanah Lot (salir 15:30)' } },
+      { n: 3, name: 'Tanah Lot (opcional)', category: 'Templo', emoji: '🌊', coords: { lat: -8.6212, lon: 115.0868 }, time: '16:30', hours: '~5€', note: 'OPCIONAL: templo del s.XVI sobre una roca en el mar. Con marea baja se acerca uno; serpientes sagradas en las rocas. Atardecer detrás del templo — pero es de los sunsets más concurridos; si preferís descansar, quedaos en Sanur.',
         guide: {
           intro: 'El templo más fotografiado de Bali: un santuario del s.XVI encaramado en una roca en medio del mar, que con la marea alta queda rodeado de agua. Al atardecer, con el sol poniéndose justo detrás, es de las postales más famosas de Indonesia.',
           time: '1½–2 h con el atardecer', bestTime: 'Llegar 1-1½ h antes del ocaso: sitio para el sunset y con marea baja se accede a la base.',
@@ -1314,7 +1315,7 @@ export const dayEnrich: Record<string, Enrich> = {
           ],
         },
         transitToNext: { mode: 'car', min: 45, note: 'Vuelta a Sanur' } },
-      { n: 4, name: 'Cena de despedida en Sanur', category: 'Comida', emoji: '🌅', coords: { lat: -8.6840, lon: 115.2660 }, time: '19:45', note: 'El sitio favorito que hayáis descubierto (Soul on the Beach, Three Monkeys...). Brindis final. Maletas listas.' },
+      { n: 4, name: 'Cena tranquila en Sanur', category: 'Comida', emoji: '🌅', coords: { lat: -8.6840, lon: 115.2660 }, time: '19:45', note: 'El sitio favorito que hayáis ido descubriendo (Soul on the Beach, Three Monkeys...). Noche relajada, sin prisa.' },
     ],
   },
   d23: {
