@@ -13,6 +13,7 @@ import Docs from './screens/Docs'
 import Money from './screens/Money'
 import Phrases from './screens/Phrases'
 import Passport from './screens/Passport'
+import Gastronomy from './screens/Gastronomy'
 import Tasks from './screens/Tasks'
 import Budget from './screens/Budget'
 import SideMap from './components/SideMap'
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="/cambio" element={<Money />} />
           <Route path="/frases" element={<Phrases />} />
           <Route path="/pasaporte" element={<Passport />} />
+          <Route path="/gastronomia" element={<Gastronomy />} />
           <Route path="/pendientes" element={<Tasks />} />
           <Route path="/presupuesto" element={<Budget />} />
           <Route path="*" element={<Navigate to="/" replace />} />
