@@ -18,9 +18,11 @@ export default function Today() {
   const until = daysUntilTrip(now)
   // Pre-viaje: clima/contexto de la primera parada (Singapur). En ruta: el destino del día.
   const focusDest = until > 0 ? destById('sin') : destById(today.destinationId === 'travel' ? 'sin' : today.destinationId)
-  const isStatusDone = usePlanner((s) => s.isStatusDone)
+  // Nos suscribimos a los objetos (no a las funciones) para re-renderizar al marcar
+  const statusDone = usePlanner((s) => s.statusDone)
   const toggleStatus = usePlanner((s) => s.toggleStatus)
-  const isTaskDoneSel = usePlanner((s) => s.isTaskDone)
+  const taskDone = usePlanner((s) => s.taskDone)
+  const isTaskDoneSel = (id: string, fallback: boolean) => (taskDone[id] === undefined ? fallback : taskDone[id])
   const { data: wx, live } = useWeather(focusDest.coords)
   const rain = useRainToday(until <= 0 ? focusDest.coords : undefined)
   const geo = useGeo()
@@ -203,7 +205,8 @@ export default function Today() {
       {today.statusItems.length > 0 && (
         <div className="card">
           {today.statusItems.map((s, i) => {
-            const on = isStatusDone(today.id, i, s.done)
+            const stored = statusDone[`${today.id}:${i}`]
+            const on = stored === undefined ? s.done : stored
             return (
               <button key={i} className={`check ${on ? 'on' : ''}`} style={{ width: '100%', textAlign: 'left' }} onClick={() => toggleStatus(today.id, i)}>
                 <span className="box">{on ? '✓' : ''}</span>

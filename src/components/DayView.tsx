@@ -59,7 +59,7 @@ function Transit({ t }: { t: NonNullable<Stop['transitToNext']> }) {
 
 export default function DayView({ day }: { day: Day }) {
   const dest = destById(day.destinationId)
-  const isStatusDone = usePlanner((s) => s.isStatusDone)
+  const statusDone = usePlanner((s) => s.statusDone)
   const toggleStatus = usePlanner((s) => s.toggleStatus)
   const { addedByDay, movedBase, hiddenBase, order } = usePlanner((s) => ({
     addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase, order: s.order,
@@ -194,7 +194,8 @@ export default function DayView({ day }: { day: Day }) {
           <div className="section-title">Reservas y estado</div>
           <div className="card">
             {day.statusItems.map((s, i) => {
-              const on = isStatusDone(day.id, i, s.done)
+              const stored = statusDone[`${day.id}:${i}`]
+              const on = stored === undefined ? s.done : stored
               return (
                 <button key={i} className={`check ${on ? 'on' : ''}`} style={{ width: '100%', textAlign: 'left' }} onClick={() => toggleStatus(day.id, i)}>
                   <span className="box">{on ? '✓' : ''}</span>

@@ -13,7 +13,9 @@ const GROUPS: { key: TaskUrgency; label: string; color: string }[] = [
 ]
 
 export default function Tasks() {
-  const isTaskDone = usePlanner((s) => s.isTaskDone)
+  // Suscripción al objeto (no a la función) para re-renderizar al marcar
+  const taskDone = usePlanner((s) => s.taskDone)
+  const isTaskDone = (id: string, fallback: boolean) => (taskDone[id] === undefined ? fallback : taskDone[id])
   const toggleTask = usePlanner((s) => s.toggleTask)
   const [showDone, setShowDone] = useState(false)
 
