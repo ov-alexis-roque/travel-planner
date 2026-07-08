@@ -88,10 +88,7 @@ export default function Passport() {
               {cat.stamps.map((s) => {
                 const on = !!passportDone[key(s.id)]
                 return (
-                  <button key={s.id} className={`pp-stamp ${on ? 'on' : ''}`} onClick={() => onToggle(s)}>
-                    <span className="pp-info" role="button" tabIndex={0} title="¿Qué es? Ver ficha"
-                      onClick={(e) => { e.stopPropagation(); setFicha(s) }}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setFicha(s) } }}>ⓘ</span>
+                  <button key={s.id} className={`pp-stamp ${on ? 'on' : ''}`} onClick={() => setFicha(s)} title="Ver ficha">
                     <span className="pp-emoji">{s.emoji}</span>
                     <span className="pp-label">{s.label}</span>
                     {s.where && <span className="pp-where">{s.where}</span>}
@@ -119,11 +116,18 @@ export default function Passport() {
             {ficha.where && <div className="pp-ficha-where">📍 {ficha.where}</div>}
             {ficha.desc && <p className="pp-ficha-desc">{ficha.desc}</p>}
             {ficha.fact && <p className="pp-ficha-fact">🤓 ¿Sabías que…? {ficha.fact}</p>}
-            {!ficha.img && (
-              <a className="pp-ficha-photo" href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(ficha.search ?? ficha.label)}`} target="_blank" rel="noreferrer">
-                🔍 Ver una foto de verdad
-              </a>
-            )}
+            <div className="pp-ficha-actions">
+              {passportDone[key(ficha.id)] ? (
+                <button className="pp-ficha-seal is-done" onClick={() => { togglePassport(key(ficha.id)); setFicha(null) }}>✓ Sellado · tocar para quitar</button>
+              ) : (
+                <button className="pp-ficha-seal" onClick={() => { onToggle(ficha); setFicha(null) }}>🎉 ¡Sellar!</button>
+              )}
+              {!ficha.img && (
+                <a className="pp-ficha-photo" href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(ficha.search ?? ficha.label)}`} target="_blank" rel="noreferrer">
+                  🔍 Ver una foto de verdad
+                </a>
+              )}
+            </div>
           </div>
         </div>
       )}

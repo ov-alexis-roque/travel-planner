@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
 import { gastronomy } from '../data/food'
@@ -46,6 +46,10 @@ export default function Explore() {
   const setHighlight = useUI((s) => s.setHighlight)
   const [sort, setSort] = useState<Sort>('rank')
   const [picker, setPicker] = useState<Place | null>(null)
+
+  // Al cambiar de destino o de filtro, no dejar nada seleccionado: el mapa
+  // vuelve a la vista completa (zoom-out a todos los pines).
+  useEffect(() => { setHighlight(null) }, [destId, view, setHighlight])
 
   const { addedByDay, movedBase, hiddenBase } = usePlanner((s) => ({ addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase }))
   const addPlace = usePlanner((s) => s.addPlace)

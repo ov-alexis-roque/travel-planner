@@ -2,11 +2,11 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
-    v: '1.16.0', date: 'Ago 2026', title: 'Restaurantes en el mapa de Explorar + fichas del pasaporte',
+    v: '1.16.1', date: 'Ago 2026', title: 'Restaurantes en el mapa de Explorar + fichas del pasaporte',
     notes: [
       '🍽️ Los ~100 restaurantes de la guía foodie ya salen como pin en el mapa de Explorar: el mapa muestra EXACTAMENTE lo que filtras en la lista (antes faltaban casi todos).',
-      '📍 Pasa el ratón o toca una tarjeta y el mapa hace zoom y la resalta; toca un pin del mapa y te lleva a su ficha en la lista.',
-      '🛂 Pasaporte: cada animal y plato tiene ahora una ficha "¿qué es / cómo es?" pensada para peques (botón ⓘ), con descripción y botón para ver una foto de verdad.',
+      '📍 Pasa el ratón o toca una tarjeta y el pin se resalta (sin marear con zoom); al cambiar de filtro el mapa vuelve a la vista completa. Toca un pin y te lleva a su ficha en la lista.',
+      '🛂 Pasaporte: toca un sello y se abre su ficha "¿qué es / cómo es?" para peques (emoji grande + descripción). Botón grande "¡Sellar!" (con confeti) y otro para ver una foto de verdad.',
       '🐒 Así Aira y Leo saben cómo es el mono narigudo o qué es un durian antes de buscarlos.',
     ],
   },

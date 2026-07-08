@@ -78,7 +78,7 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
         iconAnchor: [14, 14],
       })
       const m = L.marker([p.lat, p.lon], { icon }).addTo(map)
-      if (p.label) m.bindPopup(`<b>${p.label}</b>`, { closeButton: false })
+      if (p.label) m.bindPopup(`<b>${p.label}</b>`, { closeButton: false, autoPan: false })
       if (onPointClick && p.key) m.on('click', () => onPointClick(p.key as string))
       if (p.key) markersRef.current[p.key] = m
     })
@@ -163,14 +163,11 @@ export default function TripMap({ points, height = 200, showRoute = true, routeC
         if (!size || size.x === 0 || size.y === 0) return
         const ll = m.getLatLng()
         if (!ll || Number.isNaN(ll.lat) || Number.isNaN(ll.lng)) return
-        // Resalta el pin primero: aunque la animación fallara, el usuario ve el marcado.
+        // Resalta el pin. NO se hace zoom (marea al navegar): como mucho, un
+        // paneo suave si el punto queda fuera de la vista, sin tocar el zoom.
         m.getElement()?.querySelector('.map-pin')?.classList.add('pin-hi')
-        const targetZoom = Math.max(map.getZoom() ?? 14, 16)
-        // Detiene cualquier animación en curso: reencadenar setView sobre una
-        // animación viva provoca el error "_leaflet_pos undefined".
         map.stop()
-        // setView animado es más robusto que flyTo cuando el mapa se acaba de dimensionar
-        map.setView(ll, targetZoom, { animate: true, duration: 0.6 })
+        if (!map.getBounds().pad(-0.12).contains(ll)) map.panTo(ll, { animate: true, duration: 0.4 })
         try { m.openPopup() } catch { /* autoPan puede fallar en mapas diminutos */ }
       } catch { /* mapa aún no listo: ignorar */ }
     }

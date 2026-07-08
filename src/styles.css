@@ -785,8 +785,7 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .pp-stamp.on .pp-emoji { filter: none; opacity: 1; transform: scale(1.05); }
 .pp-stamp.on .pp-label { color: var(--ink); }
 .pp-check { position: absolute; top: 5px; right: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--ok); color: #fff; font-size: .7em; font-weight: 800; display: flex; align-items: center; justify-content: center; }
-.pp-info { position: absolute; top: 4px; left: 5px; width: 20px; height: 20px; border-radius: 50%; background: color-mix(in srgb, var(--accent, #3b82f6) 14%, var(--card)); color: var(--accent, #3b82f6); font-size: .74em; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
-.pp-info:hover { background: color-mix(in srgb, var(--accent, #3b82f6) 26%, var(--card)); }
+.pp-stamp { cursor: pointer; }
 
 /* Ficha "¿qué es?" */
 .pp-ficha-back { position: fixed; inset: 0; z-index: 2100; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.45); animation: fadein .2s ease; }
@@ -799,7 +798,11 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .pp-ficha-where { font-size: .78em; color: var(--muted); margin-top: 2px; }
 .pp-ficha-desc { font-size: .92em; line-height: 1.5; color: var(--ink); margin: 12px 0 0; text-align: left; }
 .pp-ficha-fact { font-size: .84em; line-height: 1.45; color: var(--ink); background: var(--bg); border-radius: 12px; padding: 10px 12px; margin: 12px 0 0; text-align: left; }
-.pp-ficha-photo { display: inline-block; margin-top: 14px; padding: 9px 16px; border-radius: 999px; background: var(--accent, #3b82f6); color: #fff; font-weight: 700; font-size: .88em; text-decoration: none; }
+.pp-ficha-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.pp-ficha-seal { padding: 15px 18px; border: none; border-radius: 14px; background: var(--ok); color: #fff; font-weight: 800; font-size: 1.05em; cursor: pointer; box-shadow: 0 4px 14px color-mix(in srgb, var(--ok) 40%, transparent); }
+.pp-ficha-seal:active { transform: scale(.97); }
+.pp-ficha-seal.is-done { background: var(--card); color: var(--muted); border: 1.5px solid var(--line); font-size: .9em; font-weight: 700; box-shadow: none; }
+.pp-ficha-photo { display: inline-block; padding: 12px 16px; border-radius: 14px; background: transparent; border: 1.5px solid var(--accent, #3b82f6); color: var(--accent, #3b82f6); font-weight: 700; font-size: .92em; text-decoration: none; }
 
 /* Celebración */
 .pp-celebrate { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.25); animation: fadein .2s ease; }
