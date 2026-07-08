@@ -120,12 +120,14 @@ export default function Explore() {
         const inPlan = findPlaceInPlan(p, { addedByDay, movedBase, hiddenBase })
         const dist = distanceFromHotel(p)
         return (
-          <div key={p.id} className={`place-card ${inPlan ? 'in-plan' : ''} ${highlight === p.id ? 'hi' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}>
+          <div key={p.id} id={`place-${p.id}`} className={`place-card ${inPlan ? 'in-plan' : ''} ${highlight === p.id ? 'hi' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}
+            onMouseEnter={p.coords ? () => setHighlight(p.id) : undefined}
+            onClick={p.coords ? () => setHighlight(p.id) : undefined}>
             <div className="pc-rank">{inPlan ? '✓' : p.rank}</div>
             <div className="pc-body">
               <div className="pc-top">
                 {p.coords
-                  ? <button className="pc-name pc-name-btn" onClick={() => setHighlight(highlight === p.id ? null : p.id)} title="Ver en el mapa">{p.emoji} {p.name} <span className="pc-locate">📍</span></button>
+                  ? <button className="pc-name pc-name-btn" onClick={(e) => { e.stopPropagation(); setHighlight(p.id) }} title="Ver en el mapa">{p.emoji} {p.name} <span className="pc-locate">📍</span></button>
                   : <span className="pc-name">{p.emoji} {p.name}</span>}
               </div>
               <div className="pc-meta">

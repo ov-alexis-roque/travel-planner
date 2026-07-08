@@ -267,8 +267,123 @@ export const gastronomy: Record<string, Gastronomy> = {
   },
 }
 
+// Coordenadas de los restaurantes de la guía foodie, por nombre. Los sitios
+// famosos van con su ubicación real; los warungs/locales más pequeños, al
+// centroide de su barrio (el botón "Maps" de la ficha busca por nombre exacto).
+// Sin esto, los restaurantes no aparecían como pin en el mapa de Explorar.
+const SPOT_COORDS: Record<string, { lat: number; lon: number }> = {
+  // --- Singapur ---
+  'Tian Tian Hainanese Chicken Rice': { lat: 1.2801, lon: 103.8447 },
+  'Hawker Chan': { lat: 1.2825, lon: 103.8437 },
+  'Maxwell Food Centre (general)': { lat: 1.2803, lon: 103.8447 },
+  'Satay Street — Lau Pa Sat': { lat: 1.2806, lon: 103.8505 },
+  'Satay by the Bay': { lat: 1.2812, lon: 103.8669 },
+  'Makansutra Gluttons Bay': { lat: 1.2895, lon: 103.8556 },
+  'Adam Road Food Centre': { lat: 1.3236, lon: 103.8140 },
+  'Ya Kun Kaya Toast': { lat: 1.2846, lon: 103.8478 },
+  'Malaysian Food Street': { lat: 1.2540, lon: 103.8230 },
+  'Old Airport Road Food Centre': { lat: 1.3081, lon: 103.8853 },
+  'Newton Food Centre': { lat: 1.3120, lon: 103.8385 },
+  'Tiong Bahru Market': { lat: 1.2851, lon: 103.8312 },
+  '328 Katong Laksa': { lat: 1.3062, lon: 103.9051 },
+  'Hill Street Tai Hwa Pork Noodle': { lat: 1.3072, lon: 103.8636 },
+  'Jumbo Seafood': { lat: 1.3013, lon: 103.9243 },
+  'Song Fa Bak Kut Teh': { lat: 1.2870, lon: 103.8455 },
+  'Zam Zam': { lat: 1.3020, lon: 103.8590 },
+  'Candlenut': { lat: 1.3043, lon: 103.8100 },
+  'Killiney Kopitiam': { lat: 1.2996, lon: 103.8390 },
+  'A Noodle Story': { lat: 1.2799, lon: 103.8470 },
+  'Hjh Maimunah': { lat: 1.3025, lon: 103.8600 },
+  'Swee Choon Tim Sum': { lat: 1.3095, lon: 103.8570 },
+  'Sungei Road Laksa': { lat: 1.3070, lon: 103.8560 },
+  'Long Beach Seafood': { lat: 1.3007, lon: 103.9285 },
+  "Muthu's Curry": { lat: 1.3105, lon: 103.8520 },
+  'Springleaf Prata Place': { lat: 1.3600, lon: 103.8330 },
+  'Bismillah Biryani': { lat: 1.3050, lon: 103.8555 },
+  'Tekka Centre': { lat: 1.3065, lon: 103.8500 },
+  'East Coast Lagoon Food Village': { lat: 1.3040, lon: 103.9310 },
+  "Chef Kang's Noodle House": { lat: 1.3350, lon: 103.8560 },
+  'JB Ah Meng': { lat: 1.3140, lon: 103.8880 },
+  "Ah Chiew's Dessert": { lat: 1.3010, lon: 103.8570 },
+  'Charlie\'s Peranakan (Golden Mile FC)': { lat: 1.3020, lon: 103.8640 },
+  'Tambuah Mas': { lat: 1.3040, lon: 103.8360 },
+  'Tea Chapter': { lat: 1.2800, lon: 103.8420 },
+  'Moghul Sweet Shop': { lat: 1.3070, lon: 103.8510 },
+  // --- Kuala Lumpur ---
+  'Lot 10 Hutong': { lat: 3.1465, lon: 101.7100 },
+  'Jalan Alor': { lat: 3.1450, lon: 101.7085 },
+  "Madam Kwan's (KLCC)": { lat: 3.1580, lon: 101.7120 },
+  'Madras Lane (Chinatown)': { lat: 3.1435, lon: 101.6975 },
+  'Nam Heong': { lat: 3.1440, lon: 101.6970 },
+  'Masjid India / Kampung Baru': { lat: 3.1620, lon: 101.7020 },
+  'Restoran de Brickfields (Little India)': { lat: 3.1290, lon: 101.6870 },
+  'Village Park Restaurant': { lat: 3.1360, lon: 101.6260 },
+  'Restoran Yut Kee': { lat: 3.1595, lon: 101.6960 },
+  'Sri Nirwana Maju': { lat: 3.1290, lon: 101.6710 },
+  'Nasi Kandar Pelita': { lat: 3.1600, lon: 101.7180 },
+  'Soong Kee Beef Noodles': { lat: 3.1470, lon: 101.6960 },
+  'Rebung (Chef Ismail)': { lat: 3.1290, lon: 101.6720 },
+  'Wong Ah Wah (WAW)': { lat: 3.1447, lon: 101.7083 },
+  'Imbi Market (ICC Pudu)': { lat: 3.1370, lon: 101.7100 },
+  'Kim Lian Kee': { lat: 3.1440, lon: 101.6980 },
+  'Ho Kow Hainam Kopitiam': { lat: 3.1475, lon: 101.6958 },
+  'Sek Yuen': { lat: 3.1385, lon: 101.7110 },
+  'Bunn Choon': { lat: 3.1430, lon: 101.6975 },
+  'Sup Hameed': { lat: 3.1620, lon: 101.6960 },
+  // --- Sepilok / Sandakan ---
+  'Comidas en el lodge (Sepilok)': { lat: 5.8745, lon: 117.9460 },
+  'Sim Sim (Sandakan)': { lat: 5.8360, lon: 118.1230 },
+  'Comfort Sang Nyuk Mee (Sandakan)': { lat: 5.8390, lon: 118.1170 },
+  'English Tea House (Sandakan)': { lat: 5.8420, lon: 118.1170 },
+  // --- Kinabatangan ---
+  'Pensión completa en el lodge (Sukau)': { lat: 5.5170, lon: 118.2950 },
+  // --- Ubud ---
+  'Warung Babi Guling Ibu Oka': { lat: -8.5065, lon: 115.2620 },
+  'Bebek Bengil (Dirty Duck)': { lat: -8.5165, lon: 115.2635 },
+  'Warung Biah Biah': { lat: -8.5080, lon: 115.2640 },
+  "Murni's Warung": { lat: -8.5070, lon: 115.2530 },
+  'Nasi Ayam Kedewatan Ibu Mangku': { lat: -8.4930, lon: 115.2480 },
+  'Sari Organik': { lat: -8.4990, lon: 115.2560 },
+  'Warung Pulau Kelapa': { lat: -8.4980, lon: 115.2540 },
+  'Hujan Locale': { lat: -8.5085, lon: 115.2635 },
+  'Warung Bu Mi': { lat: -8.5080, lon: 115.2650 },
+  'Locavore': { lat: -8.5075, lon: 115.2630 },
+  'Mozaic': { lat: -8.4975, lon: 115.2530 },
+  'Warung Teges': { lat: -8.5230, lon: 115.2680 },
+  'Bebek Tepi Sawah': { lat: -8.5200, lon: 115.2700 },
+  'Casa Luna': { lat: -8.5070, lon: 115.2620 },
+  'Warung Makan Bu Rus': { lat: -8.5050, lon: 115.2630 },
+  'Room4Dessert': { lat: -8.5010, lon: 115.2470 },
+  // --- Gili Air ---
+  'Mercado nocturno de Gili Air (Pasar Malam)': { lat: -8.3585, lon: 116.0840 },
+  'Warung Sasak 2 / warungs locales': { lat: -8.3600, lon: 116.0830 },
+  'Pituq Waroeng': { lat: -8.3595, lon: 116.0810 },
+  'Chiringuitos costa oeste (sunset)': { lat: -8.3600, lon: 116.0780 },
+  "Ruby's / beach BBQ": { lat: -8.3575, lon: 116.0865 },
+  'Gili Air Santay': { lat: -8.3580, lon: 116.0860 },
+  'Coffee & Thyme / bakery': { lat: -8.3590, lon: 116.0835 },
+  // --- Sanur / Jimbaran ---
+  'Warung Mak Beng': { lat: -8.6770, lon: 115.2620 },
+  'Nasi Bali Men Weti': { lat: -8.6850, lon: 115.2610 },
+  'Pasar Malam Sindhu (mercado nocturno)': { lat: -8.6870, lon: 115.2630 },
+  'Pregina Warung': { lat: -8.6900, lon: 115.2620 },
+  'Warung Little Bird': { lat: -8.6880, lon: 115.2615 },
+  'Genggong': { lat: -8.6920, lon: 115.2640 },
+  'Nasi Ayam Bu Oki': { lat: -8.6600, lon: 115.2450 },
+  'Cena de marisco en Jimbaran': { lat: -8.7900, lon: 115.1580 },
+  'Warung Kolega': { lat: -8.6850, lon: 115.2500 },
+  'Warung Babi Guling Pande Egi': { lat: -8.6820, lon: 115.2560 },
+  'Char Ming': { lat: -8.6890, lon: 115.2650 },
+  'Sari Bundo': { lat: -8.6700, lon: 115.2500 },
+  'Three Monkeys Sanur': { lat: -8.6930, lon: 115.2620 },
+  'Massimo (gelato)': { lat: -8.6910, lon: 115.2620 },
+  'Pasar Sindhu (mercado de mañana)': { lat: -8.6870, lon: 115.2630 },
+  'Warung Blanjong': { lat: -8.6960, lon: 115.2600 },
+}
+
 // Convierte los restaurantes curados en "Places" del catálogo, para que salgan
-// en Explorar → Restaurantes y se puedan AÑADIR al itinerario como cualquier sitio.
+// en Explorar → Restaurantes (con pin en el mapa) y se puedan AÑADIR al
+// itinerario como cualquier sitio.
 export function gastronomyPlaces(): Place[] {
   const out: Place[] = []
   for (const [destId, g] of Object.entries(gastronomy)) {
@@ -286,6 +401,7 @@ export function gastronomyPlaces(): Place[] {
         must: !!s.badge,
         blurb: `${s.dish}. ${s.why}${s.near ? ` · A mano en: ${s.near}` : ''}`,
         provider: s.badge,
+        coords: SPOT_COORDS[s.name],
       })
     })
   }
