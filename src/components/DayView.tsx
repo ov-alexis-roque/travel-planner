@@ -170,7 +170,7 @@ export default function DayView({ day }: { day: Day }) {
         <div className="card region-card">
           <button className="region-head" onClick={() => setOpenRegion((v) => !v)}>
             <span>{region.flag} Conoce {region.title} <span className="region-sub">— para contarles a los peques</span></span>
-            <span>{openRegion ? '▲' : '▼'}</span>
+            <span className={`chevron ${openRegion ? 'open' : ''}`}>▾</span>
           </button>
           {openRegion && (
             <div className="region-body">
@@ -218,7 +218,7 @@ export default function DayView({ day }: { day: Day }) {
         <>
           <button className="eats-title" onClick={() => setOpenEats((v) => !v)}>
             <span>🍽️ Dónde comer por la zona hoy <span className="eats-count">· {dayEats.length}</span></span>
-            <span>{openEats ? '▲' : '▼'}</span>
+            <span className={`chevron ${openEats ? 'open' : ''}`}>▾</span>
           </button>
           {openEats && (
             <div className="card" style={{ paddingTop: 6, paddingBottom: 6 }}>
@@ -286,7 +286,7 @@ export default function DayView({ day }: { day: Day }) {
                       <div className="stop-guide">
                         <button className="sg-toggle" onClick={() => setOpenGuide((k) => (k === item.key ? null : item.key))}>
                           <span>🧭 Guía local · cómo sacarle el máximo</span>
-                          <span>{openGuide === item.key ? '▲' : '▼'}</span>
+                          <span className={`chevron ${openGuide === item.key ? 'open' : ''}`}>▾</span>
                         </button>
                         {openGuide === item.key && (
                           <div className="sg-body">

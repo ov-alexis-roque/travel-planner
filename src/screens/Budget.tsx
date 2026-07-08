@@ -85,9 +85,14 @@ export default function Budget() {
   const catTotals = categories.map((cat) => ({ cat, sum: items.filter((b) => b.category === cat).reduce((s, b) => s + b.amount, 0) }))
     .sort((a, b) => b.sum - a.sum)
   const catMax = Math.max(...catTotals.map((c) => c.sum), 1)
+  // Rampa secuencial de un solo tono (teal de marca): la intensidad refuerza la
+  // magnitud del gasto (las categorías ya vienen ordenadas), sin "arcoíris".
+  // Derivada de tokens → adapta a claro/oscuro automáticamente.
   const CAT_COLOR: Record<string, string> = {}
-  const palette = ['#1a3a5c', '#8b1a00', '#2d5016', '#006994', '#6b4c1a', '#00897b', '#9a3b8f', '#c07000']
-  catTotals.forEach((c, i) => { CAT_COLOR[c.cat] = palette[i % palette.length] })
+  catTotals.forEach((c, i) => {
+    const pct = Math.max(32, 92 - i * 11)
+    CAT_COLOR[c.cat] = `color-mix(in srgb, var(--sa) ${pct}%, var(--muted))`
+  })
 
   // Actividades añadidas al plan desde Explorar → estimación de coste extra
   const addedByDay = usePlanner((s) => s.addedByDay)

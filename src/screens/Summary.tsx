@@ -104,13 +104,6 @@ export default function Summary() {
         <span className="map-cap">🗺️ Ruta · {dests.length} destinos · {trip.stats.flights} vuelos</span>
       </div>
 
-      {/* Stats */}
-      <div className="card" style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center' }}>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.days}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>DÍAS</div></div>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.destinations}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>PAÍSES</div></div>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.flights}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>VUELOS</div></div>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.nights}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>NOCHES</div></div>
-      </div>
 
       {/* Accesos */}
       <Link to="/vuelos" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
