@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { passportCategories, passportRanks, type Stamp } from '../data/passport'
+import { passportCategories, passportRanks, categoryLevels, catLevel, type Stamp, type CatLevel } from '../data/passport'
 import { usePlanner, useUI } from '../store'
 import TripMap, { type MapPoint } from '../components/TripMap'
 
@@ -15,8 +15,15 @@ export default function Passport() {
   const kid = useUI((s) => s.passportKid)
   const setKid = useUI((s) => s.setPassportKid)
   const [celebrate, setCelebrate] = useState<Stamp | null>(null)
+  const [levelUp, setLevelUp] = useState<{ cat: string; level: CatLevel } | null>(null)
   const [ficha, setFicha] = useState<Stamp | null>(null)
   const key = (stampId: string) => `${kid}:${stampId}`
+
+  // Sellos conseguidos por categoría (para niveles y vista de logros)
+  const catGot = (catId: string) => {
+    const cat = passportCategories.find((c) => c.id === catId)
+    return cat ? cat.stamps.filter((s) => passportDone[key(s.id)]).length : 0
+  }
 
   const allStamps = passportCategories.flatMap((c) => c.stamps)
   const total = allStamps.length
@@ -37,6 +44,16 @@ export default function Passport() {
     if (!wasOn) {
       setCelebrate(stamp)
       setTimeout(() => setCelebrate(null), 5000)
+      // ¿Este sello hace subir de nivel su categoría?
+      const cat = passportCategories.find((c) => c.stamps.some((s) => s.id === stamp.id))
+      if (cat) {
+        const before = catLevel(cat.id, catGot(cat.id))
+        const after = catLevel(cat.id, catGot(cat.id) + 1)
+        if (after && (!before || after.idx > before.idx)) {
+          setLevelUp({ cat: cat.title, level: after.level })
+          setTimeout(() => setLevelUp(null), 6000)
+        }
+      }
       // Guardamos dónde se consiguió el sello (si el peque da permiso de ubicación)
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -67,6 +84,27 @@ export default function Passport() {
       <div className="card pp-progress">
         <div className="pp-rank"><span className="pp-rank-emoji">{rank.emoji}</span><div><div className="pp-rank-label">{rank.label}</div><div className="pp-rank-count">{kidName}: {got} de {total} sellos · {pct}%</div></div></div>
         <div className="prog" style={{ marginTop: 10 }}><i style={{ width: `${pct}%`, background: 'var(--ok)' }} /></div>
+      </div>
+
+      {/* Mis logros: medalla y título por categoría */}
+      <div className="section-title">🏅 Mis logros de {kidName}</div>
+      <div className="card tight pp-ach">
+        {passportCategories.map((cat) => {
+          const g = catGot(cat.id)
+          const n = cat.stamps.length
+          const lvl = catLevel(cat.id, g)
+          const next = (categoryLevels[cat.id] ?? []).find((t) => g < t.min)
+          return (
+            <div key={cat.id} className={`pp-ach-row ${lvl ? 'has' : ''}`}>
+              <span className="pp-ach-medal">{lvl ? lvl.level.medal : '🔒'}</span>
+              <div className="pp-ach-body">
+                <div className="pp-ach-title">{lvl ? `${lvl.level.emoji} ${lvl.level.label}` : `${cat.icon} ${cat.title}`}</div>
+                <div className="pp-ach-sub">{g}/{n} sellos{next ? ` · siguiente medalla a ${next.min}` : ' · ¡bloque completo! 🎉'}</div>
+                <div className="pp-ach-bar"><i style={{ width: `${(g / n) * 100}%` }} /></div>
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       {/* Mapa de sellos: dónde consiguió cada sello */}
@@ -139,7 +177,10 @@ export default function Passport() {
             <div className="ppc-emoji">{celebrate.emoji}</div>
             <div className="ppc-title">¡Sello conseguido!</div>
             <div className="ppc-label">{celebrate.label}</div>
-            {celebrate.fact && <div className="ppc-fact">🤓 ¿Sabías que…? {celebrate.fact}</div>}
+            {(celebrate.fact2 ?? celebrate.fact) && <div className="ppc-fact">🤓 ¿Y sabías que…? {celebrate.fact2 ?? celebrate.fact}</div>}
+            {levelUp && (
+              <div className="ppc-levelup">{levelUp.level.medal} ¡Subes de nivel!<br /><strong>{levelUp.level.emoji} {levelUp.level.label}</strong><span> · {levelUp.cat}</span></div>
+            )}
           </div>
           <div className="ppc-confetti">
             {Array.from({ length: 14 }).map((_, i) => (

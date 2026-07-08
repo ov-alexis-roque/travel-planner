@@ -2,6 +2,15 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
+    v: '1.18.0', date: 'Ago 2026', title: 'Pasaporte con niveles, medallas y doble curiosidad',
+    notes: [
+      '🏅 Cada categoría (animales, comidas, lugares, experiencias, retos) tiene 3 medallas 🥉🥈🥇 a ⅓, ⅔ y 100% de sus sellos, con títulos que molan (Rastreador → Naturalista → Guardián de la selva…).',
+      '🎉 Al sellar sube el nivel con un aviso especial además del confeti.',
+      '🤓 Doble curiosidad: la ficha muestra un dato y al SELLAR salta otro DIFERENTE, para que dé gusto conseguirlos.',
+      '🗂️ Nueva vista "Mis logros": de un vistazo, la medalla y el título de cada bloque y cuánto falta para la siguiente. Por niño (Aira/Leo).',
+    ],
+  },
+  {
     v: '1.17.0', date: 'Ago 2026', title: 'Pasaporte de Exploradores en el menú principal',
     notes: [
       '🛂 El Pasaporte de Exploradores pasa a la barra inferior (donde estaba Budget): a un toque para los peques.',
