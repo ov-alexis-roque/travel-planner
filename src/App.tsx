@@ -24,7 +24,7 @@ const NAV = [
   { to: '/itinerario', icon: '🗓️', label: 'Itinerario' },
   { to: '/explorar', icon: '🔍', label: 'Explorar' },
   { to: '/resumen', icon: '🧭', label: 'Resumen' },
-  { to: '/presupuesto', icon: '💶', label: 'Budget' },
+  { to: '/pasaporte', icon: '🛂', label: 'Pasaporte' },
   { to: '/pendientes', icon: '📋', label: 'Tareas' },
 ]
 

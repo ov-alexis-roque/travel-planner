@@ -2,6 +2,13 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
+    v: '1.17.0', date: 'Ago 2026', title: 'Pasaporte de Exploradores en el menú principal',
+    notes: [
+      '🛂 El Pasaporte de Exploradores pasa a la barra inferior (donde estaba Budget): a un toque para los peques.',
+      '💶 El Presupuesto se accede ahora desde Resumen (junto a Vuelos, Alojamientos, Maleta…): sigue todo ahí, con su desglose.',
+    ],
+  },
+  {
     v: '1.16.1', date: 'Ago 2026', title: 'Restaurantes en el mapa de Explorar + fichas del pasaporte',
     notes: [
       '🍽️ Los ~100 restaurantes de la guía foodie ya salen como pin en el mapa de Explorar: el mapa muestra EXACTAMENTE lo que filtras en la lista (antes faltaban casi todos).',

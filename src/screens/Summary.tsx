@@ -117,6 +117,10 @@ export default function Summary() {
         <span><strong>🏨 Alojamientos</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>{trip.accommodations.length} hoteles · {trip.accommodations.reduce((s, a) => s + a.nights, 0)} noches · todos reservados</div></span>
         <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
       </Link>
+      <Link to="/presupuesto" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span><strong>💶 Presupuesto</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>{eur(total)} para 4 · {eur(paid)} pagado · desglose por categoría</div></span>
+        <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
+      </Link>
       <Link to="/maleta" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span><strong>🧳 Maleta</strong><div style={{ fontSize: '.82em', color: 'var(--muted)' }}>checklist adaptada al recorrido · solo equipaje de mano · plan de lavandería</div></span>
         <span style={{ fontSize: '1.3em', color: 'var(--muted)' }}>›</span>
