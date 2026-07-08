@@ -14,7 +14,8 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: null, // registramos vía useRegisterSW (UpdatePrompt) para controlar el aviso
       includeAssets: ['favicon.svg'],
       workbox: {
         navigateFallback: 'index.html',

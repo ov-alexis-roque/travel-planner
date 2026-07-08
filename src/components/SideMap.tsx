@@ -7,6 +7,7 @@ import { atmsByDest } from '../data/atms'
 import { usePlanner, useUI } from '../store'
 import TripMap, { type MapPoint, type MapAnchor } from './TripMap'
 import { DEST_HEX } from './DayView'
+import { passportCategories } from '../data/passport'
 import type { Place } from '../types'
 
 const VIEW_LABEL: Record<string, string> = { all: '🗂️ Todo', must: '⭐ Imprescindibles', activity: '🎒 Actividades', food: '🍽️ Restaurantes', kids: '🧒 Ideal niños' }
@@ -18,14 +19,41 @@ const matchView = (p: Place, v: string) => (v === 'all' ? true : v === 'must' ? 
 //  · Resumen → la ruta completa del viaje (todos los destinos)
 export default function SideMap() {
   const { pathname } = useLocation()
-  const mode = pathname.startsWith('/explorar') ? 'explore' : pathname.startsWith('/resumen') ? 'route' : 'day'
+  const mode = pathname.startsWith('/explorar') ? 'explore' : pathname.startsWith('/resumen') ? 'route' : pathname.startsWith('/pasaporte') ? 'passport' : 'day'
 
   const focusDayId = useUI((s) => s.focusDayId)
   const exploreDest = useUI((s) => s.exploreDest)
   const exploreView = useUI((s) => s.exploreView)
+  const passportKid = useUI((s) => s.passportKid)
+  const highlight = useUI((s) => s.highlight)
+  const setHighlight = useUI((s) => s.setHighlight)
+  const passportGeo = usePlanner((s) => s.passportGeo)
   const { addedByDay, movedBase, hiddenBase, order } = usePlanner((s) => ({
     addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase, order: s.order,
   }))
+
+  // ===== Pasaporte: mapa de sellos conseguidos por el niño activo =====
+  if (mode === 'passport') {
+    const allStamps = passportCategories.flatMap((c) => c.stamps)
+    const points: MapPoint[] = allStamps
+      .map((s) => ({ s, g: passportGeo[`${passportKid}:${s.id}`] }))
+      .filter((x) => x.g)
+      .map(({ s, g }) => ({ lat: g!.lat, lon: g!.lng, emoji: s.emoji, label: s.label, color: '#1a1a2a' }))
+    const kidName = passportKid === 'leo' ? 'Leo' : 'Aira'
+    return (
+      <div className="side-map-inner" style={{ ['--dest' as string]: '#1a1a2a' }}>
+        <div className="side-map-head">🛂 Sellos de {kidName} · {points.length} con ubicación</div>
+        <div className="side-map-canvas">
+          {points.length > 0 ? (
+            <TripMap key={`pp-side-${passportKid}-${points.length}`} points={points} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} />
+          ) : (
+            <div className="empty">Aún sin sellos con ubicación.<br />Al conseguir un sello y dar permiso de ubicación, aparecerá aquí.</div>
+          )}
+        </div>
+        <div className="side-map-foot">El mapa de los sellos que {kidName} ha conseguido por el viaje 🌟</div>
+      </div>
+    )
+  }
 
   // ===== Resumen: ruta completa del viaje =====
   if (mode === 'route') {
@@ -47,7 +75,15 @@ export default function SideMap() {
     const dest = destById(exploreDest)
     const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
     const places = trip.catalog.filter((p) => p.destinationId === exploreDest && p.coords && matchView(p, exploreView))
-    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: destColor }))
+    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: destColor, key: p.id }))
+    // Al tocar un pin, resaltar y llevar a su tarjeta en la lista de Explorar.
+    const onPinClick = (id: string) => {
+      setHighlight(id)
+      const el = document.getElementById(`place-${id}`)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      el?.classList.add('stop-flash')
+      setTimeout(() => el?.classList.remove('stop-flash'), 1200)
+    }
     const acc = trip.accommodations.find((a) => a.destinationId === exploreDest && a.coords)
     const anchors: MapAnchor[] = [
       ...(acc?.coords ? [{ lat: acc.coords.lat, lon: acc.coords.lon, kind: 'hotel' as const, label: acc.name }] : []),
@@ -58,12 +94,12 @@ export default function SideMap() {
         <div className="side-map-head">{dest.emoji} {dest.name.replace(/^.*— /, '')} · {VIEW_LABEL[exploreView]} ({places.length})</div>
         <div className="side-map-canvas">
           {points.length > 0 ? (
-            <TripMap key={`${exploreDest}-${exploreView}`} points={points} anchors={anchors} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} />
+            <TripMap key={`${exploreDest}-${exploreView}`} points={points} anchors={anchors} showRoute={false} height="100%" rounded={false} expandable={false} fitPadding={50} highlight={highlight} onPointClick={onPinClick} />
           ) : (
             <div className="empty">Nada en esta categoría aquí.</div>
           )}
         </div>
-        <div className="side-map-foot">Sigue lo que filtras en Explorar · toca un pin para ver qué es · 🏨 hotel · 🏧 cajeros</div>
+        <div className="side-map-foot">Sigue lo que filtras en Explorar · toca un pin para ir a su ficha · 🏨 hotel · 🏧 cajeros</div>
       </div>
     )
   }
@@ -84,6 +120,19 @@ export default function SideMap() {
     .filter((p) => !agendaKeys.has(`${p.coords!.lat.toFixed(3)},${p.coords!.lon.toFixed(3)}`))
     .map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name }))
 
+  // "Dónde comer hoy" con coordenadas → mismos pines 🍴 y misma clave que en DayView
+  const norm = (n: string) => n.toLowerCase().replace(/^[^a-zà-ÿ0-9]+/, '').replace(/\s*\(.*?\)\s*/g, ' ').replace(/[^a-zà-ÿ0-9]/g, '').trim()
+  const seenEat = new Set<string>()
+  const foodPoints: MapPoint[] = []
+  for (const it of agenda) {
+    for (const e of it.guide?.eat ?? []) {
+      const k = norm(e.name)
+      if (seenEat.has(k)) continue
+      seenEat.add(k)
+      if (e.loc) foodPoints.push({ lat: e.loc.lat, lon: e.loc.lon, label: e.name, key: `eat-${k}` })
+    }
+  }
+
   function scrollToStop(key: string) {
     const el = document.getElementById(`stop-${key}`)
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -96,7 +145,7 @@ export default function SideMap() {
       <div className="side-map-head">🗺️ {day.dayNumber === null ? 'Salida' : `Día ${day.dayNumber}`} · {day.date} · {dest.emoji} {day.title}</div>
       <div className="side-map-canvas">
         {points.length > 0 ? (
-          <TripMap key={day.id} points={points} extraPoints={extraPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} />
+          <TripMap key={day.id} points={points} extraPoints={extraPoints} foodPoints={foodPoints} anchors={[...dayAnchors(day), ...dayAtms(day)]} height="100%" rounded={false} expandable={false} onPointClick={scrollToStop} highlight={highlight} />
         ) : (
           <div className="empty">Sin mapa para este día.</div>
         )}

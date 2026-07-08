@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { trip } from '../data/trip'
+import { gastronomy } from '../data/food'
 import { destById } from '../lib/utils'
 import { DEST_HEX } from '../components/DayView'
 import DayPicker from '../components/DayPicker'
@@ -40,8 +42,14 @@ export default function Explore() {
   const setDestId = useUI((s) => s.setExploreDest)
   const view = useUI((s) => s.exploreView) as View
   const setView = useUI((s) => s.setExploreView)
+  const highlight = useUI((s) => s.highlight)
+  const setHighlight = useUI((s) => s.setHighlight)
   const [sort, setSort] = useState<Sort>('rank')
   const [picker, setPicker] = useState<Place | null>(null)
+
+  // Al cambiar de destino o de filtro, no dejar nada seleccionado: el mapa
+  // vuelve a la vista completa (zoom-out a todos los pines).
+  useEffect(() => { setHighlight(null) }, [destId, view, setHighlight])
 
   const { addedByDay, movedBase, hiddenBase } = usePlanner((s) => ({ addedByDay: s.addedByDay, movedBase: s.movedBase, hiddenBase: s.hiddenBase }))
   const addPlace = usePlanner((s) => s.addPlace)
@@ -100,6 +108,12 @@ export default function Explore() {
         </div>
       </div>
 
+      {gastronomy[destId] && (
+        <Link to="/gastronomia" className="pack-print-link" style={{ marginTop: 4, marginBottom: 6 }}>
+          🍜 Guía foodie de {dest.name.replace(/^[^—]*—\s*/, '')}: platos típicos + restaurantes curados →
+        </Link>
+      )}
+
       <div className="section-title" style={{ ['--dest' as string]: DEST_HEX[dest.colorVar] }}>
         {dest.emoji} {dest.name} · {VIEWS.find((v) => v.key === view)?.label} ({filtered.length})
       </div>
@@ -110,11 +124,15 @@ export default function Explore() {
         const inPlan = findPlaceInPlan(p, { addedByDay, movedBase, hiddenBase })
         const dist = distanceFromHotel(p)
         return (
-          <div key={p.id} className={`place-card ${inPlan ? 'in-plan' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}>
+          <div key={p.id} id={`place-${p.id}`} className={`place-card ${inPlan ? 'in-plan' : ''} ${highlight === p.id ? 'hi' : ''}`} style={{ ['--dest' as string]: DEST_HEX[dest.colorVar], ['--dest-l' as string]: `var(${dest.colorVar}-l)` }}
+            onMouseEnter={p.coords ? () => setHighlight(p.id) : undefined}
+            onClick={p.coords ? () => setHighlight(p.id) : undefined}>
             <div className="pc-rank">{inPlan ? '✓' : p.rank}</div>
             <div className="pc-body">
               <div className="pc-top">
-                <span className="pc-name">{p.emoji} {p.name}</span>
+                {p.coords
+                  ? <button className="pc-name pc-name-btn" onClick={(e) => { e.stopPropagation(); setHighlight(p.id) }} title="Ver en el mapa">{p.emoji} {p.name} <span className="pc-locate">📍</span></button>
+                  : <span className="pc-name">{p.emoji} {p.name}</span>}
               </div>
               <div className="pc-meta">
                 {p.zone && <span className="zone-tag">📍 {p.zone}</span>}

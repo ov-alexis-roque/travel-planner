@@ -52,6 +52,17 @@ export interface DayHighlightStatus {
   done: boolean
 }
 
+// Guía "de local" de una visita: cómo sacarle el máximo, paso a paso.
+export interface StopGuide {
+  intro?: string // el gancho: por qué es especial, en voz de un local
+  time?: string // cuánto dedicarle
+  bestTime?: string // mejor momento del día para ir
+  route?: string[] // recorrido recomendado: por dónde empezar → ... → dónde acabar
+  tips?: string[] // trucos de local: colas, precios, qué saltarse, dónde foto
+  family?: string[] // qué contar/hacer con los peques para el "wow"
+  eat?: { name: string; dish?: string; note?: string; loc?: { lat: number; lon: number } }[] // dónde comer/picar CERCA (local auténtico, no desplazarse solo a comer)
+}
+
 export type TransitMode = 'walk' | 'car' | 'flight' | 'ferry' | 'train' | 'bus' | 'boat'
 export interface Stop {
   n: number // orden / número de pin
@@ -65,6 +76,7 @@ export interface Stop {
   status?: BookingStatus
   audience?: Audience
   alt?: string // "A" / "B" — marca alternativas para el mismo hueco (elige una)
+  guide?: StopGuide // guía "de local" para sacarle el máximo a la visita
   transitToNext?: {
     mode: TransitMode; min?: number; km?: number; note?: string
     line?: string // p.ej. "MRT North-South (roja)"
