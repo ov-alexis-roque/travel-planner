@@ -2,6 +2,15 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
+    v: '1.16.0', date: 'Ago 2026', title: 'Restaurantes en el mapa de Explorar + fichas del pasaporte',
+    notes: [
+      '🍽️ Los ~100 restaurantes de la guía foodie ya salen como pin en el mapa de Explorar: el mapa muestra EXACTAMENTE lo que filtras en la lista (antes faltaban casi todos).',
+      '📍 Pasa el ratón o toca una tarjeta y el mapa hace zoom y la resalta; toca un pin del mapa y te lleva a su ficha en la lista.',
+      '🛂 Pasaporte: cada animal y plato tiene ahora una ficha "¿qué es / cómo es?" pensada para peques (botón ⓘ), con descripción y botón para ver una foto de verdad.',
+      '🐒 Así Aira y Leo saben cómo es el mono narigudo o qué es un durian antes de buscarlos.',
+    ],
+  },
+  {
     v: '1.15.0', date: 'Ago 2026', title: 'Días de Bali reordenados para esquivar masas',
     notes: [
       '🗓️ Excursiones de Sanur reordenadas para que los grandes imanes caigan ENTRE SEMANA: Nusa Penida (jue), Uluwatu (vie) y Waterbom (lun).',
