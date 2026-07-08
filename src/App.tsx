@@ -18,6 +18,7 @@ import Tasks from './screens/Tasks'
 import Budget from './screens/Budget'
 import SideMap from './components/SideMap'
 import UpdatePrompt from './components/UpdatePrompt'
+import { useTheme } from './store'
 
 const NAV = [
   { to: '/hoy', icon: '🏠', label: 'Hoy' },
@@ -30,6 +31,12 @@ const NAV = [
 
 export default function App() {
   const [online, setOnline] = useState(navigator.onLine)
+  const theme = useTheme((s) => s.theme)
+  useEffect(() => {
+    const root = document.documentElement
+    if (theme === 'auto') root.removeAttribute('data-theme')
+    else root.setAttribute('data-theme', theme)
+  }, [theme])
   useEffect(() => {
     const on = () => setOnline(true)
     const off = () => setOnline(false)
