@@ -15,6 +15,7 @@ export default function Passport() {
   const kid = useUI((s) => s.passportKid)
   const setKid = useUI((s) => s.setPassportKid)
   const [celebrate, setCelebrate] = useState<Stamp | null>(null)
+  const [ficha, setFicha] = useState<Stamp | null>(null)
   const key = (stampId: string) => `${kid}:${stampId}`
 
   const allStamps = passportCategories.flatMap((c) => c.stamps)
@@ -88,6 +89,9 @@ export default function Passport() {
                 const on = !!passportDone[key(s.id)]
                 return (
                   <button key={s.id} className={`pp-stamp ${on ? 'on' : ''}`} onClick={() => onToggle(s)}>
+                    <span className="pp-info" role="button" tabIndex={0} title="¿Qué es? Ver ficha"
+                      onClick={(e) => { e.stopPropagation(); setFicha(s) }}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setFicha(s) } }}>ⓘ</span>
                     <span className="pp-emoji">{s.emoji}</span>
                     <span className="pp-label">{s.label}</span>
                     {s.where && <span className="pp-where">{s.where}</span>}
@@ -100,6 +104,29 @@ export default function Passport() {
         )
       })}
       <div style={{ height: 12 }} />
+
+      {/* Ficha: ¿qué es / cómo es? + foto */}
+      {ficha && (
+        <div className="pp-ficha-back" onClick={() => setFicha(null)}>
+          <div className="pp-ficha" onClick={(e) => e.stopPropagation()}>
+            <button className="pp-ficha-x" onClick={() => setFicha(null)} aria-label="Cerrar">✕</button>
+            <div className="pp-ficha-hero">
+              {ficha.img
+                ? <img src={ficha.img} alt={ficha.label} className="pp-ficha-img" />
+                : <span className="pp-ficha-emoji">{ficha.emoji}</span>}
+            </div>
+            <div className="pp-ficha-title">{ficha.label}</div>
+            {ficha.where && <div className="pp-ficha-where">📍 {ficha.where}</div>}
+            {ficha.desc && <p className="pp-ficha-desc">{ficha.desc}</p>}
+            {ficha.fact && <p className="pp-ficha-fact">🤓 ¿Sabías que…? {ficha.fact}</p>}
+            {!ficha.img && (
+              <a className="pp-ficha-photo" href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(ficha.search ?? ficha.label)}`} target="_blank" rel="noreferrer">
+                🔍 Ver una foto de verdad
+              </a>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Celebración al conseguir un sello */}
       {celebrate && (

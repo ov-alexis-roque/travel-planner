@@ -2,46 +2,55 @@
 // consiguiendo durante el viaje. Lugares, experiencias, comidas típicas y
 // animales. Cada sello trae una curiosidad para peques. Todo offline.
 
-export interface Stamp { id: string; emoji: string; label: string; where?: string; fact?: string }
+export interface Stamp {
+  id: string
+  emoji: string
+  label: string
+  where?: string
+  fact?: string
+  desc?: string // "cómo es / qué es": para que los peques sepan qué buscar
+  img?: string // foto embebida opcional (si se añade a /public); si falta, la ficha ofrece "ver foto"
+  search?: string // término de búsqueda para "ver foto" (por defecto, el label)
+}
 export interface StampCategory { id: string; title: string; icon: string; stamps: Stamp[] }
 
 export const passportCategories: StampCategory[] = [
   {
     id: 'animales', title: 'Animales vistos', icon: '🦁',
     stamps: [
-      { id: 'a-orangutan', emoji: '🦧', label: 'Orangután', where: 'Sepilok', fact: 'Son tan listos que usan hojas grandes como paraguas cuando llueve. ☔' },
-      { id: 'a-sunbear', emoji: '🐻', label: 'Oso del sol', where: 'Sepilok', fact: 'Es el oso más pequeño del mundo y tiene la lengua larguísima para sacar miel.' },
-      { id: 'a-proboscis', emoji: '🐒', label: 'Mono narigudo', where: 'Río Kinabatangan', fact: 'Solo vive en Borneo. ¡Los machos tienen una nariz enorme y saben nadar!' },
-      { id: 'a-elephant', emoji: '🐘', label: 'Elefante pigmeo', where: 'Río Kinabatangan', fact: 'Son los elefantes más pequeños del mundo, orejones y muy juguetones.' },
-      { id: 'a-hornbill', emoji: '🦅', label: 'Cálao (hornbill)', where: 'Borneo', fact: 'El papá tapa el nido con barro y le pasa comida a la mamá por un agujerito.' },
-      { id: 'a-croc', emoji: '🐊', label: 'Cocodrilo', where: 'Río Kinabatangan', fact: 'Puede aguantar más de una hora bajo el agua sin respirar.' },
-      { id: 'a-bats', emoji: '🦇', label: 'Nube de murciélagos', where: 'Gomantong', fact: 'Cada tarde salen unos 2 millones de murciélagos de la cueva. 🦇' },
-      { id: 'a-fireflies', emoji: '✨', label: 'Luciérnagas', where: 'Río de noche', fact: 'Se encienden todas a la vez para "hablarse" con la luz.' },
-      { id: 'a-macaque', emoji: '🐵', label: 'Macaco', where: 'Batu Caves / Monkey Forest', fact: 'Algunos lavan la comida en el agua antes de comérsela. ¡Y roban gafas!' },
-      { id: 'a-turtle', emoji: '🐢', label: 'Tortuga marina', where: 'Gili Air', fact: 'Vuelven a poner sus huevos en la MISMA playa donde nacieron.' },
-      { id: 'a-fish', emoji: '🐠', label: 'Peces de arrecife', where: 'Snorkel', fact: 'El pez payaso vive dentro de una anémona que pica… ¡pero a él no le pica!' },
-      { id: 'a-monitor', emoji: '🦎', label: 'Varano / lagarto', where: 'Selva', fact: 'Corre, nada y trepa: es como un mini-dragón.' },
+      { id: 'a-orangutan', emoji: '🦧', label: 'Orangután', where: 'Sepilok', desc: 'Un gran simio de pelo largo naranja-rojizo, con brazos larguísimos y cara sin pelo. Casi tan grande como una persona y vive en los árboles.', search: 'orangután Borneo', fact: 'Son tan listos que usan hojas grandes como paraguas cuando llueve. ☔' },
+      { id: 'a-sunbear', emoji: '🐻', label: 'Oso del sol', where: 'Sepilok', desc: 'El oso más pequeño del mundo (como un perro grande), negro con una mancha naranja en forma de sol en el pecho y una lengua larguísima.', search: 'oso del sol sun bear', fact: 'Es el oso más pequeño del mundo y tiene la lengua larguísima para sacar miel.' },
+      { id: 'a-proboscis', emoji: '🐒', label: 'Mono narigudo', where: 'Río Kinabatangan', desc: 'Mono grande de pelo naranja-marrón y barriga clara; el macho tiene una nariz enorme y colgante. Palmea el agua y nada muy bien.', search: 'mono narigudo proboscis monkey', fact: 'Solo vive en Borneo. ¡Los machos tienen una nariz enorme y saben nadar!' },
+      { id: 'a-elephant', emoji: '🐘', label: 'Elefante pigmeo', where: 'Río Kinabatangan', desc: 'Un elefante pequeño y regordete, de orejas grandes, cara tierna y cola larga. Es el elefante más pequeño del mundo.', search: 'elefante pigmeo Borneo', fact: 'Son los elefantes más pequeños del mundo, orejones y muy juguetones.' },
+      { id: 'a-hornbill', emoji: '🦅', label: 'Cálao (hornbill)', where: 'Borneo', desc: 'Ave grande y negra con un pico enorme y curvado, y encima un "casco" de color amarillo o rojo. Al volar hace mucho ruido con las alas.', search: 'cálao hornbill Borneo', fact: 'El papá tapa el nido con barro y le pasa comida a la mamá por un agujerito.' },
+      { id: 'a-croc', emoji: '🐊', label: 'Cocodrilo', where: 'Río Kinabatangan', desc: 'Reptil enorme verde-grisáceo, con el cuerpo cubierto de escamas duras y una boca larga llena de dientes. Flota quieto como si fuera un tronco.', search: 'cocodrilo de agua salada', fact: 'Puede aguantar más de una hora bajo el agua sin respirar.' },
+      { id: 'a-bats', emoji: '🦇', label: 'Nube de murciélagos', where: 'Gomantong', desc: 'Pequeños mamíferos que vuelan de noche con alas de piel. Salen de la cueva a millones y forman una nube que se retuerce en el cielo.', search: 'murciélagos cueva Gomantong', fact: 'Cada tarde salen unos 2 millones de murciélagos de la cueva. 🦇' },
+      { id: 'a-fireflies', emoji: '✨', label: 'Luciérnagas', where: 'Río de noche', desc: 'Escarabajos diminutos que encienden una lucecita verde-amarilla en la tripa. De noche parecen chispas flotando entre los árboles.', search: 'luciérnagas fireflies', fact: 'Se encienden todas a la vez para "hablarse" con la luz.' },
+      { id: 'a-macaque', emoji: '🐵', label: 'Macaco', where: 'Batu Caves / Monkey Forest', desc: 'Mono mediano de pelo marrón-gris y cara rosada, muy espabilado. Va en grupo y roba comida, gafas y hasta móviles.', search: 'macaco de cola larga', fact: 'Algunos lavan la comida en el agua antes de comérsela. ¡Y roban gafas!' },
+      { id: 'a-turtle', emoji: '🐢', label: 'Tortuga marina', where: 'Gili Air', desc: 'Tortuga grande de caparazón liso, con aletas en vez de patas para "volar" bajo el agua. Sube a respirar y es muy tranquila.', search: 'tortuga marina verde', fact: 'Vuelven a poner sus huevos en la MISMA playa donde nacieron.' },
+      { id: 'a-fish', emoji: '🐠', label: 'Peces de arrecife', where: 'Snorkel', desc: 'Pececillos de mil colores (naranja, azul, amarillo) que viven entre los corales. El pez payaso es naranja con rayas blancas.', search: 'peces de arrecife de coral', fact: 'El pez payaso vive dentro de una anémona que pica… ¡pero a él no le pica!' },
+      { id: 'a-monitor', emoji: '🦎', label: 'Varano / lagarto', where: 'Selva', desc: 'Un lagarto grande (¡hasta 1-2 metros!) de piel gris y lengua amarilla partida en dos. Corre, nada y trepa como un mini-dragón.', search: 'varano monitor lizard', fact: 'Corre, nada y trepa: es como un mini-dragón.' },
     ],
   },
   {
     id: 'comidas', title: 'Comidas y platos típicos', icon: '🍜',
     stamps: [
-      { id: 'f-chickenrice', emoji: '🍗', label: 'Hainanese chicken rice', where: 'Singapur', fact: 'El arroz se cocina en el caldo del pollo: por eso sabe tan rico.' },
-      { id: 'f-satay', emoji: '🍢', label: 'Satay', where: 'Singapur / KL', fact: 'Son brochetas a la brasa que se mojan en salsa de cacahuete. 🥜' },
-      { id: 'f-chilicrab', emoji: '🦀', label: 'Chili crab', where: 'Singapur', fact: 'Es EL plato de Singapur: cangrejo en salsa dulce y un poco picante.' },
-      { id: 'f-kaya', emoji: '🍞', label: 'Kaya toast + kopi', where: 'Singapur', fact: 'La kaya es una mermelada de coco y huevo que se unta en tostadas.' },
-      { id: 'f-laksa', emoji: '🍜', label: 'Laksa', where: 'Singapur / KL', fact: 'Sopa de fideos con leche de coco y un puntito picante.' },
-      { id: 'f-nasilemak', emoji: '🍛', label: 'Nasi lemak', where: 'Kampung Baru (KL)', fact: 'El plato nacional de Malasia. ¡Se come hasta para desayunar!' },
-      { id: 'f-roti', emoji: '🫓', label: 'Roti canai', where: 'Malasia', fact: 'Lo lanzan al aire para dejarlo finito: ¡es todo un espectáculo!' },
-      { id: 'f-bakkutteh', emoji: '🥘', label: 'Bak kut teh', where: 'Singapur', fact: 'Significa "té de costilla de cerdo": una sopa llena de especias.' },
-      { id: 'f-babiguling', emoji: '🐖', label: 'Babi guling', where: 'Ubud', fact: 'Cochinillo asado con especias: el plato de fiesta en Bali.' },
-      { id: 'f-bebek', emoji: '🦆', label: 'Bebek (pato balinés)', where: 'Ubud', fact: 'Se cocina durante horas hasta quedar súper tierno y crujiente.' },
-      { id: 'f-nasigoreng', emoji: '🍚', label: 'Nasi / mie goreng', where: 'Bali', fact: '"Goreng" significa frito. ¡Casi siempre lleva un huevo encima!' },
-      { id: 'f-coconut', emoji: '🥥', label: 'Coco fresco', where: 'Playa', fact: 'Primero bebes el agua y luego raspas la carne blanca con una cuchara.' },
-      { id: 'f-tehtarik', emoji: '🧋', label: 'Teh tarik', where: 'Malasia', fact: 'Té con leche "estirado": lo pasan de vaso a vaso para hacer espuma.' },
-      { id: 'f-gelato', emoji: '🍦', label: 'Helado / gelato', where: 'Bali', fact: 'En Bali hay helado hasta de arroz negro y de coco.' },
-      { id: 'f-spicy', emoji: '🌶️', label: '¡Algo MUY picante!', where: 'Reto valiente', fact: 'El picante no quema de verdad: solo engaña a tu lengua. 😝' },
-      { id: 'f-durian', emoji: '😬', label: 'Probar durian', where: 'Reto extremo', fact: 'Lo llaman "el rey de las frutas"… ¡pero huele tan fuerte que está prohibido en muchos hoteles!' },
+      { id: 'f-chickenrice', emoji: '🍗', label: 'Hainanese chicken rice', where: 'Singapur', desc: 'Arroz blanco brillante con trozos de pollo blanco muy jugoso, pepino y unas salsas al lado. Suave y sencillo: gusta a todos.', search: 'hainanese chicken rice', fact: 'El arroz se cocina en el caldo del pollo: por eso sabe tan rico.' },
+      { id: 'f-satay', emoji: '🍢', label: 'Satay', where: 'Singapur / KL', desc: 'Brochetas de pollo o ternera doradas a la brasa, servidas con una salsa espesa de cacahuete para mojar.', search: 'satay skewers', fact: 'Son brochetas a la brasa que se mojan en salsa de cacahuete. 🥜' },
+      { id: 'f-chilicrab', emoji: '🦀', label: 'Chili crab', where: 'Singapur', desc: 'Un cangrejo entero rojo bañado en salsa espesa de tomate, dulce y algo picante. Se come con las manos y con bollitos fritos.', search: 'chili crab Singapore', fact: 'Es EL plato de Singapur: cangrejo en salsa dulce y un poco picante.' },
+      { id: 'f-kaya', emoji: '🍞', label: 'Kaya toast + kopi', where: 'Singapur', desc: 'Tostadas finas y crujientes untadas con mermelada verde de coco (kaya) y mantequilla, con huevos blanditos y café con leche.', search: 'kaya toast', fact: 'La kaya es una mermelada de coco y huevo que se unta en tostadas.' },
+      { id: 'f-laksa', emoji: '🍜', label: 'Laksa', where: 'Singapur / KL', desc: 'Un bol de fideos en caldo naranja de leche de coco y curry, con gambas. Cremoso y con un puntito picante.', search: 'laksa noodles', fact: 'Sopa de fideos con leche de coco y un puntito picante.' },
+      { id: 'f-nasilemak', emoji: '🍛', label: 'Nasi lemak', where: 'Kampung Baru (KL)', desc: 'Un montoncito de arroz cocido en coco con salsa roja (sambal), pescaditos crujientes, cacahuetes, huevo y pepino, en hoja de plátano.', search: 'nasi lemak', fact: 'El plato nacional de Malasia. ¡Se come hasta para desayunar!' },
+      { id: 'f-roti', emoji: '🫓', label: 'Roti canai', where: 'Malasia', desc: 'Un pan plano y hojaldrado que estiran lanzándolo al aire y doran en la plancha; se moja en curry.', search: 'roti canai', fact: 'Lo lanzan al aire para dejarlo finito: ¡es todo un espectáculo!' },
+      { id: 'f-bakkutteh', emoji: '🥘', label: 'Bak kut teh', where: 'Singapur', desc: 'Una sopa clara y calentita con costillas de cerdo, mucho ajo y pimienta. Se toma con arroz y un churro salado para mojar.', search: 'bak kut teh', fact: 'Significa "té de costilla de cerdo": una sopa llena de especias.' },
+      { id: 'f-babiguling', emoji: '🐖', label: 'Babi guling', where: 'Ubud', desc: 'Cochinillo asado entero con especias hasta que la piel queda muy crujiente; se sirve con arroz y verduras.', search: 'babi guling Bali', fact: 'Cochinillo asado con especias: el plato de fiesta en Bali.' },
+      { id: 'f-bebek', emoji: '🦆', label: 'Bebek (pato balinés)', where: 'Ubud', desc: 'Pato cocinado durante horas con especias hasta quedar tierno por dentro y crujiente por fuera.', search: 'bebek betutu Bali', fact: 'Se cocina durante horas hasta quedar súper tierno y crujiente.' },
+      { id: 'f-nasigoreng', emoji: '🍚', label: 'Nasi / mie goreng', where: 'Bali', desc: 'Arroz ("nasi") o fideos ("mie") frito al wok con verduras y a veces pollo, coronado con un huevo frito encima.', search: 'nasi goreng', fact: '"Goreng" significa frito. ¡Casi siempre lleva un huevo encima!' },
+      { id: 'f-coconut', emoji: '🥥', label: 'Coco fresco', where: 'Playa', desc: 'Un coco verde entero con una pajita: primero bebes el agua fresca de dentro y luego raspas la carne blanca con una cuchara.', search: 'coco fresco bebida', fact: 'Primero bebes el agua y luego raspas la carne blanca con una cuchara.' },
+      { id: 'f-tehtarik', emoji: '🧋', label: 'Teh tarik', where: 'Malasia', desc: 'Té con leche muy dulce y espumoso; lo "estiran" pasándolo en alto de un vaso a otro para hacer espuma.', search: 'teh tarik', fact: 'Té con leche "estirado": lo pasan de vaso a vaso para hacer espuma.' },
+      { id: 'f-gelato', emoji: '🍦', label: 'Helado / gelato', where: 'Bali', desc: 'Helado cremoso; en Bali lo hay de sabores curiosos como coco, arroz negro o mango.', search: 'gelato helado', fact: 'En Bali hay helado hasta de arroz negro y de coco.' },
+      { id: 'f-spicy', emoji: '🌶️', label: '¡Algo MUY picante!', where: 'Reto valiente', desc: 'Cualquier plato con mucho chili que pica en la lengua: sambal, curry picante… ¡un reto para valientes!', search: 'sambal chili', fact: 'El picante no quema de verdad: solo engaña a tu lengua. 😝' },
+      { id: 'f-durian', emoji: '😬', label: 'Probar durian', where: 'Reto extremo', desc: 'Una fruta grande y verde con pinchos por fuera; por dentro es amarilla y cremosa como natillas. Huele MUY fuerte, pero a muchos les encanta.', search: 'durian fruta', fact: 'Lo llaman "el rey de las frutas"… ¡pero huele tan fuerte que está prohibido en muchos hoteles!' },
     ],
   },
   {
