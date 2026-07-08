@@ -15,7 +15,6 @@ export interface PackItem {
   label: string
   icon: string // emoji por ítem (gamificación)
   qty?: string
-  count?: number // nº explícito de unidades a marcar (si no, se deduce de qty)
   note?: string
   kidLabel?: string // etiqueta simplificada en mayúsculas para el modo lectura de Leo
 }
@@ -34,7 +33,6 @@ export interface PackPerson {
 function adultItems(prefix: string): PackItem[] {
   return [
     { id: `${prefix}-camisetas`, label: 'Camisetas transpirables', icon: '👕', qty: '5–6', note: 'Tejidos que sequen rápido; se lava por el camino.' },
-    { id: `${prefix}-manga-larga`, label: 'Camiseta de manga larga fina', icon: '👚', qty: '1–2', note: 'Safari de Borneo (tapa de mosquitos) y sol fuerte. Que transpire.' },
     { id: `${prefix}-shorts`, label: 'Pantalones cortos / faldas', icon: '🩳', qty: '3–4' },
     { id: `${prefix}-pantalon-largo`, label: 'Pantalón largo ligero', icon: '👖', qty: '1–2', note: 'Templos (tapar rodillas), safari y mosquitos. Lino o técnico.' },
     { id: `${prefix}-ropa-interior`, label: 'Ropa interior', icon: '🩲', qty: '7 mudas' },
@@ -78,16 +76,10 @@ export const packPeople: PackPerson[] = [
       { id: 'c-powerbank', label: 'Power bank', icon: '🔋', qty: '1–2', note: 'SIEMPRE en cabina (nunca bodega). <100 Wh.' },
       { id: 'c-multipuerto', label: 'Cargador multipuerto USB + cables', icon: '⚡', note: 'Uno por dispositivo: móviles, cámara, power bank, iPad, consola.' },
       { id: 'c-ipad', label: 'iPad + cargador', icon: '📲', note: 'Vuelos largos. Descargad pelis/series/juegos offline antes de salir.' },
-      { id: 'c-consola', label: 'Consola retro + juegos + cargador', icon: '🎮', note: 'Para trayectos y esperas. Cargada y con los juegos ya metidos.' },
-      { id: 'c-mareo', label: 'Pulseras para el mareo', icon: '⌚', note: 'Fast boat a Gili y coche de montaña en Ubud. Sirven para Aira y Leo.' },
       { id: 'c-splitter', label: 'Splitter de auriculares (2 en 1)', icon: '🎧', note: 'Para que Aira y Leo vean lo mismo en el avión.' },
       { id: 'c-esim', label: 'eSIM / datos', icon: '📶', note: 'eSIM regional Asia o local. Bali: Gojek/Grab necesitan datos.' },
       { id: 'c-docs', label: 'Documentos + copias', icon: '🛂', note: 'Pasaportes (validez 6+ meses), copias digitales y en papel, seguro, reservas.' },
       { id: 'c-dinero', label: 'Tarjetas + algo de efectivo', icon: '💳', note: 'Cambiar/sacar SGD, MYR e IDR. Una tarjeta de respaldo aparte.' },
-      { id: 'c-ziplock', label: 'Bolsas ziplock (varios tamaños)', icon: '🗂️', note: 'Líquidos en cabina y proteger móvil/pasaporte del agua en Gili y en los barcos.' },
-      { id: 'c-candado', label: 'Candado pequeño (TSA)', icon: '🔒', note: 'Cabina y taquillas de los lodges/hostales de Borneo.' },
-      { id: 'c-lavado', label: 'Jabón de viaje + cuerda de tender', icon: '🧵', note: 'Aclarar bañadores y camisetas entre lavados grandes.' },
-      { id: 'c-botella', label: 'Botellas de agua reutilizables', icon: '🚰', qty: '4', note: 'Una por persona; rellenar para no comprar plástico todo el viaje.' },
     ],
   },
   {
@@ -112,7 +104,6 @@ export const packPeople: PackPerson[] = [
     intro: '¡Tu maleta, Aira! Ve marcando cada cosa que metas tú misma. 🌟',
     items: [
       { id: 'ai-camisetas', label: 'Camisetas', icon: '👕', qty: '5–6' },
-      { id: 'ai-manga-larga', label: 'Camiseta de manga larga fina', icon: '👚', qty: '1', note: 'Para el safari (mosquitos) y el sol.' },
       { id: 'ai-shorts', label: 'Pantalones cortos / faldas', icon: '🩳', qty: '3–4' },
       { id: 'ai-vestido', label: 'Un vestido bonito para cenas', icon: '👗', qty: '1' },
       { id: 'ai-pantalon', label: 'Pantalón largo ligero', icon: '👖', qty: '1', note: 'Templos y mosquitos.' },
@@ -141,7 +132,6 @@ export const packPeople: PackPerson[] = [
     intro: 'La maleta de Leo. Papá o mamá la marcan; con el modo lectura, Leo lee cada cosa. 🦕',
     items: [
       { id: 'le-camisetas', label: 'Camisetas', icon: '👕', qty: '5–6', kidLabel: 'CAMISETAS' },
-      { id: 'le-manga-larga', label: 'Camiseta de manga larga', icon: '👚', qty: '1', kidLabel: 'CAMISETA MANGA LARGA' },
       { id: 'le-shorts', label: 'Pantalones cortos', icon: '🩳', qty: '4', kidLabel: 'PANTALONES' },
       { id: 'le-pantalon', label: 'Pantalón largo (mosquitos)', icon: '👖', qty: '1', kidLabel: 'UN PANTALÓN LARGO' },
       { id: 'le-interior', label: 'Calzoncillos', icon: '🩲', qty: '7', kidLabel: 'CALZONCILLOS' },
@@ -155,20 +145,14 @@ export const packPeople: PackPerson[] = [
       { id: 'le-gorra', label: 'Gorra', icon: '🧢', kidLabel: 'LA GORRA' },
       { id: 'le-gafas-sol', label: 'Gafas de sol', icon: '🕶️', kidLabel: 'GAFAS DE SOL' },
       { id: 'le-aseo', label: 'Cepillo de dientes', icon: '🪥', kidLabel: 'CEPILLO DE DIENTES' },
+      { id: 'le-consola', label: 'Consola retro + juegos + cargador', icon: '🎮', kidLabel: 'LA CONSOLA' },
+      { id: 'le-peluche', label: 'Peluche', icon: '🧸', kidLabel: 'EL PELUCHE' },
+      { id: 'le-snacks', label: 'Snacks de casa', icon: '🍪', kidLabel: 'GALLETAS' },
+      { id: 'le-muda-mano', label: 'Muda de recambio en la mochila', icon: '🎒', note: 'Por si acaso en aviones y barcos.', kidLabel: 'ROPA DE REPUESTO' },
+      { id: 'le-mareo', label: 'Pulseras para el mareo', icon: '⌚', note: 'Fast boat a Gili y coche de montaña en Ubud.', kidLabel: 'PULSERAS' },
     ],
   },
 ]
-
-// Nº de unidades a marcar por ítem (un círculo por unidad). Se saca de `count`
-// o del número más alto que aparezca en `qty` ("5–6"→6, "5 pares"→5, "7"→7).
-// Sin cantidad → 1. Tope de 12 para que la fila no se descontrole.
-export function itemCount(it: PackItem): number {
-  if (it.count && it.count > 0) return Math.min(it.count, 12)
-  if (!it.qty) return 1
-  const nums = (it.qty.match(/\d+/g) || []).map(Number)
-  if (!nums.length) return 1
-  return Math.min(Math.max(...nums), 12)
-}
 
 // Apps imprescindibles a descargar (con WiFi, antes de salir). Se marcan igual
 // que la maleta (mismo store packDone, con prefijo app-).
@@ -210,35 +194,6 @@ export const appGroups: { title: string; icon: string; items: { id: string; labe
       { id: 'app-airalo', label: 'Airalo (eSIM)', note: 'Datos en cada país sin cambiar de SIM. Activar al aterrizar.' },
       { id: 'app-revolut', label: 'Revolut', note: 'Tu tarjeta de viaje; paga siempre en moneda local.' },
     ],
-  },
-]
-
-// Guía de uso por tramo del viaje: qué sacar y tener a mano en cada momento.
-// No ensucia las listas por persona; es una referencia general (pestaña Común).
-export const phaseGuide: { phase: string; icon: string; when: string; items: string[] }[] = [
-  {
-    phase: 'Vuelos y escalas', icon: '✈️', when: '12 jul (BCN→SIN), trasbordos y 5 ago vuelta',
-    items: ['Sudadera / capa fina (el A/C corta)', 'Power bank + cables (siempre en cabina)', 'iPad y consola cargados con contenido offline', 'Auriculares + splitter 2-en-1 para los peques', 'Snacks y muda de recambio en la mochila', 'Pulseras para el mareo (peques)'],
-  },
-  {
-    phase: 'Singapur · ciudad tropical', icon: '🌆', when: 'días 1–3 (13–15 jul)',
-    items: ['Camisetas ligeras y pantalón corto', 'Gorra, gafas de sol y protector 50+', 'Calzado cómodo de andar', 'Bañador (piscinas y Sentosa)', 'Poncho/paraguas para el chaparrón tropical'],
-  },
-  {
-    phase: 'Borneo · safari y selva', icon: '🌴', when: 'días 4–8 (15–20 jul) · Sepilok y Kinabatangan',
-    items: ['👚 Camiseta de MANGA LARGA (mosquitos)', 'Pantalón largo de trekking', 'Botas cerradas + calcetines altos finos', 'Repelente DEET fuerte y antipalúdico', 'Poncho/chubasquero y linterna frontal', 'Binoculares para fauna desde el barco'],
-  },
-  {
-    phase: 'Kuala Lumpur · ciudad y templos', icon: '🏙️', when: 'días 9–12 (20–24 jul)',
-    items: ['Muda “buena” para cenas', 'Pantalón largo / hombros cubiertos (Batu Caves)', 'Calzado cómodo', 'Lavado grande de ropa a mitad de viaje'],
-  },
-  {
-    phase: 'Ubud · templos, arrozales y cascadas', icon: '🛕', when: 'días 13–15 (24–27 jul)',
-    items: ['Pantalón largo / sarong para templos', 'Calzado que se pueda mojar (cascadas)', 'Repelente y poncho', 'Ropa cómoda para el Bali Swing'],
-  },
-  {
-    phase: 'Gili & Sanur · playa y snorkel', icon: '🏝️', when: 'días 16–24 (27 jul–5 ago)',
-    items: ['Bañadores y camiseta de licra/UV', 'Gafas de snorkel propias + escarpines', 'Chanclas, toalla de microfibra', 'Protector reef-safe', 'Bolsa estanca para el barco', 'Pulseras de mareo para el fast boat'],
   },
 ]
 

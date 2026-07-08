@@ -580,10 +580,9 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
 .psh-sub { margin: 2px 0 0; font-size: .78em; color: var(--muted); }
 .psh-list { list-style: none; margin: 0; padding: 0; }
 .psh-list li { display: flex; align-items: center; gap: 11px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.psh-box { flex-shrink: 0; width: 22px; height: 22px; border: 2px solid var(--ink); border-radius: 6px; }
 .psh-ico { font-size: 1.25em; width: 28px; text-align: center; flex-shrink: 0; }
-.psh-txt { display: flex; flex-direction: column; flex: 1; }
-.psh-dots { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; max-width: 45%; margin-left: auto; }
-.psh-dot { width: 20px; height: 20px; border: 2px solid var(--ink); border-radius: 50%; flex-shrink: 0; }
+.psh-txt { display: flex; flex-direction: column; }
 .psh-normal { font-weight: 600; font-size: 1.02em; }
 .psh-normal em { color: var(--muted); font-style: normal; font-size: .82em; }
 .psh-big { font-family: 'Comic Sans MS', 'Trebuchet MS', system-ui, sans-serif; font-size: 1.3em; font-weight: 800; letter-spacing: .6px; line-height: 1.15; }
@@ -597,7 +596,7 @@ nav.bottom a.active .ni { transform: translateY(-1px); }
   .print-sheet { border: none; box-shadow: none; padding: 0 0 24px; page-break-after: always; break-after: page; }
   .print-sheet:last-child { page-break-after: auto; break-after: auto; }
   .print-sheets { padding: 0; }
-  .psh-dot { border-color: #000; }
+  .psh-box { border-color: #000; }
   .psh-head { border-color: #000; }
 }
 

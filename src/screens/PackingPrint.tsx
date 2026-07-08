@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { packPeople, itemCount } from '../data/packing'
+import { packPeople } from '../data/packing'
 
 // Versión imprimible (backup en papel) de las checklists de Aira y Leo.
 // Casillas vacías para marcar a mano. Leo lleva su etiqueta en MAYÚSCULAS
@@ -33,30 +33,22 @@ export default function PackingPrint() {
               </div>
             </header>
             <ul className="psh-list">
-              {p.items.map((it) => {
-                const count = itemCount(it)
-                return (
-                  <li key={it.id} className={p.reader ? 'psh-reader' : ''}>
-                    <span className="psh-ico">{it.icon}</span>
-                    <span className="psh-txt">
-                      {p.reader ? (
-                        <>
-                          <span className="psh-big">{it.kidLabel ?? it.label.toUpperCase()}</span>
-                          <span className="psh-small">{it.label}{count > 1 && ` · ${count}`}</span>
-                        </>
-                      ) : (
-                        <span className="psh-normal">{it.label}{it.qty && <em> · {it.qty}</em>}</span>
-                      )}
-                    </span>
-                    {/* Un círculo por unidad para tachar a mano */}
-                    <span className="psh-dots">
-                      {Array.from({ length: count }).map((_, j) => (
-                        <span className="psh-dot" key={j} aria-hidden />
-                      ))}
-                    </span>
-                  </li>
-                )
-              })}
+              {p.items.map((it) => (
+                <li key={it.id} className={p.reader ? 'psh-reader' : ''}>
+                  <span className="psh-box" aria-hidden />
+                  <span className="psh-ico">{it.icon}</span>
+                  <span className="psh-txt">
+                    {p.reader ? (
+                      <>
+                        <span className="psh-big">{it.kidLabel ?? it.label.toUpperCase()}</span>
+                        <span className="psh-small">{it.label}{it.qty && ` · ${it.qty}`}</span>
+                      </>
+                    ) : (
+                      <span className="psh-normal">{it.label}{it.qty && <em> · {it.qty}</em>}</span>
+                    )}
+                  </span>
+                </li>
+              ))}
             </ul>
             <footer className="psh-foot">¡Marca cada cosa que metas en tu maleta! 🎒✨</footer>
           </section>
