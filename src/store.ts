@@ -17,6 +17,23 @@ interface UIState {
   highlight: string | null // punto resaltado en el mapa lateral (clic en la lista)
   setHighlight: (k: string | null) => void
 }
+// Tema (claro/oscuro/automático). Persistente. 'auto' sigue al sistema.
+export type Theme = 'auto' | 'light' | 'dark'
+interface ThemeState { theme: Theme; setTheme: (t: Theme) => void; cycle: () => void }
+export const useTheme = create<ThemeState>()(
+  persist(
+    (set, get) => ({
+      theme: 'auto',
+      setTheme: (t) => set({ theme: t }),
+      cycle: () => {
+        const order: Theme[] = ['auto', 'light', 'dark']
+        set({ theme: order[(order.indexOf(get().theme) + 1) % order.length] })
+      },
+    }),
+    { name: 'tp-theme' },
+  ),
+)
+
 export const useUI = create<UIState>((set) => ({
   focusDayId: null,
   setFocusDay: (id) => set({ focusDayId: id }),

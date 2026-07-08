@@ -2,6 +2,15 @@
 // La primera entrada es la versión actual (debe coincidir con package.json).
 export const changelog: { v: string; date: string; title: string; notes: string[] }[] = [
   {
+    v: '1.19.0', date: 'Ago 2026', title: 'Pulido de diseño: modo oscuro, tipografía y consistencia',
+    notes: [
+      '🌙 Modo oscuro completo (automático según el sistema o manual desde Resumen): charcoal cálido, cómodo de noche y en el avión.',
+      '🔤 Tipografía con más carácter (titulares con serif editorial) y mejor contraste de textos.',
+      '💶 Presupuesto: barras con una escala de color coherente (la intensidad marca el gasto), sin "arcoíris".',
+      '🧭 Resumen sin KPIs duplicados · secciones plegables con chevron claro · comida y actividades diferenciadas en el mapa de Explorar.',
+    ],
+  },
+  {
     v: '1.18.0', date: 'Ago 2026', title: 'Pasaporte con niveles, medallas y doble curiosidad',
     notes: [
       '🏅 Cada categoría (animales, comidas, lugares, experiencias, retos) tiene 3 medallas 🥉🥈🥇 a ⅓, ⅔ y 100% de sus sellos, con títulos que molan (Rastreador → Naturalista → Guardián de la selva…).',

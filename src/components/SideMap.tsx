@@ -75,7 +75,8 @@ export default function SideMap() {
     const dest = destById(exploreDest)
     const destColor = DEST_HEX[dest.colorVar] ?? '#1a1a2a'
     const places = trip.catalog.filter((p) => p.destinationId === exploreDest && p.coords && matchView(p, exploreView))
-    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: destColor, key: p.id }))
+    // Comida en naranja (como el mapa del día), actividades en el color del destino.
+    const points: MapPoint[] = places.map((p) => ({ lat: p.coords!.lat, lon: p.coords!.lon, emoji: p.emoji, label: p.name, color: p.kind === 'food' ? '#e8590c' : destColor, key: p.id }))
     // Al tocar un pin, resaltar y llevar a su tarjeta en la lista de Explorar.
     const onPinClick = (id: string) => {
       setHighlight(id)

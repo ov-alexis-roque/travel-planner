@@ -21,7 +21,7 @@ function flightStats() {
   }
   return { count: flights.length, hours: Math.round(mins / 60), km: Math.round(km) }
 }
-import { usePlanner } from '../store'
+import { usePlanner, useTheme } from '../store'
 import TripMap, { type MapPoint } from '../components/TripMap'
 import OfflineMaps from '../components/OfflineMaps'
 import { DEST_HEX } from '../components/DayView'
@@ -42,6 +42,10 @@ export default function Summary() {
     window.addEventListener('pwa:checked', onChecked)
     return () => { window.removeEventListener('pwa:state', onState); window.removeEventListener('pwa:checked', onChecked) }
   }, [])
+
+  const theme = useTheme((s) => s.theme)
+  const cycleTheme = useTheme((s) => s.cycle)
+  const themeLabel = theme === 'auto' ? '🌗 Tema: auto' : theme === 'light' ? '☀️ Tema: claro' : '🌙 Tema: oscuro'
 
   const dests = trip.destinations.filter((d) => d.id !== 'travel')
   const taskDone = usePlanner((s) => s.taskDone)
@@ -100,13 +104,6 @@ export default function Summary() {
         <span className="map-cap">🗺️ Ruta · {dests.length} destinos · {trip.stats.flights} vuelos</span>
       </div>
 
-      {/* Stats */}
-      <div className="card" style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center' }}>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.days}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>DÍAS</div></div>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.destinations}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>PAÍSES</div></div>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.flights}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>VUELOS</div></div>
-        <div><div style={{ fontSize: '1.5em', fontWeight: 800 }}>{trip.stats.nights}</div><div style={{ fontSize: '.7em', color: 'var(--muted)' }}>NOCHES</div></div>
-      </div>
 
       {/* Accesos */}
       <Link to="/vuelos" className="card tight" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -218,6 +215,7 @@ export default function Summary() {
             <button className="vs-btn" onClick={() => window.dispatchEvent(new Event('pwa:check'))}>🔄 Buscar actualización</button>
           )}
           <button className="vs-btn ghost" onClick={() => window.dispatchEvent(new Event('pwa:notes'))}>📋 Novedades</button>
+          <button className="vs-btn ghost" onClick={cycleTheme}>{themeLabel}</button>
         </div>
         {checkMsg && <div className="vs-msg">{checkMsg}</div>}
       </div>
